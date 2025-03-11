@@ -470,6 +470,8 @@ class Employer_Stories_CPT {
 
 		$home_url = home_url();
 		$home_label = __('Home', 'employer-stories');
+		$archive_url = home_url($this->url_slug);
+		$archive_label = __('Employer Stories', 'employer-stories');
 
 		// Start breadcrumbs container
 		echo '<div class="es-breadcrumbs">';
@@ -479,8 +481,15 @@ class Employer_Stories_CPT {
 		echo '<span class="es-breadcrumb-divider">/</span>';
 
 		if (is_singular($this->post_type)) {
-			// Current post (no archive link since we disabled it)
+			// Archive link
+			echo '<a href="' . esc_url($archive_url) . '">' . esc_html($archive_label) . '</a>';
+			echo '<span class="es-breadcrumb-divider">/</span>';
+			
+			// Current post
 			echo '<span class="breadcrumb_last">' . get_the_title() . '</span>';
+		} else {
+			// On archive page, just show the archive title
+			echo '<span class="breadcrumb_last">' . esc_html($archive_label) . '</span>';
 		}
 
 		echo '</div>';
