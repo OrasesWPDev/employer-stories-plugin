@@ -96,6 +96,9 @@ class Employer_Stories_CPT {
 			'top'
 		);
 
+		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
+		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+
 		// Flush rewrite rules - use sparingly, only during development or when needed
 		if (isset($_GET['employer_stories_flush']) && current_user_can('manage_options')) {
 			$wp_rewrite->flush_rules();
@@ -114,10 +117,8 @@ class Employer_Stories_CPT {
 	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
 		if ($post->post_type == $this->post_type) {
 			// Replace the default slug with our custom slug
-			if ($sample || !$leavename) {
-				error_log('Modifying permalink for post ID ' . $post->ID);
-				$post_link = home_url($this->url_slug . '/' . $post->post_name . '/');
-			}
+			$post_link = str_replace('/' . $this->post_type . '/', '/' . $this->url_slug . '/', $post_link);
+			error_log('Modified permalink for post ID ' . $post->ID . ': ' . $post_link);
 		}
 		return $post_link;
 	}
@@ -210,6 +211,8 @@ class Employer_Stories_CPT {
 				'rewrite' => array(
 					'slug' => $this->url_slug,
 					'with_front' => false,
+					'feeds' => true,
+					'pages' => true,
 				),
 				'has_archive' => true,
 			);
