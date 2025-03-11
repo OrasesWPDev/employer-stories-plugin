@@ -74,6 +74,11 @@ class Employer_Stories_CPT {
 		
 		// Add a filter to redirect old URLs to new ones
 		add_action('template_redirect', array($this, 'redirect_old_urls'), 1);
+		
+		// Add debug action for admins
+		if (is_admin() && current_user_can('manage_options')) {
+			add_action('admin_init', array($this, 'debug_rewrite_rules'));
+		}
 	}
 
 	/**
@@ -102,10 +107,10 @@ class Employer_Stories_CPT {
 	public function fix_permalinks_on_load() {
 		global $wp_rewrite, $wpdb;
 
-		// Remove any existing rules for the singular post type
+		// Remove any existing rules for the singular post type by adding a rule that won't match
 		add_rewrite_rule(
 			'^' . $this->post_type . '/([^/]+)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]',
+			'index.php?p=0',
 			'top'
 		);
 
@@ -118,6 +123,8 @@ class Employer_Stories_CPT {
 
 		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
 		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+		
+		error_log('Employer Stories CPT: Added rewrite rules for ' . $this->url_slug . ' and removed rules for ' . $this->post_type);
 
 		// Force flush rewrite rules on first load after activation
 		static $flushed = false;
@@ -180,7 +187,7 @@ class Employer_Stories_CPT {
 			
 			// Force the correct URL structure with the plural slug
 			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
-			error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
+			error_log('Employer Stories CPT: Forced permalink for post ID ' . $post->ID . ': ' . $post_link . ' (original: ' . $post_link . ')');
 		}
 		return $post_link;
 	}
@@ -273,6 +280,8 @@ class Employer_Stories_CPT {
 				'rewrite' => array(
 					'slug' => $this->url_slug,
 					'with_front' => false,
+					'feeds' => false,
+					'pages' => true,
 				),
 				'has_archive' => false,
 			);
@@ -366,6 +375,8 @@ class Employer_Stories_CPT {
 			// Build the new URL
 			$new_url = home_url($this->url_slug . '/' . $post_name . '/');
 			
+			error_log('Employer Stories CPT: Redirecting from ' . $path . ' to ' . $new_url);
+			
 			// Redirect to the new URL
 			wp_redirect($new_url, 301);
 			exit;
@@ -398,5 +409,49 @@ class Employer_Stories_CPT {
 		echo '</div>';
 
 		return ob_get_clean();
+	}
+	
+	/**
+	 * Debug rewrite rules - only for admins
+	 */
+	public function debug_rewrite_rules() {
+		// Only run this when a specific query parameter is present
+		if (isset($_GET['debug_employer_stories_rewrites']) && current_user_can('manage_options')) {
+			global $wp_rewrite;
+			
+			// Get all rewrite rules
+			$rules = $wp_rewrite->wp_rewrite_rules();
+			
+			// Log our specific rules
+			error_log('Employer Stories CPT: Debugging rewrite rules');
+			
+			foreach ($rules as $pattern => $query) {
+				if (strpos($pattern, $this->post_type) !== false || strpos($pattern, $this->url_slug) !== false) {
+					error_log("Rule: {$pattern} => {$query}");
+				}
+			}
+			
+			// Check if our rules exist
+			$singular_rule_exists = false;
+			$plural_rule_exists = false;
+			
+			foreach ($rules as $pattern => $query) {
+				if (strpos($pattern, '^' . $this->post_type . '/') === 0) {
+					$singular_rule_exists = true;
+				}
+				if (strpos($pattern, '^' . $this->url_slug . '/') === 0) {
+					$plural_rule_exists = true;
+				}
+			}
+			
+			error_log('Singular rule exists: ' . ($singular_rule_exists ? 'Yes' : 'No'));
+			error_log('Plural rule exists: ' . ($plural_rule_exists ? 'Yes' : 'No'));
+			
+			// Force flush rewrite rules if requested
+			if (isset($_GET['flush_rules']) && $_GET['flush_rules'] === '1') {
+				$wp_rewrite->flush_rules(true);
+				error_log('Employer Stories CPT: Flushed rewrite rules via debug function');
+			}
+		}
 	}
 }
