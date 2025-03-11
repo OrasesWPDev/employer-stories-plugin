@@ -109,25 +109,11 @@ class Employer_Stories {
 			return;
 		}
 
-		// Common CSS
+		// Combined CSS file with all styles
 		$this->enqueue_style(
-			'employer-stories-common-css',
-			'assets/css/employer-stories-common.css'
+			'employer-stories-css',
+			'assets/css/employer-stories.css'
 		);
-
-		// Always load the archive/grid CSS for shortcodes
-		$this->enqueue_style(
-			'employer-stories-archive-css',
-			'assets/css/employer-stories-archive.css'
-		);
-
-		// Single CSS - load only on single employer story pages
-		if (is_singular('employer-story')) {
-			$this->enqueue_style(
-				'employer-stories-single-css',
-				'assets/css/employer-stories-single.css'
-			);
-		}
 
 		// JavaScript
 		$this->enqueue_script(
@@ -176,7 +162,18 @@ class Employer_Stories {
 	 * @return bool
 	 */
 	private function is_employer_story_page() {
-		return is_singular('employer-story');
+		// Load on single employer story pages
+		if (is_singular('employer-story')) {
+			return true;
+		}
+		
+		// Also load on any page that might contain our shortcode
+		global $post;
+		if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'employer_stories')) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**

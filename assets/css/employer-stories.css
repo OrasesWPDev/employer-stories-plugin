@@ -1,0 +1,558 @@
+/**
+ * Employer Stories Plugin - Combined Styles
+ */
+
+/* ----------------------------------------
+   1. CSS VARIABLES (CUSTOM PROPERTIES)
+   ---------------------------------------- */
+:root {
+    /* Spacing values */
+    --es-spacing-small: 10px;
+    --es-spacing-medium: 20px;
+    --es-spacing-large: 30px;
+
+    /* Colors - Update with brand colors */
+    --es-primary-color: #002C5C; /* NEED TO UPDATE THIS VALUE - Currently using PTCB blue */
+    --es-secondary-color: #45B3AF; /* NEED TO UPDATE THIS VALUE - Currently using PTCB teal */
+    --es-text-color: #444;
+    --es-bg-color: #fff;
+    --es-border-color: #e5e5e5;
+    --es-light-bg-color: #f2f2f2; /* For background sections */
+
+    /* Typography */
+    --es-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --es-font-size-small: 0.875rem;
+    --es-font-size-normal: 1rem;
+    --es-font-size-medium: 1.25rem;
+    --es-font-size-large: 1.5rem;
+    --es-font-size-xlarge: 2rem;
+}
+
+/* ----------------------------------------
+   2. GENERAL CONTAINER STYLES
+   ---------------------------------------- */
+.es-container {
+    font-family: var(--es-font-family);
+    color: var(--es-text-color);
+    line-height: 1.6;
+}
+
+/* ----------------------------------------
+   3. UTILITY CLASSES
+   ---------------------------------------- */
+.es-text-center {
+    text-align: center;
+}
+
+.es-text-right {
+    text-align: right;
+}
+
+.es-margin-bottom-small {
+    margin-bottom: var(--es-spacing-small);
+}
+
+.es-margin-bottom-medium {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-margin-bottom-large {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* ----------------------------------------
+   4. BUTTONS & INTERACTIVE ELEMENTS
+   ---------------------------------------- */
+.es-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--es-primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.es-button:hover {
+    background-color: var(--es-secondary-color);
+    text-decoration: none;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------
+   5. BREADCRUMBS STYLING
+   ---------------------------------------- */
+.es-employer-story-header .es-breadcrumb-divider,
+.es-employer-story-header a,
+.es-employer-story-header span,
+.es-employer-story-header .breadcrumb_last,
+.es-section-wrapper .es-breadcrumb-divider,
+.es-section-wrapper a,
+.es-section-wrapper span,
+.es-section-wrapper .breadcrumb_last {
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.es-employer-story-header a:hover,
+.es-section-wrapper a:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+.es-breadcrumb-divider {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+/* ----------------------------------------
+   6. ARCHIVE CONTAINER & HEADER
+   ---------------------------------------- */
+.es-employer-stories-container {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* Header spacing - Add space between header block and content */
+.es-section-wrapper.es-employer-story-header {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* Fix spacing after header block */
+.es-archive-employer-stories {
+    padding-top: var(--es-spacing-large);
+}
+
+.es-archive-header {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-archive-title {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-xlarge);
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-archive-description {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+/* ----------------------------------------
+   7. EMPLOYER STORIES GRID
+   ---------------------------------------- */
+.es-employer-stories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(-1 * var(--es-spacing-small));
+}
+
+.es-employer-story-item {
+    padding: var(--es-spacing-small);
+    margin-bottom: var(--es-spacing-medium);
+}
+
+/* ----------------------------------------
+   8. STORY CARD (FOCUSED ON FEATURED IMAGE)
+   ---------------------------------------- */
+.es-employer-story-card {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.es-employer-story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.es-employer-story-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ----------------------------------------
+   9. FEATURED IMAGE THUMBNAIL
+   ---------------------------------------- */
+.es-employer-story-thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.es-card-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.es-employer-story-card:hover .es-card-image {
+    transform: scale(1.03);
+}
+
+/* Placeholder for when no image is available */
+.es-no-image {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.es-placeholder {
+    color: #aaa;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ----------------------------------------
+   10. PAGINATION
+   ---------------------------------------- */
+.es-pagination {
+    text-align: center;
+    margin: var(--es-spacing-large) 0;
+}
+
+.es-pagination .page-numbers {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 3px;
+    border: 1px solid var(--es-border-color);
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.es-pagination .page-numbers.current {
+    background-color: var(--es-primary-color);
+    color: white;
+    border-color: var(--es-primary-color);
+}
+
+/* ----------------------------------------
+   11. NO RESULTS
+   ---------------------------------------- */
+.es-no-employer-stories {
+    padding: var(--es-spacing-large);
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+/* ----------------------------------------
+   12. SINGLE POST CONTAINER
+   ---------------------------------------- */
+.es-single-employer-story {
+    margin-bottom: var(--es-spacing-large);
+    font-family: var(--es-font-family);
+}
+
+/* ----------------------------------------
+   13. HEADER IMAGE
+   ---------------------------------------- */
+.es-employer-story-header-image-wrapper {
+    margin-bottom: var(--es-spacing-large);
+    text-align: center;
+}
+
+.es-employer-story-header-image {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    aspect-ratio: 3 / 1; /* Maintains the 3:1 aspect ratio */
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ----------------------------------------
+   14. EMPLOYER STATS SECTION
+   ---------------------------------------- */
+.es-employer-stats-section {
+    margin-bottom: var(--es-spacing-large);
+    padding: var(--es-spacing-medium) 0;
+}
+
+.es-stats-column {
+    text-align: center;
+    padding-bottom: var(--es-spacing-medium);
+}
+
+.es-stats-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.es-stats-icon {
+    margin-bottom: var(--es-spacing-small);
+}
+
+.es-stats-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.es-stats-title {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-medium);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.es-stats-value {
+    font-size: var(--es-font-size-normal);
+}
+
+/* ----------------------------------------
+   15. FIRST PARAGRAPH SECTION
+   ---------------------------------------- */
+.es-first-paragraph-section {
+    background-color: var(--es-light-bg-color);
+    padding: var(--es-spacing-large) 0;
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-first-paragraph-container {
+    padding: 0 var(--es-spacing-medium);
+}
+
+.es-paragraph-title {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-paragraph-title h4 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-large);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.es-paragraph-content {
+    line-height: 1.6;
+}
+
+/* ----------------------------------------
+   16. STORY TITLE SECTION
+   ---------------------------------------- */
+.es-story-title-section {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-title-container h2 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-xlarge);
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+/* ----------------------------------------
+   17. STORY CONTENT SECTION
+   ---------------------------------------- */
+.es-story-content-section {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-content-row {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-paragraph-title {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-story-paragraph-title h3 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-large);
+    line-height: 1.3;
+    margin-top: 0;
+}
+
+.es-story-paragraph-content {
+    line-height: 1.6;
+}
+
+/* Content images */
+.es-story-paragraph-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: var(--es-spacing-medium) 0;
+}
+
+/* Blockquote styling */
+.es-story-paragraph-content blockquote {
+    padding: var(--es-spacing-medium) var(--es-spacing-large);
+    margin: var(--es-spacing-large) 0;
+    border-left: 5px solid var(--es-secondary-color);
+    background-color: rgba(0, 0, 0, 0.03);
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.es-story-paragraph-content blockquote small {
+    display: block;
+    margin-top: var(--es-spacing-small);
+    font-style: normal;
+    font-weight: bold;
+    font-size: var(--es-font-size-small);
+    color: var(--es-secondary-color);
+}
+
+/* Image captions */
+.es-story-paragraph-content figcaption,
+.es-story-paragraph-content .wp-caption-text {
+    text-align: right;
+    font-size: var(--es-font-size-small);
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ----------------------------------------
+   18. NAVIGATION
+   ---------------------------------------- */
+.es-employer-story-navigation {
+    margin: var(--es-spacing-large) 0;
+    padding: var(--es-spacing-medium) 0;
+    border-top: 1px solid var(--es-border-color);
+    border-bottom: 1px solid var(--es-border-color);
+}
+
+.es-nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.es-nav-button {
+    flex: 0 0 30%;
+    max-width: 30%;
+    text-align: center;
+}
+
+.es-nav-previous {
+    text-align: left;
+}
+
+.es-nav-next {
+    text-align: right;
+}
+
+/* Updated button styles with fixed sizing */
+.es-nav-button a {
+    display: inline-block;
+    width: 100%; /* Make all buttons same width */
+    padding: 10px 15px;
+    background-color: #f98e2b; /* Orange as specified */
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    min-height: 60px; /* Ensures consistent height */
+    line-height: 1.2; /* Proper vertical alignment */
+}
+
+.es-nav-button a:hover {
+    background-color: rgba(255, 255, 255, 0.64);
+    border: 1px solid #f98e2b;
+    color: #f98e2b;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------
+   19. RESPONSIVE STYLES
+   ---------------------------------------- */
+@media screen and (max-width: 991px) {
+    .es-employer-story-item {
+        width: 50% !important;
+    }
+
+    .es-no-image {
+        min-height: 180px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .es-employer-story-title {
+        font-size: var(--es-font-size-large);
+    }
+
+    .es-nav-button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: var(--es-spacing-small);
+        text-align: center;
+    }
+
+    .es-employer-stats-section .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .es-first-paragraph-container {
+        padding: 0 var(--es-spacing-small);
+    }
+
+    .es-story-paragraph-content blockquote {
+        padding: var(--es-spacing-small) var(--es-spacing-medium);
+    }
+    
+    .es-employer-stories-grid {
+        margin: 0;
+    }
+
+    .es-employer-story-item {
+        width: 100% !important;
+        padding: 0 0 var(--es-spacing-medium) 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --es-font-size-large: 1.25rem;
+        --es-font-size-xlarge: 1.5rem;
+    }
+    
+    .es-employer-story-header {
+        margin-bottom: var(--es-spacing-medium);
+    }
+
+    .es-employer-story-meta {
+        flex-direction: column;
+    }
+
+    .es-employer-story-date,
+    .es-employer-story-categories {
+        display: block;
+        margin-bottom: var(--es-spacing-small);
+    }
+
+    .es-stats-title {
+        font-size: 1rem;
+    }
+
+    .es-stats-value {
+        font-size: 0.9rem;
+    }
+    
+    .es-archive-title {
+        font-size: var(--es-font-size-large);
+    }
+
+    .es-no-image {
+        min-height: 140px;
+    }
+}
