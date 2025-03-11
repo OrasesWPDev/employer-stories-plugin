@@ -86,6 +86,9 @@ class Employer_Stories_CPT {
 		
 		// Force flush rewrite rules on init for testing
 		add_action('init', array($this, 'maybe_flush_rules'), 999);
+		
+		// Add filter for post type archive link
+		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), 10, 2);
 	}
 
 	/**
@@ -146,6 +149,13 @@ class Employer_Stories_CPT {
 		add_rewrite_rule(
 			'^' . $this->url_slug . '/([^/]+)/trackback/?$',
 			'index.php?' . $this->post_type . '=$matches[1]&trackback=1',
+			'top'
+		);
+		
+		// Add archive page rule
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/?$',
+			'index.php?post_type=' . $this->post_type,
 			'top'
 		);
 
@@ -211,8 +221,8 @@ class Employer_Stories_CPT {
 	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
 		if ($post->post_type == $this->post_type) {
 			// Always force the correct permalink structure regardless of other conditions
-			$post_name = $post->post_name;
-			if (empty($post_name)) {
+			$post_name = $leavename ? '%postname%' : $post->post_name;
+			if (empty($post_name) && !$leavename) {
 				$post_name = sanitize_title($post->post_title);
 			}
 			
@@ -318,7 +328,7 @@ class Employer_Stories_CPT {
 					'pages' => true,
 					'ep_mask' => EP_PERMALINK,
 				),
-				'has_archive' => false,
+				'has_archive' => true, // Changed to true to enable archive page
 				'query_var' => $this->post_type,
 				'can_export' => true,
 				'publicly_queryable' => true,
@@ -331,6 +341,13 @@ class Employer_Stories_CPT {
 			add_rewrite_rule(
 				'^' . $this->url_slug . '/([^/]+)/?$',
 				'index.php?' . $this->post_type . '=$matches[1]',
+				'top'
+			);
+			
+			// Add archive rewrite rule
+			add_rewrite_rule(
+				'^' . $this->url_slug . '/?$',
+				'index.php?post_type=' . $this->post_type,
 				'top'
 			);
 			
@@ -362,8 +379,8 @@ class Employer_Stories_CPT {
 		$original_link = $permalink;
 		
 		// Force the correct structure
-		$post_name = $post->post_name;
-		if (empty($post_name)) {
+		$post_name = $leavename ? '%postname%' : $post->post_name;
+		if (empty($post_name) && !$leavename) {
 			$post_name = sanitize_title($post->post_title);
 		}
 		
@@ -374,7 +391,9 @@ class Employer_Stories_CPT {
 		error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link . ' (original: ' . $original_link . ')');
 		
 		// Store the correct permalink in post meta for caching
-		update_post_meta($post->ID, '_employer_story_permalink', $forced_link);
+		if (!$leavename) {
+			update_post_meta($post->ID, '_employer_story_permalink', $forced_link);
+		}
 		
 		return $forced_link;
 	}
@@ -569,5 +588,19 @@ class Employer_Stories_CPT {
 			set_transient('employer_stories_flush_rules', 1, HOUR_IN_SECONDS);
 			error_log('Employer Stories CPT: Flushed rewrite rules via transient check');
 		}
+	}
+	
+	/**
+	 * Fix archive link for our custom post type
+	 *
+	 * @param string $link The archive link
+	 * @param string $post_type The post type
+	 * @return string Modified archive link
+	 */
+	public function fix_archive_link($link, $post_type) {
+		if ($post_type === $this->post_type) {
+			return home_url($this->url_slug . '/');
+		}
+		return $link;
 	}
 }

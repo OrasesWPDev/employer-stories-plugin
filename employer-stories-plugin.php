@@ -341,6 +341,12 @@ final class Employer_Stories_Plugin {
 			error_log('Employer Stories Plugin: Registered CPT during activation');
 		}
 
+		// Clear any transients that might be caching permalinks
+		delete_transient('employer_stories_flush_rules');
+		
+		// Clear rewrite rules
+		delete_option('rewrite_rules');
+		
 		// Flush rewrite rules on activation
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules(true);
