@@ -65,7 +65,7 @@ final class Employer_Stories_Plugin {
 	 */
 	private function __construct() {
 		// Log plugin initialization
-		error_log('Employer Stories Plugin: Initializing');
+		// error_log('Employer Stories Plugin: Initializing');
 
 		// Set up required files
 		$this->set_required_files();
@@ -145,7 +145,7 @@ final class Employer_Stories_Plugin {
 		foreach ($directories as $directory) {
 			if (!file_exists($directory)) {
 				wp_mkdir_p($directory);
-				error_log("Employer Stories Plugin: Created directory {$directory}");
+				// error_log("Employer Stories Plugin: Created directory {$directory}");
 			}
 		}
 
@@ -171,31 +171,31 @@ final class Employer_Stories_Plugin {
 	 */
 	private function load_dependencies() {
 		// Log dependency loading
-		error_log('Employer Stories Plugin: Loading dependencies');
+		// error_log('Employer Stories Plugin: Loading dependencies');
 
 		// Load core files first
 		foreach ($this->required_files['core'] as $file) {
 			if (file_exists($file)) {
 				require_once $file;
-				error_log("Employer Stories Plugin: Loaded {$file}");
+				// error_log("Employer Stories Plugin: Loaded {$file}");
 			} else {
-				error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
+				// error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
 			}
 		}
 
 		// Load ACF integration if ACF is active
 		if (class_exists('ACF')) {
-			error_log('Employer Stories Plugin: ACF class exists, loading ACF integration');
+			// error_log('Employer Stories Plugin: ACF class exists, loading ACF integration');
 			foreach ($this->required_files['acf'] as $file) {
 				if (file_exists($file)) {
 					require_once $file;
-					error_log("Employer Stories Plugin: Loaded {$file}");
+					// error_log("Employer Stories Plugin: Loaded {$file}");
 				} else {
-					error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
+					// error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
 				}
 			}
 		} else {
-			error_log('Employer Stories Plugin: ACF class does not exist');
+			// error_log('Employer Stories Plugin: ACF class does not exist');
 		}
 
 		// Load remaining files
@@ -218,59 +218,59 @@ final class Employer_Stories_Plugin {
 	 * Initialize the plugin components.
 	 */
 	public function init() {
-		error_log('Employer Stories Plugin: init() method called');
+		// error_log('Employer Stories Plugin: init() method called');
 
 		// Check for ACF Pro dependency
 		if (!$this->check_dependencies()) {
-			error_log('Employer Stories Plugin: Dependencies not met, aborting initialization');
+			// error_log('Employer Stories Plugin: Dependencies not met, aborting initialization');
 			return;
 		}
 
 		// Initialize ACF integration first
 		if (class_exists('Employer_Stories_ACF')) {
 			Employer_Stories_ACF::get_instance();
-			error_log('Employer Stories Plugin: ACF class initialized');
+			// error_log('Employer Stories Plugin: ACF class initialized');
 		} else {
-			error_log('Employer Stories Plugin: ACF class not found');
+			// error_log('Employer Stories Plugin: ACF class not found');
 		}
 
 		// Initialize CPT functionality - add this before the main class
 		if (class_exists('Employer_Stories_CPT')) {
 			Employer_Stories_CPT::get_instance();
-			error_log('Employer Stories Plugin: CPT class initialized');
+			// error_log('Employer Stories Plugin: CPT class initialized');
 		} else {
-			error_log('Employer Stories Plugin: CPT class not found');
+			// error_log('Employer Stories Plugin: CPT class not found');
 		}
 
 		// Initialize main plugin functionality
 		if (class_exists('Employer_Stories')) {
 			Employer_Stories::get_instance();
-			error_log('Employer Stories Plugin: Main class initialized');
+			// error_log('Employer Stories Plugin: Main class initialized');
 		} else {
-			error_log('Employer Stories Plugin: Main class not found');
+			// error_log('Employer Stories Plugin: Main class not found');
 		}
 
 		// Initialize shortcode functionality
 		if (class_exists('Employer_Stories_Shortcode')) {
 			Employer_Stories_Shortcode::get_instance();
-			error_log('Employer Stories Plugin: Shortcode class initialized');
+			// error_log('Employer Stories Plugin: Shortcode class initialized');
 		} else {
-			error_log('Employer Stories Plugin: Shortcode class not found');
+			// error_log('Employer Stories Plugin: Shortcode class not found');
 		}
 
 		// Initialize admin
 		if (is_admin() && class_exists('Employer_Stories_Admin')) {
 			Employer_Stories_Admin::get_instance();
-			error_log('Employer Stories Plugin: Admin class initialized');
+			// error_log('Employer Stories Plugin: Admin class initialized');
 		} else if (is_admin()) {
-			error_log('Employer Stories Plugin: Admin class not found');
+			// error_log('Employer Stories Plugin: Admin class not found');
 		}
 		
 		// Initialize help documentation
 		if (is_admin() && file_exists(ES_INCLUDES_DIR . 'class-employer-stories-help.php')) {
 			require_once ES_INCLUDES_DIR . 'class-employer-stories-help.php';
 			Employer_Stories_Help::get_instance();
-			error_log('Employer Stories Plugin: Help class initialized');
+			// error_log('Employer Stories Plugin: Help class initialized');
 		}
 
 		// Load text domain
@@ -292,7 +292,7 @@ final class Employer_Stories_Plugin {
 	 * @return string The modified path
 	 */
 	public function acf_json_save_point($path) {
-		error_log('Employer Stories Plugin: Setting ACF JSON save point to ' . ES_ACF_JSON_DIR);
+		// error_log('Employer Stories Plugin: Setting ACF JSON save point to ' . ES_ACF_JSON_DIR);
 		return ES_ACF_JSON_DIR;
 	}
 
@@ -304,7 +304,7 @@ final class Employer_Stories_Plugin {
 	 */
 	public function acf_json_load_point($paths) {
 		$paths[] = ES_ACF_JSON_DIR;
-		error_log('Employer Stories Plugin: Adding ACF JSON load point: ' . ES_ACF_JSON_DIR);
+		// error_log('Employer Stories Plugin: Adding ACF JSON load point: ' . ES_ACF_JSON_DIR);
 		return $paths;
 	}
 
@@ -348,18 +348,18 @@ final class Employer_Stories_Plugin {
 	 * Plugin activation.
 	 */
 	public function activate() {
-		error_log('Employer Stories Plugin: Activating plugin');
+		// error_log('Employer Stories Plugin: Activating plugin');
 
 		// Ensure our CPT is registered before flushing rewrite rules
 		if (class_exists('Employer_Stories_CPT')) {
 			Employer_Stories_CPT::get_instance()->register_post_type();
-			error_log('Employer Stories Plugin: Registered CPT during activation');
+			// error_log('Employer Stories Plugin: Registered CPT during activation');
 		}
 
 		// Flush rewrite rules on activation
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules(true);
-		error_log('Employer Stories Plugin: Flushed rewrite rules');
+		// error_log('Employer Stories Plugin: Flushed rewrite rules');
         
         // Set activation flag to show welcome message
         set_transient('employer_stories_activation', true, 5);
@@ -371,7 +371,7 @@ final class Employer_Stories_Plugin {
 	public function deactivate() {
 		// Flush rewrite rules on deactivation
 		flush_rewrite_rules();
-		error_log('Employer Stories Plugin: Deactivated plugin and flushed rewrite rules');
+		// error_log('Employer Stories Plugin: Deactivated plugin and flushed rewrite rules');
 	}
 }
 

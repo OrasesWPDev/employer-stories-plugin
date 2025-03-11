@@ -67,7 +67,7 @@ class Employer_Stories_ACF {
         // Add custom filename filter
         add_filter('acf/json/save_file_name', array($this, 'custom_json_filename'), 10, 3);
 
-        error_log('Employer_Stories_ACF initialized');
+        // error_log('Employer_Stories_ACF initialized');
     }
 
     /**
@@ -78,7 +78,7 @@ class Employer_Stories_ACF {
     public static function get_instance() {
         if (null == self::$instance) {
             self::$instance = new self;
-            error_log('Employer Stories ACF: Instance created');
+            // error_log('Employer Stories ACF: Instance created');
         }
         return self::$instance;
     }
@@ -90,7 +90,7 @@ class Employer_Stories_ACF {
      * @return string Modified path.
      */
     public function acf_json_save_point($path) {
-        error_log('Employer Stories ACF: Setting save point to ' . ES_ACF_JSON_DIR);
+        // error_log('Employer Stories ACF: Setting save point to ' . ES_ACF_JSON_DIR);
         return ES_ACF_JSON_DIR;
     }
 
@@ -103,7 +103,7 @@ class Employer_Stories_ACF {
     public function acf_json_load_point($paths) {
         // Add our path to the existing load paths
         $paths[] = ES_ACF_JSON_DIR;
-        error_log('Employer Stories ACF: Adding load point ' . ES_ACF_JSON_DIR);
+        // error_log('Employer Stories ACF: Adding load point ' . ES_ACF_JSON_DIR);
         return $paths;
     }
 
@@ -118,7 +118,7 @@ class Employer_Stories_ACF {
     public function custom_json_filename($filename, $post_id, $field_group) {
         // Only modify our specific field group
         if (isset($field_group['key']) && $field_group['key'] === $this->field_group_key) {
-            error_log('Employer Stories ACF: Using custom filename: ' . $this->field_group_filename);
+            // error_log('Employer Stories ACF: Using custom filename: ' . $this->field_group_filename);
             return $this->field_group_filename;
         }
 
@@ -129,7 +129,7 @@ class Employer_Stories_ACF {
      * Initialize ACF sync during acf/init hook.
      */
     public function initialize_acf_sync() {
-        error_log('Employer Stories ACF: initialize_acf_sync called');
+        // error_log('Employer Stories ACF: initialize_acf_sync called');
 
         // Check if we're in the admin and have ACF functions
         if (!is_admin() || !function_exists('acf_get_field_group')) {
@@ -148,7 +148,7 @@ class Employer_Stories_ACF {
      */
     private function import_post_types() {
         if (!function_exists('acf_get_post_type_post') || !function_exists('acf_update_post_type')) {
-            error_log('Employer Stories ACF: ACF Extended functions for post types not available');
+            // error_log('Employer Stories ACF: ACF Extended functions for post types not available');
             return;
         }
 
@@ -156,25 +156,25 @@ class Employer_Stories_ACF {
 
         // Add check here to return early if the file doesn't exist
         if (!file_exists($json_file)) {
-            error_log('Employer Stories ACF: Post type JSON file not found: ' . $json_file);
+            // error_log('Employer Stories ACF: Post type JSON file not found: ' . $json_file);
             return;
         }
 
         $json_content = file_get_contents($json_file);
         if (empty($json_content)) {
-            error_log('Employer Stories ACF: Empty JSON file: ' . $json_file);
+            // error_log('Employer Stories ACF: Empty JSON file: ' . $json_file);
             return;
         }
 
         $post_type_data = json_decode($json_content, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            error_log('Employer Stories ACF: JSON decode error: ' . json_last_error_msg() . ' in file: ' . $json_file);
+            // error_log('Employer Stories ACF: JSON decode error: ' . json_last_error_msg() . ' in file: ' . $json_file);
             return;
         }
 
         // Skip if not an array or missing required keys
         if (!is_array($post_type_data) || !isset($post_type_data['key'])) {
-            error_log('Employer Stories ACF: Invalid post type data structure, missing key');
+            // error_log('Employer Stories ACF: Invalid post type data structure, missing key');
             return;
         }
 
@@ -193,21 +193,21 @@ class Employer_Stories_ACF {
                 $post_type_data['import_source'] = 'employer-stories-plugin';
                 $post_type_data['import_date'] = date('Y-m-d H:i:s');
 
-                error_log('Employer Stories ACF: Importing post type: ' . $post_type_data['title']);
+                // error_log('Employer Stories ACF: Importing post type: ' . $post_type_data['title']);
 
                 // Different versions of ACF might require different approaches
                 if (function_exists('acf_update_post_type')) {
                     acf_update_post_type($post_type_data);
-                    error_log('Employer Stories ACF: Successfully imported post type via acf_update_post_type()');
+                    // error_log('Employer Stories ACF: Successfully imported post type via acf_update_post_type()');
                 } else {
                     // Fallback to native WordPress registration if ACF function not available
                     $this->register_post_type_fallback($post_type_data);
                 }
             } else {
-                error_log('Employer Stories ACF: Post type already exists: ' . $post_type_key);
+                // error_log('Employer Stories ACF: Post type already exists: ' . $post_type_key);
             }
         } catch (Exception $e) {
-            error_log('Employer Stories ACF: Error importing post type: ' . $e->getMessage());
+            // error_log('Employer Stories ACF: Error importing post type: ' . $e->getMessage());
         }
     }
 
@@ -223,7 +223,7 @@ class Employer_Stories_ACF {
             return;
         }
 
-        error_log('Employer Stories ACF: Using fallback post type registration for: ' . $post_type_data['post_type']);
+        // error_log('Employer Stories ACF: Using fallback post type registration for: ' . $post_type_data['post_type']);
 
         // Get labels from the data or use defaults
         $labels = isset($post_type_data['labels']) ? $post_type_data['labels'] : array();
@@ -287,7 +287,7 @@ class Employer_Stories_ACF {
 
         // Register the post type
         register_post_type($post_type_data['post_type'], $args);
-        error_log('Employer Stories ACF: Fallback post type registration complete');
+        // error_log('Employer Stories ACF: Fallback post type registration complete');
     }
 
     /**
@@ -295,30 +295,30 @@ class Employer_Stories_ACF {
      */
     private function import_field_groups() {
         if (!function_exists('acf_get_field_group') || !function_exists('acf_import_field_group')) {
-            error_log('Employer Stories ACF: ACF functions for field groups not available');
+            // error_log('Employer Stories ACF: ACF functions for field groups not available');
             return;
         }
 
         $json_file = ES_ACF_JSON_DIR . $this->field_group_filename;
         if (!file_exists($json_file)) {
-            error_log('Employer Stories ACF: Field group JSON file not found: ' . $json_file);
+            // error_log('Employer Stories ACF: Field group JSON file not found: ' . $json_file);
             return;
         }
 
         $json_content = file_get_contents($json_file);
         if (empty($json_content)) {
-            error_log('Employer Stories ACF: Empty field group JSON file: ' . $json_file);
+            // error_log('Employer Stories ACF: Empty field group JSON file: ' . $json_file);
             return;
         }
 
         $field_group = json_decode($json_content, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            error_log('Employer Stories ACF: Field group JSON decode error: ' . json_last_error_msg());
+            // error_log('Employer Stories ACF: Field group JSON decode error: ' . json_last_error_msg());
             return;
         }
 
         if (!is_array($field_group) || !isset($field_group['key'])) {
-            error_log('Employer Stories ACF: Invalid field group JSON structure');
+            // error_log('Employer Stories ACF: Invalid field group JSON structure');
             return;
         }
 
@@ -339,12 +339,12 @@ class Employer_Stories_ACF {
             try {
                 // Import the field group
                 acf_import_field_group($field_group);
-                error_log('Employer Stories ACF: Imported field group: ' . $field_group['title']);
+                // error_log('Employer Stories ACF: Imported field group: ' . $field_group['title']);
             } catch (Exception $e) {
-                error_log('Employer Stories ACF: Error importing field group: ' . $e->getMessage());
+                // error_log('Employer Stories ACF: Error importing field group: ' . $e->getMessage());
             }
         } else {
-            error_log('Employer Stories ACF: Field group already exists: ' . $field_group['key']);
+            // error_log('Employer Stories ACF: Field group already exists: ' . $field_group['key']);
         }
     }
 

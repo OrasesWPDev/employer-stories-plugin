@@ -42,7 +42,7 @@ class Employer_Stories_CPT {
 	 * Initialize the class.
 	 */
 	private function __construct() {
-		error_log('Employer Stories CPT: Constructor called');
+		// error_log('Employer Stories CPT: Constructor called');
 
 		// Register the custom post type
 		add_action('init', array($this, 'register_post_type'), 5);
@@ -102,13 +102,13 @@ class Employer_Stories_CPT {
 	public static function get_instance() {
 		if (null == self::$instance) {
 			self::$instance = new self;
-			error_log('Employer Stories CPT: Instance created');
+			// error_log('Employer Stories CPT: Instance created');
 			
 			// Force flush rewrite rules on first instance creation
 			add_action('shutdown', function() {
 				global $wp_rewrite;
 				$wp_rewrite->flush_rules(true);
-				error_log('Employer Stories CPT: Forced rewrite rules flush on instance creation');
+				// error_log('Employer Stories CPT: Forced rewrite rules flush on instance creation');
 			});
 		}
 		return self::$instance;
@@ -160,14 +160,14 @@ class Employer_Stories_CPT {
 		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
 		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
 		
-		error_log('Employer Stories CPT: Added rewrite rules for ' . $this->url_slug . ' and removed rules for ' . $this->post_type);
+		// error_log('Employer Stories CPT: Added rewrite rules for ' . $this->url_slug . ' and removed rules for ' . $this->post_type);
 
 		// Force flush rewrite rules on first load after activation
 		static $flushed = false;
 		if (!$flushed) {
 			$wp_rewrite->flush_rules(true);
 			$flushed = true;
-			error_log('Employer Stories CPT: Flushed rewrite rules during page load');
+			// error_log('Employer Stories CPT: Flushed rewrite rules during page load');
 			
 			// Direct database update for existing posts to ensure correct permalinks
 			$posts = $wpdb->get_results(
@@ -181,7 +181,7 @@ class Employer_Stories_CPT {
 				foreach ($posts as $post) {
 					// Update post meta to force permalink refresh
 					update_post_meta($post->ID, '_employer_story_permalink_fixed', time());
-					error_log("Employer Stories CPT: Updated post meta for ID {$post->ID} to refresh permalink");
+					// error_log("Employer Stories CPT: Updated post meta for ID {$post->ID} to refresh permalink");
 					
 					// Trigger a post update to refresh permalinks
 					wp_update_post(array('ID' => $post->ID));
@@ -198,7 +198,7 @@ class Employer_Stories_CPT {
 					''
 				)
 			);
-			error_log('Employer Stories CPT: Cleared rewrite rules in database');
+			// error_log('Employer Stories CPT: Cleared rewrite rules in database');
 		}
 
 		// Flush rewrite rules - use sparingly, only during development or when needed
@@ -229,7 +229,7 @@ class Employer_Stories_CPT {
 			
 			// Force the correct URL structure with the plural slug
 			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
-			error_log('Employer Stories CPT: Forced permalink for post ID ' . $post->ID . ': ' . $post_link . ' (original: ' . $original_link . ')');
+			// error_log('Employer Stories CPT: Forced permalink for post ID ' . $post->ID . ': ' . $post_link . ' (original: ' . $original_link . ')');
 		}
 		return $post_link;
 	}
@@ -268,7 +268,7 @@ class Employer_Stories_CPT {
 	 * Register the custom post type
 	 */
 	public function register_post_type() {
-		error_log('Employer Stories CPT: register_post_type method called');
+		// error_log('Employer Stories CPT: register_post_type method called');
 
 		if (!post_type_exists($this->post_type)) {
 			$args = array(
@@ -333,7 +333,7 @@ class Employer_Stories_CPT {
 			);
 
 			register_post_type($this->post_type, $args);
-			error_log('Employer Stories CPT: Post type registered with slug: ' . $this->url_slug);
+			// error_log('Employer Stories CPT: Post type registered with slug: ' . $this->url_slug);
 			
 			// Immediately after registering, add our custom rewrite rules
 			add_rewrite_rule(
@@ -347,9 +347,9 @@ class Employer_Stories_CPT {
 			// Add rewrite tag
 			add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
 			
-			error_log('Employer Stories CPT: Added immediate rewrite rules after registration');
+			// error_log('Employer Stories CPT: Added immediate rewrite rules after registration');
 		} else {
-			error_log('Employer Stories CPT: Post type already exists');
+			// error_log('Employer Stories CPT: Post type already exists');
 		}
 	}
 
@@ -381,7 +381,7 @@ class Employer_Stories_CPT {
 		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
 		
 		// Log the change
-		error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link . ' (original: ' . $original_link . ')');
+		// error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link . ' (original: ' . $original_link . ')');
 		
 		// Store the correct permalink in post meta for caching
 		if (!$leavename) {
@@ -414,11 +414,11 @@ class Employer_Stories_CPT {
 				$query->is_post_type_archive = false;
 				$query->is_archive = false;
 				
-				error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
+				// error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
 			}
 		}
 		
-		error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
+		// error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
 	}
 	
 	/**
@@ -437,7 +437,7 @@ class Employer_Stories_CPT {
 			
 			// Set the query var for our post type
 			$query_vars[$this->post_type] = $post_name;
-			error_log('Employer Stories CPT: Parsed request for ' . $post_name);
+			// error_log('Employer Stories CPT: Parsed request for ' . $post_name);
 		}
 		
 		return $query_vars;
@@ -457,7 +457,7 @@ class Employer_Stories_CPT {
 			// Build the new URL
 			$new_url = home_url($this->url_slug . '/' . $post_name . '/');
 			
-			error_log('Employer Stories CPT: Redirecting from ' . $path . ' to ' . $new_url);
+			// error_log('Employer Stories CPT: Redirecting from ' . $path . ' to ' . $new_url);
 			
 			// Redirect to the new URL
 			wp_redirect($new_url, 301);
@@ -511,11 +511,11 @@ class Employer_Stories_CPT {
 			$rules = $wp_rewrite->wp_rewrite_rules();
 			
 			// Log our specific rules
-			error_log('Employer Stories CPT: Debugging rewrite rules');
+			// error_log('Employer Stories CPT: Debugging rewrite rules');
 			
 			foreach ($rules as $pattern => $query) {
 				if (strpos($pattern, $this->post_type) !== false || strpos($pattern, $this->url_slug) !== false) {
-					error_log("Rule: {$pattern} => {$query}");
+					// error_log("Rule: {$pattern} => {$query}");
 				}
 			}
 			
@@ -532,13 +532,13 @@ class Employer_Stories_CPT {
 				}
 			}
 			
-			error_log('Singular rule exists: ' . ($singular_rule_exists ? 'Yes' : 'No'));
-			error_log('Plural rule exists: ' . ($plural_rule_exists ? 'Yes' : 'No'));
+			// error_log('Singular rule exists: ' . ($singular_rule_exists ? 'Yes' : 'No'));
+			// error_log('Plural rule exists: ' . ($plural_rule_exists ? 'Yes' : 'No'));
 			
 			// Force flush rewrite rules if requested
 			if (isset($_GET['flush_rules']) && $_GET['flush_rules'] === '1') {
 				$wp_rewrite->flush_rules(true);
-				error_log('Employer Stories CPT: Flushed rewrite rules via debug function');
+				// error_log('Employer Stories CPT: Flushed rewrite rules via debug function');
 			}
 		}
 	}
@@ -577,7 +577,7 @@ class Employer_Stories_CPT {
 			}
 		}
 		
-		error_log('Employer Stories CPT: Added custom post rewrite rules');
+		// error_log('Employer Stories CPT: Added custom post rewrite rules');
 		return array_merge($new_rules, $rules);
 	}
 	
@@ -589,7 +589,7 @@ class Employer_Stories_CPT {
 		if (isset($_GET['employer_stories_flush_rules'])) {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules(true);
-			error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
+			// error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
 		}
 		
 		// Alternatively, use a transient to avoid flushing on every page load
@@ -597,7 +597,7 @@ class Employer_Stories_CPT {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules(true);
 			set_transient('employer_stories_flush_rules', 1, HOUR_IN_SECONDS);
-			error_log('Employer Stories CPT: Flushed rewrite rules via transient check');
+			// error_log('Employer Stories CPT: Flushed rewrite rules via transient check');
 		}
 	}
 	
@@ -634,7 +634,7 @@ class Employer_Stories_CPT {
 				$wp_query->is_post_type_archive = false;
 				
 				// Log this for debugging
-				error_log('Employer Stories CPT: Prevented archive template for page with slug: ' . $this->url_slug);
+				// error_log('Employer Stories CPT: Prevented archive template for page with slug: ' . $this->url_slug);
 			}
 		}
 		

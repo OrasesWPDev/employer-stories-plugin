@@ -61,7 +61,7 @@
 
                 // If we're using AJAX filtering, this is where we would make the request
                 // For now, we're just logging the value
-                console.log('Filter selected: ' + filterValue);
+                // console.log('Filter selected: ' + filterValue);
 
                 // This would be replaced with actual filtering logic
                 // EmployerStories.filterStories(filterValue);
