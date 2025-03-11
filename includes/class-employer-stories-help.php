@@ -403,20 +403,6 @@ class Employer_Stories_Help {
     }
 }
 
-// Initialize the class
-new Employer_Stories_Help();
-<?php
-/**
- * Help Documentation Page
- *
- * @package EmployerStories
- */
-
-// Exit if accessed directly.
-if (!defined('ABSPATH')) {
-    exit;
-}
-
 /**
  * Class to handle Employer Stories help documentation.
  */
