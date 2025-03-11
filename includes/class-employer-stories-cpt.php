@@ -48,12 +48,11 @@ class Employer_Stories_CPT {
 		add_action('init', array($this, 'register_post_type'), 5);
 
 		// Modify permalink structure - extremely high priority to ensure it runs first
-		// PHP_INT_MIN is the lowest possible integer value (-9223372036854775808 on 64-bit systems)
-		add_filter('post_type_link', array($this, 'modify_permalink_structure'), PHP_INT_MIN, 4);
+		add_filter('post_type_link', array($this, 'modify_permalink_structure'), -999999, 4);
 		
 		// Add a second filter with extremely high priority to ensure our structure is used
-		add_filter('post_link', array($this, 'force_employer_story_permalink'), PHP_INT_MIN, 3);
-		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), PHP_INT_MIN, 3);
+		add_filter('post_link', array($this, 'force_employer_story_permalink'), -999999, 3);
+		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), -999999, 3);
 
 		// Fix permalinks in admin
 		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
@@ -71,7 +70,7 @@ class Employer_Stories_CPT {
 		add_action('pre_get_posts', array($this, 'fix_query_vars'), 1);
 		
 		// Add a filter to parse request to ensure our custom permalinks are recognized with high priority
-		add_filter('request', array($this, 'parse_request'), PHP_INT_MIN);
+		add_filter('request', array($this, 'parse_request'), -999999);
 		
 		// Add a filter to redirect old URLs to new ones with high priority
 		add_action('template_redirect', array($this, 'redirect_old_urls'), 1);
@@ -82,14 +81,14 @@ class Employer_Stories_CPT {
 		}
 		
 		// Add more permalink filters to ensure our structure is used with high priority
-		add_filter('pre_post_link', array($this, 'pre_post_link'), PHP_INT_MIN, 2);
-		add_filter('post_rewrite_rules', array($this, 'custom_post_rewrite_rules'), PHP_INT_MIN);
+		add_filter('pre_post_link', array($this, 'pre_post_link'), -999999, 2);
+		add_filter('post_rewrite_rules', array($this, 'custom_post_rewrite_rules'), -999999);
 		
 		// Force flush rewrite rules on init for testing
 		add_action('init', array($this, 'maybe_flush_rules'), 999);
 		
 		// Add filter for post type archive link with high priority
-		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), PHP_INT_MIN, 2);
+		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), -999999, 2);
 	}
 
 	/**
