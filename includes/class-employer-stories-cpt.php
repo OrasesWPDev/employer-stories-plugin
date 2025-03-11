@@ -48,11 +48,11 @@ class Employer_Stories_CPT {
 		add_action('init', array($this, 'register_post_type'), 5);
 
 		// Modify permalink structure - highest priority to ensure it runs first
-		add_filter('post_type_link', array($this, 'modify_permalink_structure'), 1, 4);
+		add_filter('post_type_link', array($this, 'modify_permalink_structure'), -999999, 4);
 		
 		// Add a second filter with even higher priority to ensure our structure is used
-		add_filter('post_link', array($this, 'force_employer_story_permalink'), 1, 3);
-		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), 1, 3);
+		add_filter('post_link', array($this, 'force_employer_story_permalink'), -999999, 3);
+		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), -999999, 3);
 
 		// Fix permalinks in admin
 		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
@@ -64,13 +64,16 @@ class Employer_Stories_CPT {
 		add_shortcode('employer_story_breadcrumbs', array($this, 'breadcrumbs_shortcode'));
 
 		// Register a function to run after WordPress is loaded to fix permalinks
-		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 5);
+		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 1);
 		
 		// Add early hook for permalink structure
-		add_action('pre_get_posts', array($this, 'fix_query_vars'));
+		add_action('pre_get_posts', array($this, 'fix_query_vars'), 1);
 		
 		// Add a filter to parse request to ensure our custom permalinks are recognized
-		add_filter('request', array($this, 'parse_request'));
+		add_filter('request', array($this, 'parse_request'), 1);
+		
+		// Add a filter to redirect old URLs to new ones
+		add_action('template_redirect', array($this, 'redirect_old_urls'), 1);
 	}
 
 	/**
@@ -134,6 +137,15 @@ class Employer_Stories_CPT {
 					wp_update_post(array('ID' => $post->ID));
 				}
 			}
+			
+			// Also update the permalink structure in the database directly
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = 'rewrite_rules'",
+					''
+				)
+			);
+			error_log('Employer Stories CPT: Cleared rewrite rules in database');
 		}
 
 		// Flush rewrite rules - use sparingly, only during development or when needed
@@ -251,7 +263,10 @@ class Employer_Stories_CPT {
 					'post_tag',
 				),
 				'delete_with_user' => false,
-				'rewrite' => false, // Disable default rewrite rules, we'll handle them manually
+				'rewrite' => array(
+					'slug' => $this->url_slug,
+					'with_front' => false,
+				),
 				'has_archive' => false,
 			);
 
@@ -328,6 +343,26 @@ class Employer_Stories_CPT {
 		}
 		
 		return $query_vars;
+	}
+	
+	/**
+	 * Redirect old URLs to new ones
+	 */
+	public function redirect_old_urls() {
+		// Check if we're on a page with the old URL structure
+		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+		
+		// If the path starts with the post type (singular)
+		if (preg_match('|^' . $this->post_type . '/([^/]+)/?$|', $path, $matches)) {
+			$post_name = $matches[1];
+			
+			// Build the new URL
+			$new_url = home_url($this->url_slug . '/' . $post_name . '/');
+			
+			// Redirect to the new URL
+			wp_redirect($new_url, 301);
+			exit;
+		}
 	}
 
 	/**
