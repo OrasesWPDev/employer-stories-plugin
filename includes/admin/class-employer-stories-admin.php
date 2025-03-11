@@ -181,7 +181,6 @@ class Employer_Stories_Admin {
 	public function add_plugin_links($links) {
 		$plugin_links = array(
 			'<a href="' . admin_url('edit.php?post_type=employer-story&page=employer-stories-settings') . '">' . __('Settings', 'employer-stories') . '</a>',
-			'<a href="' . admin_url('edit.php?post_type=employer-story&page=employer-stories-help') . '">' . __('Help', 'employer-stories') . '</a>',
 		);
 
 		return array_merge($plugin_links, $links);

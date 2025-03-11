@@ -265,6 +265,13 @@ final class Employer_Stories_Plugin {
 		} else if (is_admin()) {
 			error_log('Employer Stories Plugin: Admin class not found');
 		}
+		
+		// Initialize help documentation
+		if (is_admin() && file_exists(ES_INCLUDES_DIR . 'class-employer-stories-help.php')) {
+			require_once ES_INCLUDES_DIR . 'class-employer-stories-help.php';
+			Employer_Stories_Help::get_instance();
+			error_log('Employer Stories Plugin: Help class initialized');
+		}
 
 		// Load text domain
 		$this->load_text_domain();
