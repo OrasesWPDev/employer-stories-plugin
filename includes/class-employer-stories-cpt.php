@@ -102,7 +102,14 @@ class Employer_Stories_CPT {
 	public function fix_permalinks_on_load() {
 		global $wp_rewrite, $wpdb;
 
-		// Add our custom permalink structure with higher specificity
+		// Remove any existing rules for the singular post type
+		add_rewrite_rule(
+			'^' . $this->post_type . '/([^/]+)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]',
+			'top'
+		);
+
+		// Add our custom permalink structure with higher specificity for the plural slug
 		add_rewrite_rule(
 			'^' . $this->url_slug . '/([^/]+)/?$',
 			'index.php?' . $this->post_type . '=$matches[1]',
@@ -171,8 +178,8 @@ class Employer_Stories_CPT {
 				$post_name = sanitize_title($post->post_title);
 			}
 			
-			// Use site_url instead of home_url to ensure we get the correct base URL
-			$post_link = trailingslashit(site_url()) . $this->url_slug . '/' . $post_name . '/';
+			// Force the correct URL structure with the plural slug
+			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
 			error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
 		}
 		return $post_link;
@@ -298,8 +305,8 @@ class Employer_Stories_CPT {
 			$post_name = sanitize_title($post->post_title);
 		}
 		
-		// Use site_url instead of home_url to ensure we get the correct base URL
-		$forced_link = trailingslashit(site_url()) . $this->url_slug . '/' . $post_name . '/';
+		// Force the correct URL structure with the plural slug
+		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
 		error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link);
 		
 		return $forced_link;
