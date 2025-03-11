@@ -90,14 +90,19 @@
 .es-section-wrapper .es-breadcrumb-divider,
 .es-section-wrapper a,
 .es-section-wrapper span,
-.es-section-wrapper .breadcrumb_last {
+.es-section-wrapper .breadcrumb_last,
+.es-breadcrumbs a,
+.es-breadcrumbs span,
+.es-breadcrumbs .breadcrumb_last,
+.es-breadcrumbs .es-breadcrumb-divider {
     color: #ffffff !important;
     font-size: 0.9rem;
     text-decoration: none;
 }
 
 .es-employer-story-header a:hover,
-.es-section-wrapper a:hover {
+.es-section-wrapper a:hover,
+.es-breadcrumbs a:hover {
     text-decoration: underline;
     opacity: 0.9;
 }
@@ -105,6 +110,14 @@
 .es-breadcrumb-divider {
     margin: 0 5px;
     display: inline-block;
+}
+
+.es-breadcrumbs {
+    margin: 10px 0;
+    padding: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: right;
 }
 
 /* ----------------------------------------

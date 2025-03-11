@@ -17,6 +17,12 @@ get_header();
         <!-- Header Block (full width) -->
         <div class="es-section-wrapper es-employer-story-header">
 			<?php echo do_shortcode('[block id="single-employer-story-header"]'); ?>
+            
+            <?php if (!strpos(ob_get_contents(), 'es-breadcrumbs')) : ?>
+                <div class="container">
+                    <?php echo do_shortcode('[employer_story_breadcrumbs]'); ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <!-- Content area (site width) -->

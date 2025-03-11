@@ -480,16 +480,13 @@ class Employer_Stories_CPT {
 		echo '<a href="' . esc_url($home_url) . '">' . esc_html($home_label) . '</a>';
 		echo '<span class="es-breadcrumb-divider">/</span>';
 
+		// Always add the archive link, regardless of page type
+		echo '<a href="' . esc_url($archive_url) . '">' . esc_html($archive_label) . '</a>';
+		
+		// For single posts, add the post title
 		if (is_singular($this->post_type)) {
-			// Archive link
-			echo '<a href="' . esc_url($archive_url) . '">' . esc_html($archive_label) . '</a>';
 			echo '<span class="es-breadcrumb-divider">/</span>';
-			
-			// Current post
 			echo '<span class="breadcrumb_last">' . get_the_title() . '</span>';
-		} else {
-			// On archive page, just show the archive title
-			echo '<span class="breadcrumb_last">' . esc_html($archive_label) . '</span>';
 		}
 
 		echo '</div>';
