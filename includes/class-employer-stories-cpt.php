@@ -152,12 +152,7 @@ class Employer_Stories_CPT {
 			'top'
 		);
 		
-		// Add archive page rule
-		add_rewrite_rule(
-			'^' . $this->url_slug . '/?$',
-			'index.php?post_type=' . $this->post_type,
-			'top'
-		);
+		// We don't need an archive page rule since we're using a page with shortcode
 
 		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
 		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
@@ -328,7 +323,7 @@ class Employer_Stories_CPT {
 					'pages' => true,
 					'ep_mask' => EP_PERMALINK,
 				),
-				'has_archive' => true, // Changed to true to enable archive page
+				'has_archive' => false, // Disable automatic archive page
 				'query_var' => $this->post_type,
 				'can_export' => true,
 				'publicly_queryable' => true,
@@ -344,12 +339,7 @@ class Employer_Stories_CPT {
 				'top'
 			);
 			
-			// Add archive rewrite rule
-			add_rewrite_rule(
-				'^' . $this->url_slug . '/?$',
-				'index.php?post_type=' . $this->post_type,
-				'top'
-			);
+			// We don't need an archive rewrite rule since we're using a page with shortcode
 			
 			// Add rewrite tag
 			add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
@@ -412,6 +402,18 @@ class Employer_Stories_CPT {
 		// Make sure WordPress knows about our custom permalink structure
 		global $wp;
 		$wp->add_query_var($this->post_type);
+		
+		// Prevent archive behavior for pages with the same slug as our post type
+		if (!is_admin() && $query->is_main_query() && !$query->is_singular) {
+			// Check if this is a page with our archive slug
+			if (isset($query->query['pagename']) && $query->query['pagename'] === $this->url_slug) {
+				// Force it to be treated as a page, not an archive
+				$query->is_post_type_archive = false;
+				$query->is_archive = false;
+				
+				error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
+			}
+		}
 		
 		error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
 	}
@@ -608,5 +610,31 @@ class Employer_Stories_CPT {
 			return home_url($this->url_slug . '/');
 		}
 		return $link;
+	}
+	
+	/**
+	 * Prevent archive template from being used for page with same slug
+	 * 
+	 * @param string $template The template to include
+	 * @return string The modified template path
+	 */
+	public function prevent_archive_template($template) {
+		global $wp_query;
+		
+		// If this is a page with our slug but not a post type archive
+		if (is_page() && !is_post_type_archive($this->post_type)) {
+			$current_page = get_queried_object();
+			
+			// Check if the page slug matches our post type archive slug
+			if ($current_page && isset($current_page->post_name) && $current_page->post_name === $this->url_slug) {
+				// Force WordPress to use the page template, not the archive template
+				$wp_query->is_post_type_archive = false;
+				
+				// Log this for debugging
+				error_log('Employer Stories CPT: Prevented archive template for page with slug: ' . $this->url_slug);
+			}
+		}
+		
+		return $template;
 	}
 }
