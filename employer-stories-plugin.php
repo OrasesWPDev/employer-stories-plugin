@@ -226,12 +226,20 @@ final class Employer_Stories_Plugin {
 			return;
 		}
 
-		// Initialize ACF integration first - this handles both field groups and CPT registration via JSON
+		// Initialize ACF integration first
 		if (class_exists('Employer_Stories_ACF')) {
 			Employer_Stories_ACF::get_instance();
 			error_log('Employer Stories Plugin: ACF class initialized');
 		} else {
 			error_log('Employer Stories Plugin: ACF class not found');
+		}
+
+		// Initialize CPT functionality - add this before the main class
+		if (class_exists('Employer_Stories_CPT')) {
+			Employer_Stories_CPT::get_instance();
+			error_log('Employer Stories Plugin: CPT class initialized');
+		} else {
+			error_log('Employer Stories Plugin: CPT class not found');
 		}
 
 		// Initialize main plugin functionality
@@ -341,12 +349,6 @@ final class Employer_Stories_Plugin {
 			error_log('Employer Stories Plugin: Registered CPT during activation');
 		}
 
-		// Clear any transients that might be caching permalinks
-		delete_transient('employer_stories_flush_rules');
-		
-		// Clear rewrite rules
-		delete_option('rewrite_rules');
-		
 		// Flush rewrite rules on activation
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules(true);
