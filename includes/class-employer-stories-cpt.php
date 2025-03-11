@@ -47,8 +47,12 @@ class Employer_Stories_CPT {
 		// Register the custom post type
 		add_action('init', array($this, 'register_post_type'), 5);
 
-		// Modify permalink structure - higher priority to ensure it runs
+		// Modify permalink structure - highest priority to ensure it runs first
 		add_filter('post_type_link', array($this, 'modify_permalink_structure'), 1, 4);
+		
+		// Add a second filter with even higher priority to ensure our structure is used
+		add_filter('post_link', array($this, 'force_employer_story_permalink'), 1, 3);
+		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), 1, 3);
 
 		// Fix permalinks in admin
 		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
@@ -75,6 +79,13 @@ class Employer_Stories_CPT {
 		if (null == self::$instance) {
 			self::$instance = new self;
 			error_log('Employer Stories CPT: Instance created');
+			
+			// Force flush rewrite rules on first instance creation
+			add_action('shutdown', function() {
+				global $wp_rewrite;
+				$wp_rewrite->flush_rules(true);
+				error_log('Employer Stories CPT: Forced rewrite rules flush on instance creation');
+			});
 		}
 		return self::$instance;
 	}
@@ -83,7 +94,7 @@ class Employer_Stories_CPT {
 	 * Fix permalinks when WordPress is fully loaded
 	 */
 	public function fix_permalinks_on_load() {
-		global $wp_rewrite;
+		global $wp_rewrite, $wpdb;
 
 		// Add our custom permalink structure
 		add_rewrite_rule(
@@ -98,14 +109,33 @@ class Employer_Stories_CPT {
 		// Force flush rewrite rules on first load after activation
 		static $flushed = false;
 		if (!$flushed) {
-			$wp_rewrite->flush_rules(false);
+			$wp_rewrite->flush_rules(true);
 			$flushed = true;
 			error_log('Employer Stories CPT: Flushed rewrite rules during page load');
+			
+			// Direct database update for existing posts to ensure correct permalinks
+			$posts = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT ID, post_name FROM {$wpdb->posts} WHERE post_type = %s",
+					$this->post_type
+				)
+			);
+			
+			if (!empty($posts)) {
+				foreach ($posts as $post) {
+					// Update post meta to force permalink refresh
+					update_post_meta($post->ID, '_employer_story_permalink_fixed', time());
+					error_log("Employer Stories CPT: Updated post meta for ID {$post->ID} to refresh permalink");
+					
+					// Trigger a post update to refresh permalinks
+					wp_update_post(array('ID' => $post->ID));
+				}
+			}
 		}
 
 		// Flush rewrite rules - use sparingly, only during development or when needed
 		if (isset($_GET['employer_stories_flush']) && current_user_can('manage_options')) {
-			$wp_rewrite->flush_rules();
+			$wp_rewrite->flush_rules(true);
 		}
 	}
 
@@ -120,15 +150,13 @@ class Employer_Stories_CPT {
 	 */
 	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
 		if ($post->post_type == $this->post_type) {
-			// Force the correct permalink structure
-			if ($sample || !$leavename) {
-				$post_name = $post->post_name;
-				if (empty($post_name)) {
-					$post_name = sanitize_title($post->post_title);
-				}
-				$post_link = home_url($this->url_slug . '/' . $post_name . '/');
-				error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
+			// Always force the correct permalink structure regardless of other conditions
+			$post_name = $post->post_name;
+			if (empty($post_name)) {
+				$post_name = sanitize_title($post->post_title);
 			}
+			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
+			error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
 		}
 		return $post_link;
 	}
@@ -233,6 +261,33 @@ class Employer_Stories_CPT {
 		} else {
 			error_log('Employer Stories CPT: Post type already exists');
 		}
+	}
+
+	/**
+	 * Force the correct permalink structure for employer stories
+	 * This is a backup method that runs in addition to modify_permalink_structure
+	 *
+	 * @param string $permalink The post's permalink
+	 * @param WP_Post|object $post The post object
+	 * @param bool $leavename Whether to keep the post name
+	 * @return string The modified permalink
+	 */
+	public function force_employer_story_permalink($permalink, $post, $leavename) {
+		// Only process our post type
+		if (!is_object($post) || $post->post_type !== $this->post_type) {
+			return $permalink;
+		}
+		
+		// Force the correct structure
+		$post_name = $post->post_name;
+		if (empty($post_name)) {
+			$post_name = sanitize_title($post->post_title);
+		}
+		
+		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
+		error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link);
+		
+		return $forced_link;
 	}
 
 	/**

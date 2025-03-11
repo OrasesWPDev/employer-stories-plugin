@@ -54,7 +54,7 @@
     "block_categories",
     "post_tag"
   ],
-  "has_archive": true,
+  "has_archive": false,
   "delete_with_user": false,
   "import_source": "employer-stories-plugin",
   "import_date": "2023-10-16 12:00:00"
