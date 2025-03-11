@@ -1,0 +1,96 @@
+/**
+ * Employer Stories Admin Styles
+ */
+
+/* Help page specific styles */
+.employer-story_page_employer-stories-help .es-help-wrap {
+    max-width: 1300px;
+    margin: 20px 20px 0 0;
+}
+
+/* Improve the look of the ACF fields in the editor */
+.acf-field[data-name="header_image"] .acf-label label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.acf-field[data-name="employer_stats"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #0073aa;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="first_paragraph"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #46b450;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="story_title"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ffb900;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="story_content"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #dc3232;
+    padding: 15px !important;
+}
+
+/* Make the repeater field more visually distinct */
+.acf-repeater .acf-row {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.acf-repeater .acf-row:hover {
+    border-color: #0073aa;
+}
+
+.acf-repeater .acf-row-handle {
+    background-color: #f8f8f8;
+}
+
+/* Improve the shortcode meta box */
+#employer-stories-shortcode.postbox {
+    border-left: 4px solid #0073aa;
+}
+
+#employer-stories-shortcode h2.hndle {
+    color: #0073aa;
+}
+
+#employer-stories-shortcode code {
+    display: block;
+    padding: 10px;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 10px 0;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+/* Admin list improvements */
+.column-featured_image img {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.column-employer {
+    font-weight: 600;
+}
+
+/* Add a help icon to the admin menu */
+#adminmenu li.menu-top.toplevel_page_employer-stories-settings .wp-menu-image::before,
+#adminmenu li.menu-top.menu-icon-employer-story .wp-menu-image::before {
+    content: "\f118";
+    color: #f98e2b;
+}
