@@ -360,6 +360,9 @@ final class Employer_Stories_Plugin {
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules(true);
 		error_log('Employer Stories Plugin: Flushed rewrite rules');
+        
+        // Set activation flag to show welcome message
+        set_transient('employer_stories_activation', true, 5);
 	}
 
 	/**

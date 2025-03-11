@@ -49,6 +49,9 @@ class Employer_Stories_Admin {
 
 		// Add filter for sorting columns
 		add_filter('manage_edit-employer-story_sortable_columns', array($this, 'set_sortable_columns'));
+        
+        // Add dashboard widget
+        add_action('wp_dashboard_setup', array($this, 'add_dashboard_widget'));
 	}
 
 	/**
@@ -234,8 +237,72 @@ class Employer_Stories_Admin {
 	 * Admin notices
 	 */
 	public function admin_notices() {
-		// Display any admin notices here
+		// Check for activation transient
+        if (get_transient('employer_stories_activation')) {
+            // Delete the transient
+            delete_transient('employer_stories_activation');
+            
+            // Display welcome message
+            ?>
+            <div class="notice notice-success is-dismissible">
+                <h3 style="margin-bottom: 0;"><?php _e('Thank you for installing Employer Stories!', 'employer-stories'); ?></h3>
+                <p>
+                    <?php _e('Get started by creating your first employer story or check out the documentation.', 'employer-stories'); ?>
+                </p>
+                <p>
+                    <a href="<?php echo admin_url('post-new.php?post_type=employer-story'); ?>" class="button button-primary">
+                        <?php _e('Create Your First Story', 'employer-stories'); ?>
+                    </a>
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story&page=employer-stories-help'); ?>" class="button">
+                        <?php _e('View Documentation', 'employer-stories'); ?>
+                    </a>
+                </p>
+            </div>
+            <?php
+        }
+        
+        // Check WordPress and PHP versions
+        $this->check_versions();
 	}
+    
+    /**
+     * Check WordPress and PHP versions
+     */
+    private function check_versions() {
+        // Only show to admins
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        
+        // Check WordPress version
+        global $wp_version;
+        if (version_compare($wp_version, '5.0', '<')) {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <?php printf(
+                        __('Employer Stories plugin works best with WordPress 5.0 or higher. You are using version %s. Please consider upgrading.', 'employer-stories'),
+                        $wp_version
+                    ); ?>
+                </p>
+            </div>
+            <?php
+        }
+        
+        // Check PHP version
+        if (version_compare(PHP_VERSION, '7.0', '<')) {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <?php printf(
+                        __('Employer Stories plugin works best with PHP 7.0 or higher. You are using version %s. Please consider upgrading.', 'employer-stories'),
+                        PHP_VERSION
+                    ); ?>
+                </p>
+            </div>
+            <?php
+        }
+    }
 
 	/**
 	 * Add custom meta boxes
@@ -343,4 +410,60 @@ class Employer_Stories_Admin {
 		$columns['employer'] = 'employer';
 		return $columns;
 	}
+    
+    /**
+     * Add dashboard widget for quick access
+     */
+    public function add_dashboard_widget() {
+        wp_add_dashboard_widget(
+            'employer_stories_dashboard_widget',
+            __('Employer Stories Quick Links', 'employer-stories'),
+            array($this, 'dashboard_widget_content')
+        );
+    }
+    
+    /**
+     * Dashboard widget content
+     */
+    public function dashboard_widget_content() {
+        ?>
+        <div class="employer-stories-dashboard-widget">
+            <p><?php _e('Quick links to manage your Employer Stories:', 'employer-stories'); ?></p>
+            
+            <ul class="employer-stories-quick-links" style="margin-bottom: 15px;">
+                <li>
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story'); ?>" class="button">
+                        <span class="dashicons dashicons-list-view" style="margin-top: 3px;"></span>
+                        <?php _e('All Employer Stories', 'employer-stories'); ?>
+                    </a>
+                </li>
+                <li style="margin-top: 8px;">
+                    <a href="<?php echo admin_url('post-new.php?post_type=employer-story'); ?>" class="button">
+                        <span class="dashicons dashicons-plus" style="margin-top: 3px;"></span>
+                        <?php _e('Add New Story', 'employer-stories'); ?>
+                    </a>
+                </li>
+                <li style="margin-top: 8px;">
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story&page=employer-stories-help'); ?>" class="button">
+                        <span class="dashicons dashicons-editor-help" style="margin-top: 3px;"></span>
+                        <?php _e('Help & Documentation', 'employer-stories'); ?>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="employer-stories-stats" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                <?php
+                $story_count = wp_count_posts('employer-story');
+                $published_count = isset($story_count->publish) ? $story_count->publish : 0;
+                $draft_count = isset($story_count->draft) ? $story_count->draft : 0;
+                ?>
+                <p>
+                    <strong><?php _e('Statistics:', 'employer-stories'); ?></strong><br>
+                    <?php printf(_n('%s Published Story', '%s Published Stories', $published_count, 'employer-stories'), '<span style="color: #0073aa;">' . $published_count . '</span>'); ?><br>
+                    <?php printf(_n('%s Draft Story', '%s Draft Stories', $draft_count, 'employer-stories'), '<span style="color: #dc3232;">' . $draft_count . '</span>'); ?>
+                </p>
+            </div>
+        </div>
+        <?php
+    }
 }
