@@ -89,6 +89,9 @@ class Employer_Stories_CPT {
 		
 		// Add filter for post type archive link with high priority
 		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), -999999, 2);
+		
+		// Prevent archive template from being used for page with same slug
+		add_filter('template_include', array($this, 'prevent_archive_template'), 99);
 	}
 
 	/**
