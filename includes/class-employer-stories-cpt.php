@@ -64,10 +64,13 @@ class Employer_Stories_CPT {
 		add_shortcode('employer_story_breadcrumbs', array($this, 'breadcrumbs_shortcode'));
 
 		// Register a function to run after WordPress is loaded to fix permalinks
-		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 20);
+		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 5);
 		
 		// Add early hook for permalink structure
 		add_action('pre_get_posts', array($this, 'fix_query_vars'));
+		
+		// Add a filter to parse request to ensure our custom permalinks are recognized
+		add_filter('request', array($this, 'parse_request'));
 	}
 
 	/**
@@ -96,9 +99,9 @@ class Employer_Stories_CPT {
 	public function fix_permalinks_on_load() {
 		global $wp_rewrite, $wpdb;
 
-		// Add our custom permalink structure
+		// Add our custom permalink structure with higher specificity
 		add_rewrite_rule(
-			$this->url_slug . '/([^/]+)/?$',
+			'^' . $this->url_slug . '/([^/]+)/?$',
 			'index.php?' . $this->post_type . '=$matches[1]',
 			'top'
 		);
@@ -155,7 +158,9 @@ class Employer_Stories_CPT {
 			if (empty($post_name)) {
 				$post_name = sanitize_title($post->post_title);
 			}
-			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
+			
+			// Use site_url instead of home_url to ensure we get the correct base URL
+			$post_link = trailingslashit(site_url()) . $this->url_slug . '/' . $post_name . '/';
 			error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
 		}
 		return $post_link;
@@ -246,13 +251,7 @@ class Employer_Stories_CPT {
 					'post_tag',
 				),
 				'delete_with_user' => false,
-				'rewrite' => array(
-					'slug' => $this->url_slug,
-					'with_front' => false,
-					'feeds' => false,
-					'pages' => true,
-					'ep_mask' => EP_PERMALINK,
-				),
+				'rewrite' => false, // Disable default rewrite rules, we'll handle them manually
 				'has_archive' => false,
 			);
 
@@ -284,7 +283,8 @@ class Employer_Stories_CPT {
 			$post_name = sanitize_title($post->post_title);
 		}
 		
-		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
+		// Use site_url instead of home_url to ensure we get the correct base URL
+		$forced_link = trailingslashit(site_url()) . $this->url_slug . '/' . $post_name . '/';
 		error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link);
 		
 		return $forced_link;
@@ -306,6 +306,28 @@ class Employer_Stories_CPT {
 		$wp->add_query_var($this->post_type);
 		
 		error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
+	}
+	
+	/**
+	 * Parse request to handle our custom permalink structure
+	 * 
+	 * @param array $query_vars The query variables
+	 * @return array Modified query variables
+	 */
+	public function parse_request($query_vars) {
+		// Check if we're on an employer story page
+		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+		
+		// If the path starts with our URL slug
+		if (preg_match('|^' . $this->url_slug . '/([^/]+)/?$|', $path, $matches)) {
+			$post_name = $matches[1];
+			
+			// Set the query var for our post type
+			$query_vars[$this->post_type] = $post_name;
+			error_log('Employer Stories CPT: Parsed request for ' . $post_name);
+		}
+		
+		return $query_vars;
 	}
 
 	/**

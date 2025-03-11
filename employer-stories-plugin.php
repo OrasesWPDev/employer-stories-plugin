@@ -342,7 +342,8 @@ final class Employer_Stories_Plugin {
 		}
 
 		// Flush rewrite rules on activation
-		flush_rewrite_rules(true);
+		global $wp_rewrite;
+		$wp_rewrite->flush_rules(true);
 		error_log('Employer Stories Plugin: Flushed rewrite rules');
 	}
 
