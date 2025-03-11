@@ -47,8 +47,8 @@ class Employer_Stories_CPT {
 		// Register the custom post type
 		add_action('init', array($this, 'register_post_type'), 5);
 
-		// Modify permalink structure
-		add_filter('post_type_link', array($this, 'modify_permalink_structure'), 10, 4);
+		// Modify permalink structure - higher priority to ensure it runs
+		add_filter('post_type_link', array($this, 'modify_permalink_structure'), 1, 4);
 
 		// Fix permalinks in admin
 		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
@@ -61,6 +61,9 @@ class Employer_Stories_CPT {
 
 		// Register a function to run after WordPress is loaded to fix permalinks
 		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 20);
+		
+		// Add early hook for permalink structure
+		add_action('pre_get_posts', array($this, 'fix_query_vars'));
 	}
 
 	/**
@@ -99,6 +102,14 @@ class Employer_Stories_CPT {
 		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
 		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
 
+		// Force flush rewrite rules on first load after activation
+		static $flushed = false;
+		if (!$flushed) {
+			$wp_rewrite->flush_rules(false);
+			$flushed = true;
+			error_log('Employer Stories CPT: Flushed rewrite rules during page load');
+		}
+
 		// Flush rewrite rules - use sparingly, only during development or when needed
 		if (isset($_GET['employer_stories_flush']) && current_user_can('manage_options')) {
 			$wp_rewrite->flush_rules();
@@ -116,9 +127,15 @@ class Employer_Stories_CPT {
 	 */
 	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
 		if ($post->post_type == $this->post_type) {
-			// Replace the default slug with our custom slug
-			$post_link = str_replace('/' . $this->post_type . '/', '/' . $this->url_slug . '/', $post_link);
-			error_log('Modified permalink for post ID ' . $post->ID . ': ' . $post_link);
+			// Force the correct permalink structure
+			if ($sample || !$leavename) {
+				$post_name = $post->post_name;
+				if (empty($post_name)) {
+					$post_name = sanitize_title($post->post_title);
+				}
+				$post_link = home_url($this->url_slug . '/' . $post_name . '/');
+				error_log('Forced permalink for post ID ' . $post->ID . ': ' . $post_link);
+			}
 		}
 		return $post_link;
 	}
@@ -213,6 +230,7 @@ class Employer_Stories_CPT {
 					'with_front' => false,
 					'feeds' => true,
 					'pages' => true,
+					'ep_mask' => EP_PERMALINK,
 				),
 				'has_archive' => true,
 			);
@@ -222,6 +240,24 @@ class Employer_Stories_CPT {
 		} else {
 			error_log('Employer Stories CPT: Post type already exists');
 		}
+	}
+
+	/**
+	 * Fix query vars for our custom post type
+	 * 
+	 * @param WP_Query $query The WordPress query object
+	 */
+	public function fix_query_vars($query) {
+		// Only run once
+		static $ran = false;
+		if ($ran) return;
+		$ran = true;
+		
+		// Make sure WordPress knows about our custom permalink structure
+		global $wp;
+		$wp->add_query_var($this->post_type);
+		
+		error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
 	}
 
 	/**
