@@ -92,13 +92,6 @@ class Employer_Stories_CPT {
 			'top'
 		);
 
-		// Add rewrite for the archive
-		add_rewrite_rule(
-			$this->url_slug . '/?$',
-			'index.php?post_type=' . $this->post_type,
-			'top'
-		);
-
 		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
 		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
 
@@ -228,11 +221,11 @@ class Employer_Stories_CPT {
 				'rewrite' => array(
 					'slug' => $this->url_slug,
 					'with_front' => false,
-					'feeds' => true,
+					'feeds' => false,
 					'pages' => true,
 					'ep_mask' => EP_PERMALINK,
 				),
-				'has_archive' => true,
+				'has_archive' => false,
 			);
 
 			register_post_type($this->post_type, $args);
@@ -279,17 +272,8 @@ class Employer_Stories_CPT {
 		echo '<span class="es-breadcrumb-divider">/</span>';
 
 		if (is_singular($this->post_type)) {
-			// Archive link
-			$archive_url = home_url($this->url_slug . '/');
-			$archive_label = __('Employer Stories', 'employer-stories');
-			echo '<a href="' . esc_url($archive_url) . '">' . esc_html($archive_label) . '</a>';
-			echo '<span class="es-breadcrumb-divider">/</span>';
-
-			// Current post
+			// Current post (no archive link since we disabled it)
 			echo '<span class="breadcrumb_last">' . get_the_title() . '</span>';
-		} elseif (is_post_type_archive($this->post_type)) {
-			// Just archive title for the archive page
-			echo '<span class="breadcrumb_last">' . __('Employer Stories', 'employer-stories') . '</span>';
 		}
 
 		echo '</div>';

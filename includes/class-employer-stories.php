@@ -64,9 +64,8 @@ class Employer_Stories {
 		// Enqueue scripts and styles
 		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
 
-		// Add template filters
+		// Add template filter for single posts only
 		add_filter('single_template', array($this, 'load_single_template'));
-		add_filter('archive_template', array($this, 'load_archive_template'));
 
 		// Add body class
 		add_filter('body_class', array($this, 'add_body_class'));
@@ -116,13 +115,11 @@ class Employer_Stories {
 			'assets/css/employer-stories-common.css'
 		);
 
-		// Archive/Grid CSS - load on archives and shortcode pages
-		if (is_post_type_archive('employer-story') || is_tax(get_object_taxonomies('employer-story'))) {
-			$this->enqueue_style(
-				'employer-stories-archive-css',
-				'assets/css/employer-stories-archive.css'
-			);
-		}
+		// Always load the archive/grid CSS for shortcodes
+		$this->enqueue_style(
+			'employer-stories-archive-css',
+			'assets/css/employer-stories-archive.css'
+		);
 
 		// Single CSS - load only on single employer story pages
 		if (is_singular('employer-story')) {
@@ -179,11 +176,7 @@ class Employer_Stories {
 	 * @return bool
 	 */
 	private function is_employer_story_page() {
-		return (
-			is_singular('employer-story') ||
-			is_post_type_archive('employer-story') ||
-			is_tax(get_object_taxonomies('employer-story'))
-		);
+		return is_singular('employer-story');
 	}
 
 	/**
@@ -202,21 +195,6 @@ class Employer_Stories {
 		return $template;
 	}
 
-	/**
-	 * Load archive template for employer stories
-	 *
-	 * @param string $template Template path
-	 * @return string Modified template path
-	 */
-	public function load_archive_template($template) {
-		if (is_post_type_archive('employer-story')) {
-			$custom_template = ES_TEMPLATES_DIR . 'archive-employer-story.php';
-			if (file_exists($custom_template)) {
-				return $custom_template;
-			}
-		}
-		return $template;
-	}
 
 	/**
 	 * Add custom body class for employer story pages
@@ -230,8 +208,6 @@ class Employer_Stories {
 
 			if (is_singular('employer-story')) {
 				$classes[] = 'employer-story-single';
-			} elseif (is_post_type_archive('employer-story') || is_tax(get_object_taxonomies('employer-story'))) {
-				$classes[] = 'employer-story-archive';
 			}
 		}
 
