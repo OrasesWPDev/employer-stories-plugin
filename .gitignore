@@ -1,4 +1,3 @@
-
 # Operating system files
 .DS_Store
 .DS_Store?
@@ -15,17 +14,17 @@ Thumbs.db
 *.sublime-workspace
 
 # Output files
+*output.txt
 *-output.txt
+*output*.txt
 *.log
 
 # Zip files
 *.zip
 
-# Composer
+# Other project files
 /vendor/
 composer.lock
-
-# Node.js
 /node_modules/
 package-lock.json
 npm-debug.log
@@ -46,5 +45,3 @@ wp-content/wp-cache-config.php
 
 # Ignore self
 .git
-.DS_Store
-
