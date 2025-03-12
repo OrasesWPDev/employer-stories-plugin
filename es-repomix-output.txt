@@ -1,0 +1,4420 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+
+Additional Info:
+----------------
+
+================================================================
+Directory Structure
+================================================================
+acf-json/
+  employer-stories-field-group.json
+  post_type_employer_story.json
+assets/
+  css/
+    employer-stories-admin.css
+    employer-stories.css
+  js/
+    employer-stories-admin.js
+    employer-stories.js
+includes/
+  admin/
+    class-employer-stories-admin.php
+  class-employer-stories-acf.php
+  class-employer-stories-cpt.php
+  class-employer-stories-help.php
+  class-employer-stories-shortcode.php
+  class-employer-stories.php
+templates/
+  single-employer-story.php
+.gitignore
+employer-stories-plugin.php
+
+================================================================
+Files
+================================================================
+
+================
+File: acf-json/employer-stories-field-group.json
+================
+{
+  "key": "group_67cef0e998e92",
+  "title": "Employer Stories Field Group",
+  "fields": [
+    {
+      "key": "field_67cef0e9dc21f",
+      "label": "Header Image",
+      "name": "header_image",
+      "aria-label": "",
+      "type": "image",
+      "instructions": "",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "return_format": "array",
+      "library": "all",
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": "",
+      "allow_in_bindings": 1,
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_67cef1478d176",
+      "label": "Employer Stats",
+      "name": "employer_stats",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 1,
+      "layout": "table",
+      "sub_fields": [
+        {
+          "key": "field_67cef21e8d177",
+          "label": "Employer",
+          "name": "employer",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2568d178",
+          "label": "Headquarters",
+          "name": "headquarters",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2668d179",
+          "label": "Practice Setting",
+          "name": "practice_settings",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2f854e51",
+          "label": "Locations",
+          "name": "locations",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        }
+      ]
+    },
+    {
+      "key": "field_67cef37447729",
+      "label": "First Paragraph",
+      "name": "first_paragraph",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "Content under Employer Stats",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_67cef45a39b59",
+          "label": "Paragraph Title",
+          "name": "paragraph_title",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use an H4 HTML Tag Here (<h4>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0
+        },
+        {
+          "key": "field_67cef47d39b5a",
+          "label": "Paragraph Content",
+          "name": "paragraph_content",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use paragraph HTML Tags in this field (<p>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0
+        }
+      ]
+    },
+    {
+      "key": "field_67cf666b4dea1",
+      "label": "Story Title",
+      "name": "story_title",
+      "aria-label": "",
+      "type": "wysiwyg",
+      "instructions": "Use H2 Tag Here <h2>",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "default_value": "",
+      "allow_in_bindings": 0,
+      "tabs": "all",
+      "toolbar": "full",
+      "media_upload": 1,
+      "delay": 0
+    },
+    {
+      "key": "field_67cf66cf4dea2",
+      "label": "Story Content",
+      "name": "story_content",
+      "aria-label": "",
+      "type": "repeater",
+      "instructions": "To Input all story Content",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "layout": "block",
+      "pagination": 0,
+      "min": 0,
+      "max": 0,
+      "collapsed": "",
+      "button_label": "Add Row",
+      "rows_per_page": 20,
+      "sub_fields": [
+        {
+          "key": "field_67cf66f84dea3",
+          "label": "Paragraph Title",
+          "name": "paragraph_title",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use H3 Tags Here (<h3>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0,
+          "parent_repeater": "field_67cf66cf4dea2"
+        },
+        {
+          "key": "field_67cf671a4dea4",
+          "label": "Paragraph Content",
+          "name": "paragraph_content",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use P Tags Here (<p>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0,
+          "parent_repeater": "field_67cf66cf4dea2"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "employer-story"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Fields For Employer Stories",
+  "show_in_rest": 0,
+  "modified": 1697468800
+}
+
+================
+File: acf-json/post_type_employer_story.json
+================
+{
+  "key": "employer-story",
+  "title": "Employer Story",
+  "post_type": "employer-story",
+  "description": "Add or Edit Employer Stories",
+  "active": true,
+  "rewrite": {
+    "slug": "employer-stories",
+    "with_front": false,
+    "feeds": false,
+    "pages": true
+  },
+  "labels": {
+    "name": "Employer Stories",
+    "singular_name": "Employer Story",
+    "menu_name": "Employer Stories",
+    "all_items": "All Employer Stories",
+    "edit_item": "Edit Employer Story",
+    "view_item": "View Employer Story",
+    "view_items": "View Employer Stories",
+    "add_new_item": "Add New Employer Story",
+    "add_new": "Add New Employer Story",
+    "new_item": "New Employer Story",
+    "parent_item_colon": "Parent Employer Story:",
+    "search_items": "Search Employer Stories",
+    "not_found": "No employer stories found",
+    "not_found_in_trash": "No employer stories found in Trash",
+    "archives": "Employer Story Archives",
+    "attributes": "Employer Story Attributes",
+    "insert_into_item": "Insert into employer story",
+    "uploaded_to_this_item": "Uploaded to this employer story",
+    "filter_items_list": "Filter employer stories list",
+    "filter_by_date": "Filter employer stories by date",
+    "items_list_navigation": "Employer Stories list navigation",
+    "items_list": "Employer Stories list",
+    "item_published": "Employer Story published.",
+    "item_published_privately": "Employer Story published privately.",
+    "item_reverted_to_draft": "Employer Story reverted to draft.",
+    "item_scheduled": "Employer Story scheduled.",
+    "item_updated": "Employer Story updated.",
+    "item_link": "Employer Story Link",
+    "item_link_description": "A link to a employer story."
+  },
+  "public": true,
+  "show_in_rest": true,
+  "menu_icon": "dashicons-buddicons-buddypress-logo",
+  "supports": [
+    "title",
+    "page-attributes",
+    "thumbnail",
+    "custom-fields"
+  ],
+  "taxonomies": [
+    "category",
+    "block_categories",
+    "post_tag"
+  ],
+  "has_archive": false,
+  "delete_with_user": false,
+  "import_source": "employer-stories-plugin",
+  "import_date": "2023-10-16 12:00:00"
+}
+
+================
+File: assets/css/employer-stories-admin.css
+================
+/**
+ * Employer Stories Admin Styles
+ */
+
+/* Help page specific styles */
+.employer-story_page_employer-stories-help .es-help-wrap {
+    max-width: 1300px;
+    margin: 20px 20px 0 0;
+}
+
+/* Improve the look of the ACF fields in the editor */
+.acf-field[data-name="header_image"] .acf-label label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.acf-field[data-name="employer_stats"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #0073aa;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="first_paragraph"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #46b450;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="story_title"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ffb900;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+.acf-field[data-name="story_content"] {
+    background-color: #f9f9f9;
+    border-left: 4px solid #dc3232;
+    padding: 15px !important;
+}
+
+/* Make the repeater field more visually distinct */
+.acf-repeater .acf-row {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.acf-repeater .acf-row:hover {
+    border-color: #0073aa;
+}
+
+.acf-repeater .acf-row-handle {
+    background-color: #f8f8f8;
+}
+
+/* Improve the shortcode meta box */
+#employer-stories-shortcode.postbox {
+    border-left: 4px solid #0073aa;
+}
+
+#employer-stories-shortcode h2.hndle {
+    color: #0073aa;
+}
+
+#employer-stories-shortcode code {
+    display: block;
+    padding: 10px;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 10px 0;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+/* Admin list improvements */
+.column-featured_image img {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.column-employer {
+    font-weight: 600;
+}
+
+/* Add a help icon to the admin menu */
+#adminmenu li.menu-top.toplevel_page_employer-stories-settings .wp-menu-image::before,
+#adminmenu li.menu-top.menu-icon-employer-story .wp-menu-image::before {
+    content: "\f118";
+    color: #f98e2b;
+}
+
+================
+File: assets/css/employer-stories.css
+================
+/**
+ * Employer Stories Plugin - Combined Styles
+ */
+
+/* ----------------------------------------
+   1. CSS VARIABLES (CUSTOM PROPERTIES)
+   ---------------------------------------- */
+:root {
+    /* Spacing values */
+    --es-spacing-small: 10px;
+    --es-spacing-medium: 20px;
+    --es-spacing-large: 30px;
+
+    /* Colors - Update with brand colors */
+    --es-primary-color: #002C5C; /* NEED TO UPDATE THIS VALUE - Currently using PTCB blue */
+    --es-secondary-color: #45B3AF; /* NEED TO UPDATE THIS VALUE - Currently using PTCB teal */
+    --es-text-color: #444;
+    --es-bg-color: #fff;
+    --es-border-color: #e5e5e5;
+    --es-light-bg-color: #f2f2f2; /* For background sections */
+
+    /* Typography */
+    --es-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --es-font-size-small: 0.875rem;
+    --es-font-size-normal: 1rem;
+    --es-font-size-medium: 1.25rem;
+    --es-font-size-large: 1.5rem;
+    --es-font-size-xlarge: 2rem;
+}
+
+/* ----------------------------------------
+   2. GENERAL CONTAINER STYLES
+   ---------------------------------------- */
+.es-container {
+    font-family: var(--es-font-family);
+    color: var(--es-text-color);
+    line-height: 1.6;
+}
+
+/* ----------------------------------------
+   3. UTILITY CLASSES
+   ---------------------------------------- */
+.es-text-center {
+    text-align: center;
+}
+
+.es-text-right {
+    text-align: right;
+}
+
+.es-margin-bottom-small {
+    margin-bottom: var(--es-spacing-small);
+}
+
+.es-margin-bottom-medium {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-margin-bottom-large {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* ----------------------------------------
+   4. BUTTONS & INTERACTIVE ELEMENTS
+   ---------------------------------------- */
+.es-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--es-primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.es-button:hover {
+    background-color: var(--es-secondary-color);
+    text-decoration: none;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------
+   5. BREADCRUMBS STYLING
+   ---------------------------------------- */
+.es-employer-story-header .es-breadcrumb-divider,
+.es-employer-story-header a,
+.es-employer-story-header span,
+.es-employer-story-header .breadcrumb_last,
+.es-section-wrapper .es-breadcrumb-divider,
+.es-section-wrapper a,
+.es-section-wrapper span,
+.es-section-wrapper .breadcrumb_last,
+.es-breadcrumbs a,
+.es-breadcrumbs span,
+.es-breadcrumbs .breadcrumb_last,
+.es-breadcrumbs .es-breadcrumb-divider {
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.es-employer-story-header a:hover,
+.es-section-wrapper a:hover,
+.es-breadcrumbs a:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+.es-breadcrumb-divider {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.es-breadcrumbs {
+    margin: 10px 0;
+    padding: 5px 0;
+    display: block;
+    width: 100%;
+}
+
+/* ----------------------------------------
+   6. ARCHIVE CONTAINER & HEADER
+   ---------------------------------------- */
+.es-employer-stories-container {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* Header spacing - Add space between header block and content */
+.es-section-wrapper.es-employer-story-header {
+    margin-bottom: var(--es-spacing-large);
+}
+
+/* Fix spacing after header block */
+.es-archive-employer-stories {
+    padding-top: var(--es-spacing-large);
+}
+
+.es-archive-header {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-archive-title {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-xlarge);
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-archive-description {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+/* ----------------------------------------
+   7. EMPLOYER STORIES GRID
+   ---------------------------------------- */
+.es-employer-stories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(-1 * var(--es-spacing-small));
+}
+
+.es-employer-story-item {
+    padding: var(--es-spacing-small);
+    margin-bottom: var(--es-spacing-medium);
+}
+
+/* ----------------------------------------
+   8. STORY CARD (FOCUSED ON FEATURED IMAGE)
+   ---------------------------------------- */
+.es-employer-story-card {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.es-employer-story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.es-employer-story-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ----------------------------------------
+   9. FEATURED IMAGE THUMBNAIL
+   ---------------------------------------- */
+.es-employer-story-thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.es-card-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.es-employer-story-card:hover .es-card-image {
+    transform: scale(1.03);
+}
+
+/* Placeholder for when no image is available */
+.es-no-image {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.es-placeholder {
+    color: #aaa;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ----------------------------------------
+   10. PAGINATION
+   ---------------------------------------- */
+.es-pagination {
+    text-align: center;
+    margin: var(--es-spacing-large) 0;
+}
+
+.es-pagination .page-numbers {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 3px;
+    border: 1px solid var(--es-border-color);
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.es-pagination .page-numbers.current {
+    background-color: var(--es-primary-color);
+    color: white;
+    border-color: var(--es-primary-color);
+}
+
+/* ----------------------------------------
+   11. NO RESULTS
+   ---------------------------------------- */
+.es-no-employer-stories {
+    padding: var(--es-spacing-large);
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+/* ----------------------------------------
+   12. SINGLE POST CONTAINER
+   ---------------------------------------- */
+.es-single-employer-story {
+    margin-bottom: var(--es-spacing-large);
+    font-family: var(--es-font-family);
+}
+
+/* ----------------------------------------
+   13. HEADER IMAGE
+   ---------------------------------------- */
+.es-employer-story-header-image-wrapper {
+    margin-bottom: var(--es-spacing-large);
+    text-align: center;
+}
+
+.es-employer-story-header-image {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    aspect-ratio: 3 / 1; /* Maintains the 3:1 aspect ratio */
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ----------------------------------------
+   14. EMPLOYER STATS SECTION
+   ---------------------------------------- */
+.es-employer-stats-section {
+    margin-bottom: var(--es-spacing-large);
+    padding: var(--es-spacing-medium) 0;
+}
+
+.es-stats-column {
+    text-align: center;
+    padding-bottom: var(--es-spacing-medium);
+}
+
+.es-stats-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.es-stats-icon {
+    margin-bottom: var(--es-spacing-small);
+}
+
+.es-stats-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.es-stats-title {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-medium);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.es-stats-value {
+    font-size: var(--es-font-size-normal);
+}
+
+/* ----------------------------------------
+   15. FIRST PARAGRAPH SECTION
+   ---------------------------------------- */
+.es-first-paragraph-section {
+    background-color: var(--es-light-bg-color);
+    padding: var(--es-spacing-large) 0;
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-first-paragraph-container {
+    padding: 0 var(--es-spacing-medium);
+}
+
+.es-paragraph-title {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-paragraph-title h4 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-large);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.es-paragraph-content {
+    line-height: 1.6;
+}
+
+/* ----------------------------------------
+   16. STORY TITLE SECTION
+   ---------------------------------------- */
+.es-story-title-section {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-title-container h2 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-xlarge);
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+/* ----------------------------------------
+   17. STORY CONTENT SECTION
+   ---------------------------------------- */
+.es-story-content-section {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-content-row {
+    margin-bottom: var(--es-spacing-large);
+}
+
+.es-story-paragraph-title {
+    margin-bottom: var(--es-spacing-medium);
+}
+
+.es-story-paragraph-title h3 {
+    color: var(--es-primary-color);
+    font-size: var(--es-font-size-large);
+    line-height: 1.3;
+    margin-top: 0;
+}
+
+.es-story-paragraph-content {
+    line-height: 1.6;
+}
+
+/* Content images */
+.es-story-paragraph-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: var(--es-spacing-medium) 0;
+}
+
+/* Blockquote styling */
+.es-story-paragraph-content blockquote {
+    padding: var(--es-spacing-medium) var(--es-spacing-large);
+    margin: var(--es-spacing-large) 0;
+    border-left: 5px solid var(--es-secondary-color);
+    background-color: rgba(0, 0, 0, 0.03);
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.es-story-paragraph-content blockquote small {
+    display: block;
+    margin-top: var(--es-spacing-small);
+    font-style: normal;
+    font-weight: bold;
+    font-size: var(--es-font-size-small);
+    color: var(--es-secondary-color);
+}
+
+/* Image captions */
+.es-story-paragraph-content figcaption,
+.es-story-paragraph-content .wp-caption-text {
+    text-align: right;
+    font-size: var(--es-font-size-small);
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ----------------------------------------
+   18. NAVIGATION
+   ---------------------------------------- */
+.es-employer-story-navigation {
+    margin: var(--es-spacing-large) 0;
+    padding: var(--es-spacing-medium) 0;
+    border-top: 1px solid var(--es-border-color);
+    border-bottom: 1px solid var(--es-border-color);
+}
+
+.es-nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.es-nav-button {
+    flex: 0 0 30%;
+    max-width: 30%;
+    text-align: center;
+}
+
+.es-nav-previous {
+    text-align: left;
+}
+
+.es-nav-next {
+    text-align: right;
+}
+
+/* Updated button styles with fixed sizing */
+.es-nav-button a {
+    display: inline-block;
+    width: 100%; /* Make all buttons same width */
+    padding: 10px 15px;
+    background-color: #f98e2b; /* Orange as specified */
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    min-height: 60px; /* Ensures consistent height */
+    line-height: 1.2; /* Proper vertical alignment */
+}
+
+.es-nav-button a:hover {
+    background-color: rgba(255, 255, 255, 0.64);
+    border: 1px solid #f98e2b;
+    color: #f98e2b;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------
+   19. RESPONSIVE STYLES
+   ---------------------------------------- */
+@media screen and (max-width: 991px) {
+    .es-employer-story-item {
+        width: 50% !important;
+    }
+
+    .es-no-image {
+        min-height: 180px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .es-employer-story-title {
+        font-size: var(--es-font-size-large);
+    }
+
+    .es-nav-button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: var(--es-spacing-small);
+        text-align: center;
+    }
+
+    .es-employer-stats-section .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .es-first-paragraph-container {
+        padding: 0 var(--es-spacing-small);
+    }
+
+    .es-story-paragraph-content blockquote {
+        padding: var(--es-spacing-small) var(--es-spacing-medium);
+    }
+    
+    .es-employer-stories-grid {
+        margin: 0;
+    }
+
+    .es-employer-story-item {
+        width: 100% !important;
+        padding: 0 0 var(--es-spacing-medium) 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --es-font-size-large: 1.25rem;
+        --es-font-size-xlarge: 1.5rem;
+    }
+    
+    .es-employer-story-header {
+        margin-bottom: var(--es-spacing-medium);
+    }
+
+    .es-employer-story-meta {
+        flex-direction: column;
+    }
+
+    .es-employer-story-date,
+    .es-employer-story-categories {
+        display: block;
+        margin-bottom: var(--es-spacing-small);
+    }
+
+    .es-stats-title {
+        font-size: 1rem;
+    }
+
+    .es-stats-value {
+        font-size: 0.9rem;
+    }
+    
+    .es-archive-title {
+        font-size: var(--es-font-size-large);
+    }
+
+    .es-no-image {
+        min-height: 140px;
+    }
+}
+
+================
+File: assets/js/employer-stories-admin.js
+================
+/**
+ * Employer Stories Admin JavaScript
+ */
+(function($) {
+    'use strict';
+
+    /**
+     * Initialize the admin functionality
+     */
+    const EmployerStoriesAdmin = {
+        /**
+         * Initialize functions
+         */
+        init: function() {
+            this.bindEvents();
+        },
+
+        /**
+         * Bind events
+         */
+        bindEvents: function() {
+            // Initialize when document is ready
+            $(document).ready(this.onDocumentReady);
+        },
+
+        /**
+         * Document ready handler
+         */
+        onDocumentReady: function() {
+            // Add help tooltips to ACF fields
+            EmployerStoriesAdmin.addFieldTooltips();
+            
+            // Enhance the shortcode meta box
+            EmployerStoriesAdmin.enhanceShortcodeBox();
+            
+            // Add copy functionality to shortcode examples
+            EmployerStoriesAdmin.addCopyFunctionality();
+        },
+
+        /**
+         * Add tooltips to ACF fields
+         */
+        addFieldTooltips: function() {
+            // Only run on the employer story edit screen
+            if (!$('body').hasClass('post-type-employer-story')) {
+                return;
+            }
+
+            // Add tooltip to header image field
+            $('.acf-field[data-name="header_image"] .acf-label label').append(
+                '<span class="dashicons dashicons-info" style="margin-left: 5px; color: #0073aa;" title="This image appears at the top of the single story page. Use a large image (recommended: 1200x400px)."></span>'
+            );
+
+            // Add tooltip to employer stats field
+            $('.acf-field[data-name="employer_stats"] .acf-label label').append(
+                '<span class="dashicons dashicons-info" style="margin-left: 5px; color: #0073aa;" title="These stats appear in the four boxes below the header image."></span>'
+            );
+
+            // Initialize tooltips if WordPress has jQuery UI Tooltip
+            if ($.fn.tooltip) {
+                $('.dashicons-info').tooltip();
+            }
+        },
+
+        /**
+         * Enhance the shortcode meta box
+         */
+        enhanceShortcodeBox: function() {
+            // Only run on the employer story edit screen
+            if (!$('body').hasClass('post-type-employer-story')) {
+                return;
+            }
+
+            // Add copy buttons to shortcode examples
+            $('#employer-stories-shortcode code').each(function() {
+                const $code = $(this);
+                const $button = $('<button type="button" class="button button-small" style="margin-top: 5px;">Copy Shortcode</button>');
+                
+                $button.on('click', function() {
+                    const tempTextarea = document.createElement('textarea');
+                    tempTextarea.value = $code.text();
+                    document.body.appendChild(tempTextarea);
+                    tempTextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextarea);
+                    
+                    // Show copied message
+                    const $this = $(this);
+                    const originalText = $this.text();
+                    $this.text('Copied!').addClass('button-primary');
+                    
+                    setTimeout(function() {
+                        $this.text(originalText).removeClass('button-primary');
+                    }, 2000);
+                });
+                
+                $code.after($button);
+            });
+        },
+
+        /**
+         * Add copy functionality to shortcode examples on help page
+         */
+        addCopyFunctionality: function() {
+            // Only run on the help page
+            if (!$('body').hasClass('employer-story_page_employer-stories-help')) {
+                return;
+            }
+
+            // Add copy buttons to shortcode examples
+            $('.es-shortcode-example').each(function() {
+                const $example = $(this);
+                const $button = $('<button type="button" class="button button-small" style="margin-top: 10px;">Copy Shortcode</button>');
+                
+                $button.on('click', function() {
+                    const tempTextarea = document.createElement('textarea');
+                    tempTextarea.value = $example.text().trim();
+                    document.body.appendChild(tempTextarea);
+                    tempTextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextarea);
+                    
+                    // Show copied message
+                    const $this = $(this);
+                    const originalText = $this.text();
+                    $this.text('Copied!').addClass('button-primary');
+                    
+                    setTimeout(function() {
+                        $this.text(originalText).removeClass('button-primary');
+                    }, 2000);
+                });
+                
+                $example.after($button);
+            });
+        }
+    };
+
+    // Initialize everything
+    EmployerStoriesAdmin.init();
+
+})(jQuery);
+
+================
+File: assets/js/employer-stories.js
+================
+/**
+ * Employer Stories Plugin JavaScript
+ *
+ * Handles interactive features for the Employer Stories plugin
+ */
+
+(function($) {
+    'use strict';
+
+    /**
+     * Initialize the Employer Stories functionality
+     */
+    const EmployerStories = {
+        /**
+         * Initialize functions
+         */
+        init: function() {
+            this.bindEvents();
+        },
+
+        /**
+         * Bind events
+         */
+        bindEvents: function() {
+            // Initialize any interactive elements
+            $(document).ready(this.onDocumentReady);
+        },
+
+        /**
+         * Document ready handler
+         */
+        onDocumentReady: function() {
+            // Initialize lightbox for images if needed
+            EmployerStories.initLightbox();
+
+            // Initialize any filtering functionality
+            EmployerStories.initFilters();
+        },
+
+        /**
+         * Initialize lightbox functionality if needed
+         */
+        initLightbox: function() {
+            // This function will be implemented if we need image lightbox functionality
+            // Example:
+            // $('.es-employer-story-featured-image a').magnificPopup({
+            //     type: 'image',
+            //     gallery: {
+            //         enabled: true
+            //     }
+            // });
+        },
+
+        /**
+         * Initialize filtering functionality for the archive view
+         */
+        initFilters: function() {
+            // This function will handle any filtering on the archive page or shortcode
+            $('.es-filter-select').on('change', function() {
+                const filterValue = $(this).val();
+
+                // If we're using AJAX filtering, this is where we would make the request
+                // For now, we're just logging the value
+                // console.log('Filter selected: ' + filterValue);
+
+                // This would be replaced with actual filtering logic
+                // EmployerStories.filterStories(filterValue);
+            });
+        },
+
+        /**
+         * Filter stories based on criteria (placeholder function)
+         *
+         * @param {string} filter The filter value
+         */
+        filterStories: function(filter) {
+            // This function would contain the logic to filter stories
+            // It would be implemented when we have the specific filtering requirements
+        }
+    };
+
+    // Initialize everything
+    EmployerStories.init();
+
+})(jQuery);
+
+================
+File: includes/admin/class-employer-stories-admin.php
+================
+<?php
+/**
+ * Admin Functionality
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+/**
+ * Class Employer_Stories_Admin
+ *
+ * Handles the admin-specific functionality for Employer Stories
+ */
+class Employer_Stories_Admin {
+
+	/**
+	 * Instance of this class.
+	 *
+	 * @var object
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Initialize the class.
+	 */
+	private function __construct() {
+		// Add admin menu items
+		add_action('admin_menu', array($this, 'add_admin_menu'), 20);
+
+		// Add settings link to plugin page
+		add_filter('plugin_action_links_' . ES_PLUGIN_BASENAME, array($this, 'add_plugin_links'));
+
+		// Enqueue admin scripts and styles
+		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
+
+		// Add admin notices
+		add_action('admin_notices', array($this, 'admin_notices'));
+
+		// Add custom meta boxes
+		add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
+
+		// Add filter for admin columns
+		add_filter('manage_employer-story_posts_columns', array($this, 'set_custom_columns'));
+		add_action('manage_employer-story_posts_custom_column', array($this, 'custom_column_content'), 10, 2);
+
+		// Add filter for sorting columns
+		add_filter('manage_edit-employer-story_sortable_columns', array($this, 'set_sortable_columns'));
+        
+        // Add dashboard widget
+        add_action('wp_dashboard_setup', array($this, 'add_dashboard_widget'));
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		if (null == self::$instance) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Add admin menu items
+	 */
+	public function add_admin_menu() {
+		// Add settings page if needed
+		add_submenu_page(
+			'edit.php?post_type=employer-story',
+			__('Employer Stories Settings', 'employer-stories'),
+			__('Settings', 'employer-stories'),
+			'manage_options',
+			'employer-stories-settings',
+			array($this, 'settings_page')
+		);
+	}
+
+	/**
+	 * Settings page callback
+	 */
+	public function settings_page() {
+		?>
+        <div class="wrap">
+            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+            <form method="post" action="options.php">
+				<?php
+				// Output security fields
+				settings_fields('employer_stories_settings');
+
+				// Output setting sections
+				do_settings_sections('employer_stories_settings');
+
+				// Submit button
+				submit_button();
+				?>
+            </form>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Register settings
+	 */
+	public function register_settings() {
+		// Register settings for options page if needed
+		register_setting(
+			'employer_stories_settings', // Option group
+			'employer_stories_options',  // Option name
+			array($this, 'sanitize_settings') // Sanitize callback
+		);
+
+		// Add settings section
+		add_settings_section(
+			'employer_stories_display_settings', // ID
+			__('Display Settings', 'employer-stories'), // Title
+			array($this, 'settings_section_callback'), // Callback
+			'employer_stories_settings' // Page
+		);
+
+		// Add settings fields
+		add_settings_field(
+			'default_columns', // ID
+			__('Default Columns', 'employer-stories'), // Title
+			array($this, 'default_columns_callback'), // Callback
+			'employer_stories_settings', // Page
+			'employer_stories_display_settings' // Section
+		);
+	}
+
+	/**
+	 * Settings section callback
+	 */
+	public function settings_section_callback() {
+		echo '<p>' . __('Configure display settings for Employer Stories shortcode and archive.', 'employer-stories') . '</p>';
+	}
+
+	/**
+	 * Default columns setting callback
+	 */
+	public function default_columns_callback() {
+		$options = get_option('employer_stories_options');
+		$default_columns = isset($options['default_columns']) ? $options['default_columns'] : 3;
+		?>
+        <select name="employer_stories_options[default_columns]">
+            <option value="1" <?php selected($default_columns, 1); ?>><?php _e('1 Column', 'employer-stories'); ?></option>
+            <option value="2" <?php selected($default_columns, 2); ?>><?php _e('2 Columns', 'employer-stories'); ?></option>
+            <option value="3" <?php selected($default_columns, 3); ?>><?php _e('3 Columns', 'employer-stories'); ?></option>
+            <option value="4" <?php selected($default_columns, 4); ?>><?php _e('4 Columns', 'employer-stories'); ?></option>
+        </select>
+        <p class="description"><?php _e('Default number of columns to display in shortcode and archive.', 'employer-stories'); ?></p>
+		<?php
+	}
+
+	/**
+	 * Sanitize settings
+	 *
+	 * @param array $input The settings input.
+	 * @return array Sanitized settings.
+	 */
+	public function sanitize_settings($input) {
+		$sanitized = array();
+
+		if (isset($input['default_columns'])) {
+			$sanitized['default_columns'] = absint($input['default_columns']);
+			// Make sure it's between 1 and 4
+			$sanitized['default_columns'] = max(1, min(4, $sanitized['default_columns']));
+		}
+
+		return $sanitized;
+	}
+
+	/**
+	 * Add links to plugin page
+	 *
+	 * @param array $links Existing plugin links.
+	 * @return array Modified plugin links.
+	 */
+	public function add_plugin_links($links) {
+		$plugin_links = array(
+			'<a href="' . admin_url('edit.php?post_type=employer-story&page=employer-stories-settings') . '">' . __('Settings', 'employer-stories') . '</a>',
+		);
+
+		return array_merge($plugin_links, $links);
+	}
+
+	/**
+	 * Enqueue admin assets
+	 *
+	 * @param string $hook Current admin page.
+	 */
+	public function enqueue_admin_assets($hook) {
+		$screen = get_current_screen();
+
+		// Only load on our admin pages or employer story edit screens
+		if (!$screen ||
+		    !in_array($screen->id, array(
+			    'employer-story',
+			    'edit-employer-story',
+			    'employer-story_page_employer-stories-settings',
+			    'employer-story_page_employer-stories-help'
+		    ))
+		) {
+			return;
+		}
+
+		// CSS - only enqueue if file exists
+		$css_file = ES_PLUGIN_DIR . 'assets/css/employer-stories-admin.css';
+		if (file_exists($css_file)) {
+			wp_enqueue_style(
+				'employer-stories-admin-css',
+				ES_PLUGIN_URL . 'assets/css/employer-stories-admin.css',
+				array(),
+				filemtime($css_file)
+			);
+		}
+
+		// JavaScript - only enqueue if file exists
+		$js_file = ES_PLUGIN_DIR . 'assets/js/employer-stories-admin.js';
+		if (file_exists($js_file)) {
+			wp_enqueue_script(
+				'employer-stories-admin-js',
+				ES_PLUGIN_URL . 'assets/js/employer-stories-admin.js',
+				array('jquery'),
+				filemtime($js_file),
+				true
+			);
+		}
+	}
+
+	/**
+	 * Admin notices
+	 */
+	public function admin_notices() {
+		// Check for activation transient
+        if (get_transient('employer_stories_activation')) {
+            // Delete the transient
+            delete_transient('employer_stories_activation');
+            
+            // Display welcome message
+            ?>
+            <div class="notice notice-success is-dismissible">
+                <h3 style="margin-bottom: 0;"><?php _e('Thank you for installing Employer Stories!', 'employer-stories'); ?></h3>
+                <p>
+                    <?php _e('Get started by creating your first employer story or check out the documentation.', 'employer-stories'); ?>
+                </p>
+                <p>
+                    <a href="<?php echo admin_url('post-new.php?post_type=employer-story'); ?>" class="button button-primary">
+                        <?php _e('Create Your First Story', 'employer-stories'); ?>
+                    </a>
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story&page=employer-stories-help'); ?>" class="button">
+                        <?php _e('View Documentation', 'employer-stories'); ?>
+                    </a>
+                </p>
+            </div>
+            <?php
+        }
+        
+        // Check WordPress and PHP versions
+        $this->check_versions();
+	}
+    
+    /**
+     * Check WordPress and PHP versions
+     */
+    private function check_versions() {
+        // Only show to admins
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        
+        // Check WordPress version
+        global $wp_version;
+        if (version_compare($wp_version, '5.0', '<')) {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <?php printf(
+                        __('Employer Stories plugin works best with WordPress 5.0 or higher. You are using version %s. Please consider upgrading.', 'employer-stories'),
+                        $wp_version
+                    ); ?>
+                </p>
+            </div>
+            <?php
+        }
+        
+        // Check PHP version
+        if (version_compare(PHP_VERSION, '7.0', '<')) {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <?php printf(
+                        __('Employer Stories plugin works best with PHP 7.0 or higher. You are using version %s. Please consider upgrading.', 'employer-stories'),
+                        PHP_VERSION
+                    ); ?>
+                </p>
+            </div>
+            <?php
+        }
+    }
+
+	/**
+	 * Add custom meta boxes
+	 */
+	public function add_meta_boxes() {
+		add_meta_box(
+			'employer-stories-shortcode',
+			__('Employer Stories Shortcode', 'employer-stories'),
+			array($this, 'shortcode_meta_box'),
+			'employer-story',
+			'side',
+			'default'
+		);
+	}
+
+	/**
+	 * Shortcode meta box callback
+	 *
+	 * @param WP_Post $post The post object.
+	 */
+	public function shortcode_meta_box($post) {
+		?>
+        <p><?php _e('Use this shortcode to display this employer story:', 'employer-stories'); ?></p>
+        <code>[employer_stories include="<?php echo $post->ID; ?>"]</code>
+
+        <p><?php _e('Display all employer stories:', 'employer-stories'); ?></p>
+        <code>[employer_stories]</code>
+
+        <p><a href="<?php echo admin_url('edit.php?post_type=employer-story&page=employer-stories-help'); ?>"><?php _e('View all shortcode options', 'employer-stories'); ?></a></p>
+		<?php
+	}
+
+	/**
+	 * Set custom columns for the employer story post type
+	 *
+	 * @param array $columns Existing columns.
+	 * @return array Modified columns.
+	 */
+	public function set_custom_columns($columns) {
+		$new_columns = array();
+
+		// Add checkbox and title first
+		if (isset($columns['cb'])) {
+			$new_columns['cb'] = $columns['cb'];
+		}
+
+		if (isset($columns['title'])) {
+			$new_columns['title'] = $columns['title'];
+		}
+
+		// Add our custom columns
+		$new_columns['featured_image'] = __('Featured Image', 'employer-stories');
+		$new_columns['employer'] = __('Employer', 'employer-stories');
+
+		// Add remaining columns
+		foreach ($columns as $key => $value) {
+			if (!isset($new_columns[$key])) {
+				$new_columns[$key] = $value;
+			}
+		}
+
+		return $new_columns;
+	}
+
+	/**
+	 * Custom column content
+	 *
+	 * @param string $column Column name.
+	 * @param int $post_id Post ID.
+	 */
+	public function custom_column_content($column, $post_id) {
+		switch ($column) {
+			case 'featured_image':
+				if (has_post_thumbnail($post_id)) {
+					echo '<a href="' . get_edit_post_link($post_id) . '">';
+					echo get_the_post_thumbnail($post_id, array(50, 50));
+					echo '</a>';
+				} else {
+					echo '—';
+				}
+				break;
+
+			case 'employer':
+				if (function_exists('get_field')) {
+					$employer_stats = get_field('employer_stats', $post_id);
+					if ($employer_stats && !empty($employer_stats['employer'])) {
+						echo esc_html($employer_stats['employer']);
+					} else {
+						echo '—';
+					}
+				} else {
+					echo '—';
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Set sortable columns
+	 *
+	 * @param array $columns Sortable columns.
+	 * @return array Modified sortable columns.
+	 */
+	public function set_sortable_columns($columns) {
+		$columns['employer'] = 'employer';
+		return $columns;
+	}
+    
+    /**
+     * Add dashboard widget for quick access
+     */
+    public function add_dashboard_widget() {
+        wp_add_dashboard_widget(
+            'employer_stories_dashboard_widget',
+            __('Employer Stories Quick Links', 'employer-stories'),
+            array($this, 'dashboard_widget_content')
+        );
+    }
+    
+    /**
+     * Dashboard widget content
+     */
+    public function dashboard_widget_content() {
+        ?>
+        <div class="employer-stories-dashboard-widget">
+            <p><?php _e('Quick links to manage your Employer Stories:', 'employer-stories'); ?></p>
+            
+            <ul class="employer-stories-quick-links" style="margin-bottom: 15px;">
+                <li>
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story'); ?>" class="button">
+                        <span class="dashicons dashicons-list-view" style="margin-top: 3px;"></span>
+                        <?php _e('All Employer Stories', 'employer-stories'); ?>
+                    </a>
+                </li>
+                <li style="margin-top: 8px;">
+                    <a href="<?php echo admin_url('post-new.php?post_type=employer-story'); ?>" class="button">
+                        <span class="dashicons dashicons-plus" style="margin-top: 3px;"></span>
+                        <?php _e('Add New Story', 'employer-stories'); ?>
+                    </a>
+                </li>
+                <li style="margin-top: 8px;">
+                    <a href="<?php echo admin_url('edit.php?post_type=employer-story&page=employer-stories-help'); ?>" class="button">
+                        <span class="dashicons dashicons-editor-help" style="margin-top: 3px;"></span>
+                        <?php _e('Help & Documentation', 'employer-stories'); ?>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="employer-stories-stats" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                <?php
+                $story_count = wp_count_posts('employer-story');
+                $published_count = isset($story_count->publish) ? $story_count->publish : 0;
+                $draft_count = isset($story_count->draft) ? $story_count->draft : 0;
+                ?>
+                <p>
+                    <strong><?php _e('Statistics:', 'employer-stories'); ?></strong><br>
+                    <?php printf(_n('%s Published Story', '%s Published Stories', $published_count, 'employer-stories'), '<span style="color: #0073aa;">' . $published_count . '</span>'); ?><br>
+                    <?php printf(_n('%s Draft Story', '%s Draft Stories', $draft_count, 'employer-stories'), '<span style="color: #dc3232;">' . $draft_count . '</span>'); ?>
+                </p>
+            </div>
+        </div>
+        <?php
+    }
+}
+
+================
+File: includes/class-employer-stories-acf.php
+================
+<?php
+/**
+ * ACF Field Group Registration
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Class Employer_Stories_ACF
+ *
+ * Handles the registration of ACF field groups for Employer Stories
+ */
+class Employer_Stories_ACF {
+
+    /**
+     * Instance of this class.
+     *
+     * @var object
+     */
+    protected static $instance = null;
+
+    /**
+     * Field group key.
+     *
+     * @var string
+     */
+    protected $field_group_key = 'group_67cef0e998e92';
+
+    /**
+     * Field group JSON filename.
+     *
+     * @var string
+     */
+    protected $field_group_filename = 'employer-stories-field-group.json';
+
+    /**
+     * Post type JSON filename.
+     *
+     * @var string
+     */
+    protected $post_type_filename = 'post_type_employer_story.json';
+
+    /**
+     * Initialize the class.
+     */
+    public function __construct() {
+        // Register local JSON save point
+        add_filter('acf/settings/save_json', array($this, 'acf_json_save_point'));
+
+        // Register local JSON load point
+        add_filter('acf/settings/load_json', array($this, 'acf_json_load_point'));
+
+        // Hook into ACF initialization - important for correct loading order
+        add_action('acf/init', array($this, 'initialize_acf_sync'), 5);
+
+        // Add a notice if there are field groups that need syncing
+        add_action('admin_notices', array($this, 'sync_admin_notice'));
+
+        // Add an action to handle syncing
+        add_action('admin_post_employer_stories_sync_acf', array($this, 'handle_sync_action'));
+
+        // Add custom filename filter
+        add_filter('acf/json/save_file_name', array($this, 'custom_json_filename'), 10, 3);
+
+        // error_log('Employer_Stories_ACF initialized');
+    }
+
+    /**
+     * Return an instance of this class.
+     *
+     * @return object A single instance of this class.
+     */
+    public static function get_instance() {
+        if (null == self::$instance) {
+            self::$instance = new self;
+            // error_log('Employer Stories ACF: Instance created');
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Set ACF JSON save point.
+     *
+     * @param string $path Path to save ACF JSON files.
+     * @return string Modified path.
+     */
+    public function acf_json_save_point($path) {
+        // error_log('Employer Stories ACF: Setting save point to ' . ES_ACF_JSON_DIR);
+        return ES_ACF_JSON_DIR;
+    }
+
+    /**
+     * Add custom ACF JSON load point.
+     *
+     * @param array $paths Existing ACF JSON load paths.
+     * @return array Modified paths.
+     */
+    public function acf_json_load_point($paths) {
+        // Add our path to the existing load paths
+        $paths[] = ES_ACF_JSON_DIR;
+        // error_log('Employer Stories ACF: Adding load point ' . ES_ACF_JSON_DIR);
+        return $paths;
+    }
+
+    /**
+     * Customize the ACF JSON filename
+     *
+     * @param string $filename The default filename
+     * @param string $post_id The post ID
+     * @param array $field_group The field group
+     * @return string Custom filename
+     */
+    public function custom_json_filename($filename, $post_id, $field_group) {
+        // Only modify our specific field group
+        if (isset($field_group['key']) && $field_group['key'] === $this->field_group_key) {
+            // error_log('Employer Stories ACF: Using custom filename: ' . $this->field_group_filename);
+            return $this->field_group_filename;
+        }
+
+        return $filename;
+    }
+
+    /**
+     * Initialize ACF sync during acf/init hook.
+     */
+    public function initialize_acf_sync() {
+        // error_log('Employer Stories ACF: initialize_acf_sync called');
+
+        // Check if we're in the admin and have ACF functions
+        if (!is_admin() || !function_exists('acf_get_field_group')) {
+            return;
+        }
+
+        // Import post type definitions
+        $this->import_post_types();
+
+        // Import field groups
+        $this->import_field_groups();
+    }
+
+    /**
+     * Import post type definitions from JSON
+     */
+    private function import_post_types() {
+        if (!function_exists('acf_get_post_type_post') || !function_exists('acf_update_post_type')) {
+            // error_log('Employer Stories ACF: ACF Extended functions for post types not available');
+            return;
+        }
+
+        $json_file = ES_ACF_JSON_DIR . $this->post_type_filename;
+
+        // Add check here to return early if the file doesn't exist
+        if (!file_exists($json_file)) {
+            // error_log('Employer Stories ACF: Post type JSON file not found: ' . $json_file);
+            return;
+        }
+
+        $json_content = file_get_contents($json_file);
+        if (empty($json_content)) {
+            // error_log('Employer Stories ACF: Empty JSON file: ' . $json_file);
+            return;
+        }
+
+        $post_type_data = json_decode($json_content, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // error_log('Employer Stories ACF: JSON decode error: ' . json_last_error_msg() . ' in file: ' . $json_file);
+            return;
+        }
+
+        // Skip if not an array or missing required keys
+        if (!is_array($post_type_data) || !isset($post_type_data['key'])) {
+            // error_log('Employer Stories ACF: Invalid post type data structure, missing key');
+            return;
+        }
+
+        try {
+            // Get post type key
+            $post_type_key = $post_type_data['key'];
+
+            // Check if this post type already exists in ACF
+            $existing = false;
+            if (function_exists('acf_get_post_type_post')) {
+                $existing = acf_get_post_type_post($post_type_key);
+            }
+
+            if (!$existing) {
+                // Set import info
+                $post_type_data['import_source'] = 'employer-stories-plugin';
+                $post_type_data['import_date'] = date('Y-m-d H:i:s');
+
+                // error_log('Employer Stories ACF: Importing post type: ' . $post_type_data['title']);
+
+                // Different versions of ACF might require different approaches
+                if (function_exists('acf_update_post_type')) {
+                    acf_update_post_type($post_type_data);
+                    // error_log('Employer Stories ACF: Successfully imported post type via acf_update_post_type()');
+                } else {
+                    // Fallback to native WordPress registration if ACF function not available
+                    $this->register_post_type_fallback($post_type_data);
+                }
+            } else {
+                // error_log('Employer Stories ACF: Post type already exists: ' . $post_type_key);
+            }
+        } catch (Exception $e) {
+            // error_log('Employer Stories ACF: Error importing post type: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Fallback post type registration using WordPress native functions
+     * Used if ACF post type registration fails
+     *
+     * @param array $post_type_data The post type definition from JSON
+     */
+    private function register_post_type_fallback($post_type_data) {
+        // Only run if this isn't already registered
+        if (post_type_exists($post_type_data['post_type'])) {
+            return;
+        }
+
+        // error_log('Employer Stories ACF: Using fallback post type registration for: ' . $post_type_data['post_type']);
+
+        // Get labels from the data or use defaults
+        $labels = isset($post_type_data['labels']) ? $post_type_data['labels'] : array();
+
+        // Basic arguments
+        $args = array(
+            'labels'             => $labels,
+            'description'        => isset($post_type_data['description']) ? $post_type_data['description'] : '',
+            'public'             => isset($post_type_data['public']) ? $post_type_data['public'] : true,
+            'hierarchical'       => isset($post_type_data['hierarchical']) ? $post_type_data['hierarchical'] : false,
+            'exclude_from_search' => isset($post_type_data['exclude_from_search']) ? $post_type_data['exclude_from_search'] : false,
+            'publicly_queryable' => isset($post_type_data['publicly_queryable']) ? $post_type_data['publicly_queryable'] : true,
+            'show_ui'            => isset($post_type_data['show_ui']) ? $post_type_data['show_ui'] : true,
+            'show_in_menu'       => isset($post_type_data['show_in_menu']) ? $post_type_data['show_in_menu'] : true,
+            'show_in_admin_bar'  => isset($post_type_data['show_in_admin_bar']) ? $post_type_data['show_in_admin_bar'] : false,
+            'show_in_nav_menus'  => isset($post_type_data['show_in_nav_menus']) ? $post_type_data['show_in_nav_menus'] : true,
+            'show_in_rest'       => isset($post_type_data['show_in_rest']) ? $post_type_data['show_in_rest'] : true,
+            'menu_position'      => isset($post_type_data['menu_position']) ? $post_type_data['menu_position'] : null,
+            'menu_icon'          => isset($post_type_data['menu_icon']) ? $post_type_data['menu_icon'] : 'dashicons-businessperson',
+            'capability_type'    => 'post',
+            'supports'           => isset($post_type_data['supports']) ? $post_type_data['supports'] : array('title', 'editor'),
+            'taxonomies'         => isset($post_type_data['taxonomies']) ? $post_type_data['taxonomies'] : array(),
+            'has_archive'        => isset($post_type_data['has_archive']) ? $post_type_data['has_archive'] : true,
+        );
+
+        // Handle rewrite rules
+        if (isset($post_type_data['rewrite'])) {
+            $rewrite = $post_type_data['rewrite'];
+            $args['rewrite'] = array();
+
+            // Handle simple or complex rewrite array formats
+            if (is_array($rewrite)) {
+                // If slug is specified
+                if (isset($rewrite['slug'])) {
+                    $args['rewrite']['slug'] = $rewrite['slug'];
+                } else {
+                    $args['rewrite']['slug'] = $post_type_data['post_type'];
+                }
+
+                // Handle feeds
+                if (isset($rewrite['feeds'])) {
+                    $args['rewrite']['feeds'] = ($rewrite['feeds'] === '1' || $rewrite['feeds'] === true);
+                } else {
+                    $args['rewrite']['feeds'] = false;
+                }
+
+                // Handle with_front if set
+                if (isset($rewrite['with_front'])) {
+                    $args['rewrite']['with_front'] = ($rewrite['with_front'] === '1' || $rewrite['with_front'] === true);
+                }
+
+                // Handle pages if set
+                if (isset($rewrite['pages'])) {
+                    $args['rewrite']['pages'] = ($rewrite['pages'] === '1' || $rewrite['pages'] === true);
+                }
+            } else if ($rewrite === false) {
+                // If rewrite is explicitly set to false
+                $args['rewrite'] = false;
+            }
+        }
+
+        // Register the post type
+        register_post_type($post_type_data['post_type'], $args);
+        // error_log('Employer Stories ACF: Fallback post type registration complete');
+    }
+
+    /**
+     * Import field groups from JSON
+     */
+    private function import_field_groups() {
+        if (!function_exists('acf_get_field_group') || !function_exists('acf_import_field_group')) {
+            // error_log('Employer Stories ACF: ACF functions for field groups not available');
+            return;
+        }
+
+        $json_file = ES_ACF_JSON_DIR . $this->field_group_filename;
+        if (!file_exists($json_file)) {
+            // error_log('Employer Stories ACF: Field group JSON file not found: ' . $json_file);
+            return;
+        }
+
+        $json_content = file_get_contents($json_file);
+        if (empty($json_content)) {
+            // error_log('Employer Stories ACF: Empty field group JSON file: ' . $json_file);
+            return;
+        }
+
+        $field_group = json_decode($json_content, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // error_log('Employer Stories ACF: Field group JSON decode error: ' . json_last_error_msg());
+            return;
+        }
+
+        if (!is_array($field_group) || !isset($field_group['key'])) {
+            // error_log('Employer Stories ACF: Invalid field group JSON structure');
+            return;
+        }
+
+        // Import the field group
+        $this->import_single_field_group($field_group);
+    }
+
+    /**
+     * Import a single field group
+     *
+     * @param array $field_group Field group definition
+     */
+    private function import_single_field_group($field_group) {
+        // Check if this field group already exists
+        $existing = acf_get_field_group($field_group['key']);
+
+        if (!$existing) {
+            try {
+                // Import the field group
+                acf_import_field_group($field_group);
+                // error_log('Employer Stories ACF: Imported field group: ' . $field_group['title']);
+            } catch (Exception $e) {
+                // error_log('Employer Stories ACF: Error importing field group: ' . $e->getMessage());
+            }
+        } else {
+            // error_log('Employer Stories ACF: Field group already exists: ' . $field_group['key']);
+        }
+    }
+
+    /**
+     * Display admin notice if there are field groups that need syncing
+     */
+    public function sync_admin_notice() {
+        // Only show on ACF admin pages
+        $screen = get_current_screen();
+        if (!$screen || !is_object($screen) || !isset($screen->id) || strpos($screen->id, 'acf-field-group') === false) {
+            return;
+        }
+
+        $sync_required = $this->get_field_groups_requiring_sync();
+        if (!empty($sync_required) && is_array($sync_required)) {
+            ?>
+            <div class="notice notice-warning is-dismissible">
+                <p>
+                    <?php
+                    printf(
+                        _n(
+                            'There is %d Employer Stories field group that requires synchronization.',
+                            'There are %d Employer Stories field groups that require synchronization.',
+                            count($sync_required),
+                            'employer-stories'
+                        ),
+                        count($sync_required)
+                    );
+                    ?>
+                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=employer_stories_sync_acf'), 'employer_stories_sync_acf')); ?>" class="button button-primary">
+                        <?php _e('Sync Field Groups', 'employer-stories'); ?>
+                    </a>
+                </p>
+            </div>
+            <?php
+        }
+    }
+
+    /**
+     * Get field groups that require synchronization
+     *
+     * @return array Array of field groups that require synchronization
+     */
+    private function get_field_groups_requiring_sync() {
+        if (!function_exists('acf_get_field_group')) {
+            return array();
+        }
+
+        $sync_required = array();
+        $json_file = ES_ACF_JSON_DIR . $this->field_group_filename;
+
+        if (file_exists($json_file)) {
+            $json_content = file_get_contents($json_file);
+            $json_group = json_decode($json_content, true);
+
+            if (is_array($json_group) && isset($json_group['key'])) {
+                // Get database version
+                $db_group = acf_get_field_group($json_group['key']);
+
+                // If DB version doesn't exist or has a different modified time, it needs sync
+                if (!$db_group) {
+                    $sync_required[] = $json_group;
+                } else if (isset($json_group['modified']) && isset($db_group['modified']) && $db_group['modified'] != $json_group['modified']) {
+                    $sync_required[] = $json_group;
+                }
+            }
+        }
+
+        return $sync_required;
+    }
+
+    /**
+     * Handle the synchronization action
+     */
+    public function handle_sync_action() {
+        // Security check - use a more inclusive approach for capabilities
+        if (!current_user_can('manage_acf') && !current_user_can('edit_posts') && !current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.', 'employer-stories'));
+        }
+
+        // Verify nonce for security
+        if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'employer_stories_sync_acf')) {
+            wp_die(__('Security check failed.', 'employer-stories'));
+        }
+
+        // Import post types
+        $this->import_post_types();
+
+        // Import field groups
+        $this->import_field_groups();
+
+        // Redirect to the main ACF field groups list
+        wp_redirect(add_query_arg(array(
+            'post_type' => 'acf-field-group',
+            'sync' => 'complete',
+            'count' => 1
+        ), admin_url('edit.php')));
+        exit;
+    }
+}
+
+================
+File: includes/class-employer-stories-cpt.php
+================
+<?php
+/**
+ * Custom Post Type Registration
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+/**
+ * Class Employer_Stories_CPT
+ *
+ * Handles the registration of the Employer Story custom post type
+ */
+class Employer_Stories_CPT {
+
+	/**
+	 * Instance of this class.
+	 *
+	 * @var object
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Post type name.
+	 *
+	 * @var string
+	 */
+	protected $post_type = 'employer-story';
+
+	/**
+	 * URL slug to use for permalinks.
+	 *
+	 * @var string
+	 */
+	protected $url_slug = 'employer-stories';
+
+	/**
+	 * Initialize the class.
+	 */
+	private function __construct() {
+		// error_log('Employer Stories CPT: Constructor called');
+
+		// Register the custom post type
+		add_action('init', array($this, 'register_post_type'), 5);
+
+		// Modify permalink structure - extremely high priority to ensure it runs first
+		add_filter('post_type_link', array($this, 'modify_permalink_structure'), -999999, 4);
+		
+		// Add a second filter with extremely high priority to ensure our structure is used
+		add_filter('post_link', array($this, 'force_employer_story_permalink'), -999999, 3);
+		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), -999999, 3);
+
+		// Fix permalinks in admin
+		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
+
+		// Fix admin bar links
+		add_action('admin_bar_menu', array($this, 'fix_admin_bar_links'), 999);
+
+		// Register breadcrumbs shortcode
+		add_shortcode('employer_story_breadcrumbs', array($this, 'breadcrumbs_shortcode'));
+
+		// Register a function to run after WordPress is loaded to fix permalinks
+		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 1);
+		
+		// Add early hook for permalink structure with high priority
+		add_action('pre_get_posts', array($this, 'fix_query_vars'), 1);
+		
+		// Add a filter to parse request to ensure our custom permalinks are recognized with high priority
+		add_filter('request', array($this, 'parse_request'), -999999);
+		
+		// Add a filter to redirect old URLs to new ones with high priority
+		add_action('template_redirect', array($this, 'redirect_old_urls'), 1);
+		
+		// Add debug action for admins
+		if (is_admin() && current_user_can('manage_options')) {
+			add_action('admin_init', array($this, 'debug_rewrite_rules'));
+		}
+		
+		// Add more permalink filters to ensure our structure is used with high priority
+		add_filter('pre_post_link', array($this, 'pre_post_link'), -999999, 2);
+		add_filter('post_rewrite_rules', array($this, 'custom_post_rewrite_rules'), -999999);
+		
+		// Force flush rewrite rules on init for testing
+		add_action('init', array($this, 'maybe_flush_rules'), 999);
+		
+		// Add filter for post type archive link with high priority
+		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), -999999, 2);
+		
+		// Prevent archive template from being used for page with same slug
+		add_filter('template_include', array($this, 'prevent_archive_template'), 99);
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		if (null == self::$instance) {
+			self::$instance = new self;
+			// error_log('Employer Stories CPT: Instance created');
+			
+			// Force flush rewrite rules on first instance creation
+			add_action('shutdown', function() {
+				global $wp_rewrite;
+				$wp_rewrite->flush_rules(true);
+				// error_log('Employer Stories CPT: Forced rewrite rules flush on instance creation');
+			});
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Fix permalinks when WordPress is fully loaded
+	 */
+	public function fix_permalinks_on_load() {
+		global $wp_rewrite, $wpdb;
+
+		// Remove any existing rules for the singular post type by adding a rule that won't match
+		add_rewrite_rule(
+			'^' . $this->post_type . '/([^/]+)/?$',
+			'index.php?p=0',
+			'top'
+		);
+
+		// Add our custom permalink structure with higher specificity for the plural slug
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]',
+			'top'
+		);
+
+		// Add a feed rule if needed
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'top'
+		);
+		
+		// Add a comment feed rule if needed
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'top'
+		);
+		
+		// Add a trackback rule if needed
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/trackback/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&trackback=1',
+			'top'
+		);
+		
+		// We don't need an archive page rule since we're using a page with shortcode
+
+		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
+		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+		
+		// error_log('Employer Stories CPT: Added rewrite rules for ' . $this->url_slug . ' and removed rules for ' . $this->post_type);
+
+		// Force flush rewrite rules on first load after activation
+		static $flushed = false;
+		if (!$flushed) {
+			$wp_rewrite->flush_rules(true);
+			$flushed = true;
+			// error_log('Employer Stories CPT: Flushed rewrite rules during page load');
+			
+			// Direct database update for existing posts to ensure correct permalinks
+			$posts = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT ID, post_name FROM {$wpdb->posts} WHERE post_type = %s",
+					$this->post_type
+				)
+			);
+			
+			if (!empty($posts)) {
+				foreach ($posts as $post) {
+					// Update post meta to force permalink refresh
+					update_post_meta($post->ID, '_employer_story_permalink_fixed', time());
+					// error_log("Employer Stories CPT: Updated post meta for ID {$post->ID} to refresh permalink");
+					
+					// Trigger a post update to refresh permalinks
+					wp_update_post(array('ID' => $post->ID));
+					
+					// Clear any cached permalinks
+					clean_post_cache($post->ID);
+				}
+			}
+			
+			// Also update the permalink structure in the database directly
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = 'rewrite_rules'",
+					''
+				)
+			);
+			// error_log('Employer Stories CPT: Cleared rewrite rules in database');
+		}
+
+		// Flush rewrite rules - use sparingly, only during development or when needed
+		if (isset($_GET['employer_stories_flush']) && current_user_can('manage_options')) {
+			$wp_rewrite->flush_rules(true);
+		}
+	}
+
+	/**
+	 * Modify permalinks for our custom post type
+	 *
+	 * @param string $post_link The default post link
+	 * @param WP_Post $post The post object
+	 * @param bool $leavename Whether to leave the post name
+	 * @param bool $sample Is it a sample permalink
+	 * @return string Modified permalink
+	 */
+	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
+		if ($post->post_type == $this->post_type) {
+			// Always force the correct permalink structure regardless of other conditions
+			$post_name = $leavename ? '%postname%' : $post->post_name;
+			if (empty($post_name) && !$leavename) {
+				$post_name = sanitize_title($post->post_title);
+			}
+			
+			// Get the original link for logging
+			$original_link = $post_link;
+			
+			// Force the correct URL structure with the plural slug
+			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
+			// error_log('Employer Stories CPT: Forced permalink for post ID ' . $post->ID . ': ' . $post_link . ' (original: ' . $original_link . ')');
+		}
+		return $post_link;
+	}
+
+	/**
+	 * Fix permalinks displayed in the admin edit screen
+	 *
+	 * @param array $permalink Sample permalink
+	 * @param int $post_id Post ID
+	 * @param string $title Post title
+	 * @param string $name Post name
+	 * @param WP_Post $post Post object
+	 * @return array Modified permalink
+	 */
+	public function fix_admin_permalink($permalink, $post_id, $title, $name, $post) {
+		if ($post && $post->post_type === $this->post_type) {
+			$permalink[0] = str_replace($this->post_type, $this->url_slug, $permalink[0]);
+		}
+		return $permalink;
+	}
+
+	/**
+	 * Fix links in the admin bar
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar Admin bar object
+	 */
+	public function fix_admin_bar_links($wp_admin_bar) {
+		$view_node = $wp_admin_bar->get_node('view');
+		if ($view_node && is_singular($this->post_type)) {
+			$view_node->href = str_replace($this->post_type, $this->url_slug, $view_node->href);
+			$wp_admin_bar->add_node($view_node);
+		}
+	}
+
+	/**
+	 * Register the custom post type
+	 */
+	public function register_post_type() {
+		// error_log('Employer Stories CPT: register_post_type method called');
+
+		if (!post_type_exists($this->post_type)) {
+			$args = array(
+				'labels' => array(
+					'name' => 'Employer Stories',
+					'singular_name' => 'Employer Story',
+					'menu_name' => 'Employer Stories',
+					'all_items' => 'All Employer Stories',
+					'edit_item' => 'Edit Employer Story',
+					'view_item' => 'View Employer Story',
+					'view_items' => 'View Employer Stories',
+					'add_new_item' => 'Add New Employer Story',
+					'add_new' => 'Add New Employer Story',
+					'new_item' => 'New Employer Story',
+					'parent_item_colon' => 'Parent Employer Story:',
+					'search_items' => 'Search Employer Stories',
+					'not_found' => 'No employer stories found',
+					'not_found_in_trash' => 'No employer stories found in Trash',
+					'archives' => 'Employer Story Archives',
+					'attributes' => 'Employer Story Attributes',
+					'insert_into_item' => 'Insert into employer story',
+					'uploaded_to_this_item' => 'Uploaded to this employer story',
+					'filter_items_list' => 'Filter employer stories list',
+					'filter_by_date' => 'Filter employer stories by date',
+					'items_list_navigation' => 'Employer Stories list navigation',
+					'items_list' => 'Employer Stories list',
+					'item_published' => 'Employer Story published.',
+					'item_published_privately' => 'Employer Story published privately.',
+					'item_reverted_to_draft' => 'Employer Story reverted to draft.',
+					'item_scheduled' => 'Employer Story scheduled.',
+					'item_updated' => 'Employer Story updated.',
+					'item_link' => 'Employer Story Link',
+					'item_link_description' => 'A link to a employer story.',
+				),
+				'description' => 'Add or Edit Employer Stories',
+				'public' => true,
+				'show_in_rest' => true,
+				'menu_icon' => 'dashicons-buddicons-buddypress-logo',
+				'supports' => array(
+					'title',
+					'page-attributes',
+					'thumbnail',
+					'custom-fields',
+				),
+				'taxonomies' => array(
+					'category',
+					'block_categories',
+					'post_tag',
+				),
+				'delete_with_user' => false,
+				'rewrite' => array(
+					'slug' => $this->url_slug,
+					'with_front' => false,
+					'feeds' => false,
+					'pages' => true,
+					'ep_mask' => EP_PERMALINK,
+				),
+				'has_archive' => false, // Disable automatic archive page
+				'query_var' => $this->post_type,
+				'can_export' => true,
+				'publicly_queryable' => true,
+			);
+
+			register_post_type($this->post_type, $args);
+			// error_log('Employer Stories CPT: Post type registered with slug: ' . $this->url_slug);
+			
+			// Immediately after registering, add our custom rewrite rules
+			add_rewrite_rule(
+				'^' . $this->url_slug . '/([^/]+)/?$',
+				'index.php?' . $this->post_type . '=$matches[1]',
+				'top'
+			);
+			
+			// We don't need an archive rewrite rule since we're using a page with shortcode
+			
+			// Add rewrite tag
+			add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+			
+			// error_log('Employer Stories CPT: Added immediate rewrite rules after registration');
+		} else {
+			// error_log('Employer Stories CPT: Post type already exists');
+		}
+	}
+
+	/**
+	 * Force the correct permalink structure for employer stories
+	 * This is a backup method that runs in addition to modify_permalink_structure
+	 *
+	 * @param string $permalink The post's permalink
+	 * @param WP_Post|object $post The post object
+	 * @param bool $leavename Whether to keep the post name
+	 * @return string The modified permalink
+	 */
+	public function force_employer_story_permalink($permalink, $post, $leavename) {
+		// Only process our post type
+		if (!is_object($post) || $post->post_type !== $this->post_type) {
+			return $permalink;
+		}
+		
+		// Get the original link for logging
+		$original_link = $permalink;
+		
+		// Force the correct structure
+		$post_name = $leavename ? '%postname%' : $post->post_name;
+		if (empty($post_name) && !$leavename) {
+			$post_name = sanitize_title($post->post_title);
+		}
+		
+		// Force the correct URL structure with the plural slug
+		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
+		
+		// Log the change
+		// error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link . ' (original: ' . $original_link . ')');
+		
+		// Store the correct permalink in post meta for caching
+		if (!$leavename) {
+			update_post_meta($post->ID, '_employer_story_permalink', $forced_link);
+		}
+		
+		return $forced_link;
+	}
+
+	/**
+	 * Fix query vars for our custom post type
+	 * 
+	 * @param WP_Query $query The WordPress query object
+	 */
+	public function fix_query_vars($query) {
+		// Only run once
+		static $ran = false;
+		if ($ran) return;
+		$ran = true;
+		
+		// Make sure WordPress knows about our custom permalink structure
+		global $wp;
+		$wp->add_query_var($this->post_type);
+		
+		// Prevent archive behavior for pages with the same slug as our post type
+		if (!is_admin() && $query->is_main_query() && !$query->is_singular) {
+			// Check if this is a page with our archive slug
+			if (isset($query->query['pagename']) && $query->query['pagename'] === $this->url_slug) {
+				// Force it to be treated as a page, not an archive
+				$query->is_post_type_archive = false;
+				$query->is_archive = false;
+				
+				// error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
+			}
+		}
+		
+		// error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
+	}
+	
+	/**
+	 * Parse request to handle our custom permalink structure
+	 * 
+	 * @param array $query_vars The query variables
+	 * @return array Modified query variables
+	 */
+	public function parse_request($query_vars) {
+		// Check if we're on an employer story page
+		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+		
+		// If the path starts with our URL slug
+		if (preg_match('|^' . $this->url_slug . '/([^/]+)/?$|', $path, $matches)) {
+			$post_name = $matches[1];
+			
+			// Set the query var for our post type
+			$query_vars[$this->post_type] = $post_name;
+			// error_log('Employer Stories CPT: Parsed request for ' . $post_name);
+		}
+		
+		return $query_vars;
+	}
+	
+	/**
+	 * Redirect old URLs to new ones
+	 */
+	public function redirect_old_urls() {
+		// Check if we're on a page with the old URL structure
+		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+		
+		// If the path starts with the post type (singular)
+		if (preg_match('|^' . $this->post_type . '/([^/]+)/?$|', $path, $matches)) {
+			$post_name = $matches[1];
+			
+			// Build the new URL
+			$new_url = home_url($this->url_slug . '/' . $post_name . '/');
+			
+			// error_log('Employer Stories CPT: Redirecting from ' . $path . ' to ' . $new_url);
+			
+			// Redirect to the new URL
+			wp_redirect($new_url, 301);
+			exit;
+		}
+	}
+
+	/**
+	 * Breadcrumbs shortcode implementation
+	 *
+	 * @return string HTML markup for breadcrumbs
+	 */
+	public function breadcrumbs_shortcode() {
+		ob_start();
+
+		$home_url = home_url();
+		$home_label = __('Home', 'employer-stories');
+		$archive_url = home_url($this->url_slug);
+		$archive_label = __('Employer Stories', 'employer-stories');
+
+		// Start breadcrumbs container
+		echo '<div class="es-breadcrumbs">';
+
+		// Home link
+		echo '<a href="' . esc_url($home_url) . '">' . esc_html($home_label) . '</a>';
+		echo '<span class="es-breadcrumb-divider">/</span>';
+
+		// Always add the archive link, regardless of page type
+		echo '<a href="' . esc_url($archive_url) . '">' . esc_html($archive_label) . '</a>';
+		
+		// For single posts, add the post title
+		if (is_singular($this->post_type)) {
+			echo '<span class="es-breadcrumb-divider">/</span>';
+			echo '<span class="breadcrumb_last">' . get_the_title() . '</span>';
+		}
+
+		echo '</div>';
+
+		return ob_get_clean();
+	}
+	
+	/**
+	 * Debug rewrite rules - only for admins
+	 */
+	public function debug_rewrite_rules() {
+		// Only run this when a specific query parameter is present
+		if (isset($_GET['debug_employer_stories_rewrites']) && current_user_can('manage_options')) {
+			global $wp_rewrite;
+			
+			// Get all rewrite rules
+			$rules = $wp_rewrite->wp_rewrite_rules();
+			
+			// Log our specific rules
+			// error_log('Employer Stories CPT: Debugging rewrite rules');
+			
+			foreach ($rules as $pattern => $query) {
+				if (strpos($pattern, $this->post_type) !== false || strpos($pattern, $this->url_slug) !== false) {
+					// error_log("Rule: {$pattern} => {$query}");
+				}
+			}
+			
+			// Check if our rules exist
+			$singular_rule_exists = false;
+			$plural_rule_exists = false;
+			
+			foreach ($rules as $pattern => $query) {
+				if (strpos($pattern, '^' . $this->post_type . '/') === 0) {
+					$singular_rule_exists = true;
+				}
+				if (strpos($pattern, '^' . $this->url_slug . '/') === 0) {
+					$plural_rule_exists = true;
+				}
+			}
+			
+			// error_log('Singular rule exists: ' . ($singular_rule_exists ? 'Yes' : 'No'));
+			// error_log('Plural rule exists: ' . ($plural_rule_exists ? 'Yes' : 'No'));
+			
+			// Force flush rewrite rules if requested
+			if (isset($_GET['flush_rules']) && $_GET['flush_rules'] === '1') {
+				$wp_rewrite->flush_rules(true);
+				// error_log('Employer Stories CPT: Flushed rewrite rules via debug function');
+			}
+		}
+	}
+	
+	/**
+	 * Filter for pre_post_link to ensure our URL structure is used
+	 *
+	 * @param string $permalink The post's permalink.
+	 * @param object $post The post in question.
+	 * @return string The filtered permalink.
+	 */
+	public function pre_post_link($permalink, $post) {
+		if ($post->post_type === $this->post_type) {
+			// Force our URL structure
+			return home_url($this->url_slug . '/%postname%/');
+		}
+		return $permalink;
+	}
+	
+	/**
+	 * Custom rewrite rules for our post type
+	 *
+	 * @param array $rules The post rewrite rules.
+	 * @return array Modified rules.
+	 */
+	public function custom_post_rewrite_rules($rules) {
+		// Add our custom rule at the beginning to ensure it takes precedence
+		$new_rules = array(
+			$this->url_slug . '/([^/]+)/?$' => 'index.php?' . $this->post_type . '=$matches[1]',
+		);
+		
+		// Remove any rules for the singular post type
+		foreach ($rules as $pattern => $query) {
+			if (strpos($pattern, $this->post_type . '/') === 0) {
+				unset($rules[$pattern]);
+			}
+		}
+		
+		// error_log('Employer Stories CPT: Added custom post rewrite rules');
+		return array_merge($new_rules, $rules);
+	}
+	
+	/**
+	 * Maybe flush rewrite rules - only during development or when needed
+	 */
+	public function maybe_flush_rules() {
+		// Check for our special query parameter
+		if (isset($_GET['employer_stories_flush_rules'])) {
+			global $wp_rewrite;
+			$wp_rewrite->flush_rules(true);
+			// error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
+		}
+		
+		// Alternatively, use a transient to avoid flushing on every page load
+		if (get_transient('employer_stories_flush_rules') === false) {
+			global $wp_rewrite;
+			$wp_rewrite->flush_rules(true);
+			set_transient('employer_stories_flush_rules', 1, HOUR_IN_SECONDS);
+			// error_log('Employer Stories CPT: Flushed rewrite rules via transient check');
+		}
+	}
+	
+	/**
+	 * Fix archive link for our custom post type
+	 *
+	 * @param string $link The archive link
+	 * @param string $post_type The post type
+	 * @return string Modified archive link
+	 */
+	public function fix_archive_link($link, $post_type) {
+		if ($post_type === $this->post_type) {
+			return home_url($this->url_slug . '/');
+		}
+		return $link;
+	}
+	
+	/**
+	 * Prevent archive template from being used for page with same slug
+	 * 
+	 * @param string $template The template to include
+	 * @return string The modified template path
+	 */
+	public function prevent_archive_template($template) {
+		global $wp_query;
+		
+		// If this is a page with our slug but not a post type archive
+		if (is_page() && !is_post_type_archive($this->post_type)) {
+			$current_page = get_queried_object();
+			
+			// Check if the page slug matches our post type archive slug
+			if ($current_page && isset($current_page->post_name) && $current_page->post_name === $this->url_slug) {
+				// Force WordPress to use the page template, not the archive template
+				$wp_query->is_post_type_archive = false;
+				
+				// Log this for debugging
+				// error_log('Employer Stories CPT: Prevented archive template for page with slug: ' . $this->url_slug);
+			}
+		}
+		
+		return $template;
+	}
+}
+
+================
+File: includes/class-employer-stories-help.php
+================
+<?php
+/**
+ * Help Documentation Page
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Class to handle Employer Stories help documentation.
+ */
+class Employer_Stories_Help {
+    /**
+     * Instance of this class.
+     *
+     * @var object
+     */
+    protected static $instance = null;
+
+    /**
+     * Initialize the class.
+     */
+    private function __construct() {
+        // Add submenu page
+        add_action('admin_menu', array($this, 'add_help_page'), 30);
+        // Add admin-specific styles
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
+        // Add plugin action links
+        add_filter('plugin_action_links_' . ES_PLUGIN_BASENAME, array($this, 'add_plugin_action_links'));
+    }
+
+    /**
+     * Return an instance of this class.
+     *
+     * @return object A single instance of this class.
+     */
+    public static function get_instance() {
+        if (null == self::$instance) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Add Help/Documentation page for the plugin
+     */
+    public function add_help_page() {
+        add_submenu_page(
+            'edit.php?post_type=employer-story',  // Parent menu slug
+            'Employer Stories Help',             // Page title
+            'Help & Documentation',              // Menu title
+            'edit_posts',                        // Capability
+            'employer-stories-help',             // Menu slug
+            array($this, 'help_page_content')    // Callback function
+        );
+    }
+
+    /**
+     * Add plugin action links
+     *
+     * @param array $links Existing plugin action links
+     * @return array Modified links
+     */
+    public function add_plugin_action_links($links) {
+        $help_link = '<a href="' . admin_url('edit.php?post_type=employer-story&page=employer-stories-help') . '">' . __('Help', 'employer-stories') . '</a>';
+        array_unshift($links, $help_link);
+        return $links;
+    }
+
+    /**
+     * Enqueue styles for admin help page
+     *
+     * @param string $hook Current admin page
+     */
+    public function enqueue_admin_styles($hook) {
+        // Only load on our help page
+        if ('employer-story_page_employer-stories-help' !== $hook) {
+            return;
+        }
+
+        // Add inline styles for help page
+        wp_add_inline_style('wp-admin', $this->get_admin_styles());
+    }
+
+    /**
+     * Get admin styles for help page
+     *
+     * @return string CSS styles
+     */
+    private function get_admin_styles() {
+        return '
+            .es-help-wrap {
+                max-width: 1300px;
+                margin: 20px 20px 0 0;
+            }
+            .es-help-header {
+                background: #fff;
+                padding: 20px;
+                border-radius: 3px;
+                margin-bottom: 20px;
+                border-left: 4px solid #0073aa;
+                box-shadow: 0 1px 1px rgba(0,0,0,.04);
+            }
+            .es-help-section {
+                background: #fff;
+                padding: 20px;
+                border-radius: 3px;
+                margin-bottom: 20px;
+                box-shadow: 0 1px 1px rgba(0,0,0,.04);
+                overflow-x: auto;
+            }
+            .es-help-section h2 {
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+                margin-top: 0;
+            }
+            .es-help-section h3 {
+                margin-top: 1.5em;
+                margin-bottom: 0.5em;
+            }
+            .es-help-section table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 1em 0;
+                table-layout: fixed;
+            }
+            .es-help-section table th,
+            .es-help-section table td {
+                text-align: left;
+                padding: 8px;
+                border: 1px solid #ddd;
+                vertical-align: top;
+                word-wrap: break-word;
+                word-break: break-word;
+                hyphens: auto;
+            }
+            .es-help-section table th:nth-child(1),
+            .es-help-section table td:nth-child(1) {
+                width: 15%;
+            }
+            .es-help-section table th:nth-child(2),
+            .es-help-section table td:nth-child(2) {
+                width: 25%;
+            }
+            .es-help-section table th:nth-child(3),
+            .es-help-section table td:nth-child(3) {
+                width: 10%;
+            }
+            .es-help-section table th:nth-child(4),
+            .es-help-section table td:nth-child(4) {
+                width: 20%;
+            }
+            .es-help-section table th:nth-child(5),
+            .es-help-section table td:nth-child(5) {
+                width: 30%;
+            }
+            .es-help-section table th {
+                background-color: #f8f8f8;
+                font-weight: 600;
+            }
+            .es-help-section table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .es-help-section code {
+                background: #f8f8f8;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-size: 13px;
+                color: #0073aa;
+                display: inline-block;
+                max-width: 100%;
+                overflow-wrap: break-word;
+                white-space: normal;
+            }
+            .es-shortcode-example {
+                background: #f8f8f8;
+                padding: 15px;
+                border-left: 4px solid #0073aa;
+                font-family: monospace;
+                margin: 10px 0;
+                overflow-x: auto;
+                white-space: pre-wrap;
+                word-break: break-word;
+            }
+        ';
+    }
+
+    /**
+     * Content for help page
+     */
+    public function help_page_content() {
+        ?>
+        <div class="wrap es-help-wrap">
+            <div class="es-help-header">
+                <h1><?php esc_html_e('Employer Stories - Documentation', 'employer-stories'); ?></h1>
+                <p><?php esc_html_e('This page provides documentation on how to use Employer Stories shortcodes and features.', 'employer-stories'); ?></p>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Overview', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('Employer Stories allows you to create and display employer story profiles on your site. The plugin provides a shortcode to display stories in a grid layout.', 'employer-stories'); ?></p>
+                <ul>
+                    <li><code>[employer_stories]</code> - <?php esc_html_e('Display multiple employer stories in a grid layout', 'employer-stories'); ?></li>
+                    <li><code>[employer_story_breadcrumbs]</code> - <?php esc_html_e('Display breadcrumb navigation for employer stories', 'employer-stories'); ?></li>
+                </ul>
+            </div>
+
+            <!-- Shortcode Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Shortcode: [employer_stories]', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('This shortcode displays a grid of Employer Stories with various customization options.', 'employer-stories'); ?></p>
+
+                <h3><?php esc_html_e('Basic Usage', 'employer-stories'); ?></h3>
+                <div class="es-shortcode-example">
+                    [employer_stories]
+                </div>
+
+                <h3><?php esc_html_e('Display Options', 'employer-stories'); ?></h3>
+                <table>
+                    <tr>
+                        <th><?php esc_html_e('Parameter', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Description', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Default', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Options', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Examples', 'employer-stories'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><code>columns</code></td>
+                        <td><?php esc_html_e('Number of columns in grid view', 'employer-stories'); ?></td>
+                        <td><code>3</code></td>
+                        <td><?php esc_html_e('1-4', 'employer-stories'); ?></td>
+                        <td><code>columns="2"</code><br><code>columns="4"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>posts_per_page</code></td>
+                        <td><?php esc_html_e('Number of stories to display', 'employer-stories'); ?></td>
+                        <td><code>9</code></td>
+                        <td><?php esc_html_e('any number, -1 for all', 'employer-stories'); ?></td>
+                        <td><code>posts_per_page="6"</code><br><code>posts_per_page="-1"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>pagination</code></td>
+                        <td><?php esc_html_e('Whether to show pagination', 'employer-stories'); ?></td>
+                        <td><code>false</code></td>
+                        <td><code>true</code>, <code>false</code></td>
+                        <td><code>pagination="true"</code></td>
+                    </tr>
+                </table>
+
+                <h3><?php esc_html_e('Ordering Parameters', 'employer-stories'); ?></h3>
+                <table>
+                    <tr>
+                        <th><?php esc_html_e('Parameter', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Description', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Default', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Options', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Examples', 'employer-stories'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><code>order</code></td>
+                        <td><?php esc_html_e('Sort order', 'employer-stories'); ?></td>
+                        <td><code>DESC</code></td>
+                        <td><code>ASC</code>, <code>DESC</code></td>
+                        <td><code>order="ASC"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>orderby</code></td>
+                        <td><?php esc_html_e('Field to order by', 'employer-stories'); ?></td>
+                        <td><code>date</code></td>
+                        <td><code>date</code>, <code>title</code>, <code>menu_order</code>, <code>rand</code></td>
+                        <td><code>orderby="title"</code><br><code>orderby="rand"</code></td>
+                    </tr>
+                </table>
+
+                <h3><?php esc_html_e('Filtering Parameters', 'employer-stories'); ?></h3>
+                <table>
+                    <tr>
+                        <th><?php esc_html_e('Parameter', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Description', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Default', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Options', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Examples', 'employer-stories'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><code>category</code></td>
+                        <td><?php esc_html_e('Filter by category', 'employer-stories'); ?></td>
+                        <td><code>''</code></td>
+                        <td><?php esc_html_e('category slug or ID', 'employer-stories'); ?></td>
+                        <td><code>category="featured"</code><br><code>category="5"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>tag</code></td>
+                        <td><?php esc_html_e('Filter by tag', 'employer-stories'); ?></td>
+                        <td><code>''</code></td>
+                        <td><?php esc_html_e('tag slug or ID', 'employer-stories'); ?></td>
+                        <td><code>tag="healthcare"</code><br><code>tag="8"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>include</code></td>
+                        <td><?php esc_html_e('Include only specific stories', 'employer-stories'); ?></td>
+                        <td><code>''</code></td>
+                        <td><?php esc_html_e('IDs separated by commas', 'employer-stories'); ?></td>
+                        <td><code>include="42,51,90"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>exclude</code></td>
+                        <td><?php esc_html_e('Exclude specific stories', 'employer-stories'); ?></td>
+                        <td><code>''</code></td>
+                        <td><?php esc_html_e('IDs separated by commas', 'employer-stories'); ?></td>
+                        <td><code>exclude="42,51,90"</code></td>
+                    </tr>
+                </table>
+
+                <h3><?php esc_html_e('Advanced Parameters', 'employer-stories'); ?></h3>
+                <table>
+                    <tr>
+                        <th><?php esc_html_e('Parameter', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Description', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Default', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Options', 'employer-stories'); ?></th>
+                        <th><?php esc_html_e('Examples', 'employer-stories'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><code>offset</code></td>
+                        <td><?php esc_html_e('Number of posts to skip', 'employer-stories'); ?></td>
+                        <td><code>0</code></td>
+                        <td><?php esc_html_e('any number', 'employer-stories'); ?></td>
+                        <td><code>offset="3"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>class</code></td>
+                        <td><?php esc_html_e('Additional CSS classes', 'employer-stories'); ?></td>
+                        <td><code>''</code></td>
+                        <td><?php esc_html_e('any class names', 'employer-stories'); ?></td>
+                        <td><code>class="featured-stories"</code></td>
+                    </tr>
+                </table>
+
+                <h3><?php esc_html_e('Example Shortcodes', 'employer-stories'); ?></h3>
+                <p><?php esc_html_e('Basic grid with 3 columns:', 'employer-stories'); ?></p>
+                <div class="es-shortcode-example">
+                    [employer_stories columns="3" posts_per_page="6"]
+                </div>
+
+                <p><?php esc_html_e('Display stories from a specific category with pagination:', 'employer-stories'); ?></p>
+                <div class="es-shortcode-example">
+                    [employer_stories category="healthcare" pagination="true" posts_per_page="12"]
+                </div>
+
+                <p><?php esc_html_e('Display stories in a 2-column layout, randomly ordered:', 'employer-stories'); ?></p>
+                <div class="es-shortcode-example">
+                    [employer_stories columns="2" orderby="rand"]
+                </div>
+
+                <p><?php esc_html_e('Display specific stories by ID:', 'employer-stories'); ?></p>
+                <div class="es-shortcode-example">
+                    [employer_stories include="42,51,90" orderby="post__in"]
+                </div>
+            </div>
+
+            <!-- Breadcrumbs Shortcode Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Shortcode: [employer_story_breadcrumbs]', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('This shortcode displays breadcrumb navigation for employer stories.', 'employer-stories'); ?></p>
+
+                <h3><?php esc_html_e('Basic Usage', 'employer-stories'); ?></h3>
+                <div class="es-shortcode-example">
+                    [employer_story_breadcrumbs]
+                </div>
+
+                <p><?php esc_html_e('The breadcrumbs will display:', 'employer-stories'); ?></p>
+                <ul>
+                    <li><?php esc_html_e('Home > Employer Stories (when on the archive page)', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Home > Employer Stories > Story Title (when on a single story page)', 'employer-stories'); ?></li>
+                </ul>
+            </div>
+
+            <!-- Finding IDs Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Finding Story IDs', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('To find the ID of an Employer Story:', 'employer-stories'); ?></p>
+                <ol>
+                    <li><?php esc_html_e('Go to Employer Stories in the admin menu', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Hover over a story\'s title', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Look at the URL that appears in your browser\'s status bar', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('The ID is the number after "post=", e.g., post=42', 'employer-stories'); ?></li>
+                </ol>
+                <p><?php esc_html_e('Alternatively, open a story for editing and the ID will be visible in the URL.', 'employer-stories'); ?></p>
+            </div>
+
+            <!-- Create New Stories Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Creating Employer Stories', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('To create a new Employer Story:', 'employer-stories'); ?></p>
+                <ol>
+                    <li><?php esc_html_e('Go to Employer Stories > Add New in the admin menu', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Add a title for your story', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Set a featured image - this will be displayed in the grid view', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Fill in the custom fields in the Employer Stories Field Group section', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Publish your story when ready', 'employer-stories'); ?></li>
+                </ol>
+                <p><?php esc_html_e('The featured image is particularly important as it is what displays in the grid view on archive pages and in the shortcode output.', 'employer-stories'); ?></p>
+            </div>
+
+            <!-- Need Help Section -->
+            <div class="es-help-section">
+                <h2><?php esc_html_e('Need More Help?', 'employer-stories'); ?></h2>
+                <p><?php esc_html_e('If you need further assistance:', 'employer-stories'); ?></p>
+                <ul>
+                    <li><?php esc_html_e('Contact your website administrator', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Refer to the WordPress documentation for general shortcode usage', 'employer-stories'); ?></li>
+                </ul>
+            </div>
+        </div>
+        <?php
+    }
+}
+
+================
+File: includes/class-employer-stories-shortcode.php
+================
+<?php
+/**
+ * Shortcode Implementation
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+/**
+ * Class Employer_Stories_Shortcode
+ *
+ * Handles the shortcode functionality for Employer Stories
+ */
+class Employer_Stories_Shortcode {
+
+	/**
+	 * Instance of this class.
+	 *
+	 * @var object
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Shortcode tag.
+	 *
+	 * @var string
+	 */
+	protected $shortcode_tag = 'employer_stories';
+
+	/**
+	 * Initialize the class.
+	 */
+	private function __construct() {
+		// Register the shortcode
+		add_shortcode($this->shortcode_tag, array($this, 'render_shortcode'));
+
+		// Add shortcode button to editor (optional)
+		add_action('admin_init', array($this, 'register_shortcode_button'));
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		if (null == self::$instance) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Register shortcode button for TinyMCE.
+	 */
+	public function register_shortcode_button() {
+		// This is a placeholder for adding a button to the editor
+		// Will be implemented if needed
+	}
+
+	/**
+	 * Render the employer stories shortcode.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @return string Shortcode output.
+	 */
+	public function render_shortcode($atts) {
+		// Parse shortcode attributes
+		$atts = shortcode_atts(array(
+			// Display options
+			'columns' => 3,                   // Number of columns (1-4)
+			'posts_per_page' => 9,            // Number of stories to show
+			'pagination' => 'false',          // Show pagination
+
+			// Ordering parameters
+			'order' => 'DESC',                // ASC or DESC
+			'orderby' => 'date',              // date, title, menu_order, rand
+
+			// Filtering parameters
+			'category' => '',                 // Filter by category slug or ID
+			'tag' => '',                      // Filter by tag slug or ID
+			'include' => '',                  // Include specific story IDs
+			'exclude' => '',                  // Exclude specific story IDs
+
+			// Advanced parameters
+			'offset' => 0,                    // Number of posts to skip
+			'class' => '',                    // Additional CSS classes
+		), $atts, $this->shortcode_tag);
+
+		// Convert string boolean values to actual booleans
+		$atts['pagination'] = filter_var($atts['pagination'], FILTER_VALIDATE_BOOLEAN);
+
+		// Convert numeric strings to integers
+		foreach (array('columns', 'posts_per_page', 'offset') as $int_att) {
+			$atts[$int_att] = absint($atts[$int_att]);
+		}
+
+		// Validate columns (1-4)
+		$atts['columns'] = max(1, min(4, $atts['columns']));
+
+		// Get the appropriate image size based on columns
+		$image_size = Employer_Stories::get_column_image_size($atts['columns']);
+
+		// Set up WP_Query arguments
+		$query_args = array(
+			'post_type' => 'employer-story',
+			'posts_per_page' => $atts['posts_per_page'],
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby'],
+			'offset' => $atts['offset'],
+			'ignore_sticky_posts' => true,
+		);
+
+		// Handle pagination
+		if ($atts['pagination']) {
+			$paged = get_query_var('paged') ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
+			$query_args['paged'] = $paged;
+
+			// Offset breaks pagination, so we need to handle it differently
+			if ($atts['offset'] > 0) {
+				$query_args['offset'] = ($paged - 1) * $atts['posts_per_page'] + $atts['offset'];
+			}
+		}
+
+		// Handle category filtering
+		if (!empty($atts['category'])) {
+			$cat_args = array();
+
+			// Check if it's an ID or slug
+			if (is_numeric($atts['category'])) {
+				$cat_args['cat'] = absint($atts['category']);
+			} else {
+				$cat_args['category_name'] = sanitize_text_field($atts['category']);
+			}
+
+			$query_args = array_merge($query_args, $cat_args);
+		}
+
+		// Handle tag filtering
+		if (!empty($atts['tag'])) {
+			$tag_args = array();
+
+			// Check if it's an ID or slug
+			if (is_numeric($atts['tag'])) {
+				$tag_args['tag_id'] = absint($atts['tag']);
+			} else {
+				$tag_args['tag'] = sanitize_text_field($atts['tag']);
+			}
+
+			$query_args = array_merge($query_args, $tag_args);
+		}
+
+		// Handle include parameter
+		if (!empty($atts['include'])) {
+			$include_ids = array_map('absint', explode(',', $atts['include']));
+			$query_args['post__in'] = $include_ids;
+
+			// Override orderby to preserve post__in order if set to default
+			if ($atts['orderby'] === 'date') {
+				$query_args['orderby'] = 'post__in';
+			}
+		}
+
+		// Handle exclude parameter
+		if (!empty($atts['exclude'])) {
+			$exclude_ids = array_map('absint', explode(',', $atts['exclude']));
+			$query_args['post__not_in'] = $exclude_ids;
+		}
+
+		// Run the query
+		$stories_query = new WP_Query($query_args);
+
+		// Start output buffering
+		ob_start();
+
+		// Set up column classes based on columns setting
+		$grid_classes = 'es-employer-stories-grid row';
+		$column_class = 'large-' . (12 / $atts['columns']) . ' medium-6 small-12';
+
+		// Add custom class if provided
+		if (!empty($atts['class'])) {
+			$grid_classes .= ' ' . sanitize_html_class($atts['class']);
+		}
+
+		// Wrapper div with appropriate classes
+		echo '<div class="es-employer-stories-container">';
+
+		if ($stories_query->have_posts()) {
+			echo '<div class="' . esc_attr($grid_classes) . '">';
+
+			while ($stories_query->have_posts()) {
+				$stories_query->the_post();
+
+				echo '<div class="es-employer-story-item col ' . esc_attr($column_class) . '">';
+				echo '<article id="employer-story-' . get_the_ID() . '" class="es-employer-story-card">';
+
+				echo '<a href="' . esc_url(get_permalink()) . '" class="es-employer-story-link">';
+
+				// Display featured image if available
+				if (has_post_thumbnail()) {
+					echo '<div class="es-employer-story-thumbnail">';
+					the_post_thumbnail($image_size, array('class' => 'es-card-image'));
+					echo '</div>';
+				} else {
+					// Placeholder for posts without featured image
+					echo '<div class="es-employer-story-thumbnail es-no-image">';
+					echo '<div class="es-placeholder">' . __('No Image', 'employer-stories') . '</div>';
+					echo '</div>';
+				}
+
+				echo '</a>'; // End .es-employer-story-link
+
+				echo '</article>'; // End .es-employer-story-card
+				echo '</div>'; // End .es-employer-story-item
+			}
+
+			echo '</div>'; // End .es-employer-stories-grid
+
+			// Pagination
+			if ($atts['pagination']) {
+				echo '<div class="es-pagination">';
+
+				$big = 999999999; // need an unlikely integer
+
+				echo paginate_links(array(
+					'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+					'format' => '?paged=%#%',
+					'current' => max(1, get_query_var('paged')),
+					'total' => $stories_query->max_num_pages,
+					'prev_text' => '&larr; ' . __('Previous', 'employer-stories'),
+					'next_text' => __('Next', 'employer-stories') . ' &rarr;',
+				));
+
+				echo '</div>';
+			}
+
+		} else {
+			// No stories found
+			echo '<div class="es-no-employer-stories">';
+			echo '<p>' . __('No employer stories found.', 'employer-stories') . '</p>';
+			echo '</div>';
+		}
+
+		echo '</div>'; // End .es-employer-stories-container
+
+		// Reset post data
+		wp_reset_postdata();
+
+		// Return the buffered content
+		return ob_get_clean();
+	}
+}
+
+================
+File: includes/class-employer-stories.php
+================
+<?php
+/**
+ * Main Employer Stories class
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+/**
+ * Class Employer_Stories
+ *
+ * Main class for handling Employer Stories functionality
+ */
+class Employer_Stories {
+	/**
+	 * Instance of this class.
+	 *
+	 * @var object
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Custom image sizes.
+	 *
+	 * @var array
+	 */
+	protected $image_sizes = array(
+		'es-3-column' => array(515, 343, true),  // Default 3-column size
+		'es-2-column' => array(770, 512, true),  // 2-column size
+		'es-4-column' => array(385, 257, true),  // 4-column size
+		'es-1-column' => array(1200, 800, true), // 1-column size
+	);
+
+	/**
+	 * Initialize the class.
+	 */
+	public function __construct() {
+		$this->setup_actions();
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		if (null == self::$instance) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Setup actions and filters
+	 */
+	private function setup_actions() {
+		// Register custom image sizes
+		add_action('after_setup_theme', array($this, 'register_image_sizes'));
+
+		// Enqueue scripts and styles
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+
+		// Add template filter for single posts only
+		add_filter('single_template', array($this, 'load_single_template'));
+
+		// Add body class
+		add_filter('body_class', array($this, 'add_body_class'));
+	}
+
+	/**
+	 * Register custom image sizes
+	 */
+	public function register_image_sizes() {
+		foreach ($this->image_sizes as $name => $dimensions) {
+			add_image_size($name, $dimensions[0], $dimensions[1], $dimensions[2]);
+		}
+	}
+
+	/**
+	 * Get the appropriate image size based on column count
+	 *
+	 * @param int $columns Number of columns
+	 * @return string Image size name
+	 */
+	public static function get_column_image_size($columns) {
+		switch ($columns) {
+			case 1:
+				return 'es-1-column';
+			case 2:
+				return 'es-2-column';
+			case 4:
+				return 'es-4-column';
+			case 3:
+			default:
+				return 'es-3-column';
+		}
+	}
+
+	/**
+	 * Enqueue scripts and styles but only on relevant pages
+	 */
+	public function enqueue_scripts() {
+		// Only load on single employer story or archive page
+		if (!$this->is_employer_story_page()) {
+			return;
+		}
+
+		// Combined CSS file with all styles
+		$this->enqueue_style(
+			'employer-stories-css',
+			'assets/css/employer-stories.css'
+		);
+
+		// JavaScript
+		$this->enqueue_script(
+			'employer-stories-js',
+			'assets/js/employer-stories.js',
+			array('jquery')
+		);
+	}
+
+	/**
+	 * Helper to enqueue styles with version based on file modification time
+	 *
+	 * @param string $handle Style handle
+	 * @param string $path Style path relative to plugin directory
+	 */
+	private function enqueue_style($handle, $path) {
+		$full_path = ES_PLUGIN_DIR . $path;
+		$url = ES_PLUGIN_URL . $path;
+
+		if (file_exists($full_path)) {
+			$version = filemtime($full_path);
+			wp_enqueue_style($handle, $url, array(), $version);
+		}
+	}
+
+	/**
+	 * Helper to enqueue scripts with version based on file modification time
+	 *
+	 * @param string $handle Script handle
+	 * @param string $path Script path relative to plugin directory
+	 * @param array $deps Script dependencies
+	 */
+	private function enqueue_script($handle, $path, $deps = array()) {
+		$full_path = ES_PLUGIN_DIR . $path;
+		$url = ES_PLUGIN_URL . $path;
+
+		if (file_exists($full_path)) {
+			$version = filemtime($full_path);
+			wp_enqueue_script($handle, $url, $deps, $version, true);
+		}
+	}
+
+	/**
+	 * Check if current page is related to employer stories
+	 *
+	 * @return bool
+	 */
+	private function is_employer_story_page() {
+		// Load on single employer story pages
+		if (is_singular('employer-story')) {
+			return true;
+		}
+		
+		// Also load on any page that might contain our shortcode
+		global $post;
+		if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'employer_stories')) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Load single template for employer story
+	 *
+	 * @param string $template Template path
+	 * @return string Modified template path
+	 */
+	public function load_single_template($template) {
+		if (is_singular('employer-story')) {
+			$custom_template = ES_TEMPLATES_DIR . 'single-employer-story.php';
+			if (file_exists($custom_template)) {
+				return $custom_template;
+			}
+		}
+		return $template;
+	}
+
+
+	/**
+	 * Add custom body class for employer story pages
+	 *
+	 * @param array $classes Body classes
+	 * @return array Modified body classes
+	 */
+	public function add_body_class($classes) {
+		if ($this->is_employer_story_page()) {
+			$classes[] = 'employer-stories-plugin';
+
+			if (is_singular('employer-story')) {
+				$classes[] = 'employer-story-single';
+			}
+		}
+
+		return $classes;
+	}
+}
+
+================
+File: templates/single-employer-story.php
+================
+<?php
+/**
+ * The template for displaying single employer story posts
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+get_header();
+?>
+
+    <main id="main" class="<?php echo esc_attr(flatsome_main_classes()); ?>">
+        <!-- Header Block (full width) -->
+        <div class="es-section-wrapper es-employer-story-header">
+			<?php echo do_shortcode('[block id="single-employer-story-header"]'); ?>
+            
+            <?php if (!strpos(ob_get_contents(), 'es-breadcrumbs')) : ?>
+                <div class="container">
+                    <?php echo do_shortcode('[employer_story_breadcrumbs]'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Content area (site width) -->
+        <div class="row es-single-employer-story">
+            <div class="large-12 col">
+                <article id="employer-story-<?php the_ID(); ?>" <?php post_class('es-employer-story'); ?>>
+					<?php while (have_posts()) : the_post(); ?>
+
+                        <!-- Header Image Section -->
+						<?php if (function_exists('get_field') && $header_image = get_field('header_image')) : ?>
+                            <div class="es-employer-story-header-image-wrapper">
+                                <img src="<?php echo esc_url($header_image['url']); ?>"
+                                     alt="<?php echo esc_attr(get_the_title()); ?>"
+                                     class="es-employer-story-header-image" />
+                            </div>
+						<?php endif; ?>
+
+                        <!-- Employer Stats Section -->
+						<?php if (function_exists('get_field') && $employer_stats = get_field('employer_stats')) : ?>
+                            <div class="es-employer-stats-section">
+                                <div class="row">
+                                    <!-- Employer Column -->
+                                    <div class="large-3 medium-6 small-12 col es-stats-column">
+                                        <div class="es-stats-item">
+                                            <div class="es-stats-icon">
+                                                <img src="https://ptcb2025stag.wpenginepowered.com/wp-content/uploads/2025/03/employer-icon.webp"
+                                                     alt="Employer"
+                                                     width="35"
+                                                     height="35" />
+                                            </div>
+                                            <h4 class="es-stats-title">Employer</h4>
+                                            <div class="es-stats-value"><?php echo esc_html($employer_stats['employer']); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Headquarters Column -->
+                                    <div class="large-3 medium-6 small-12 col es-stats-column">
+                                        <div class="es-stats-item">
+                                            <div class="es-stats-icon">
+                                                <img src="https://ptcb2025stag.wpenginepowered.com/wp-content/uploads/2025/03/headquarters-icon.webp"
+                                                     alt="Headquarters"
+                                                     width="35"
+                                                     height="35" />
+                                            </div>
+                                            <h4 class="es-stats-title">Headquarters</h4>
+                                            <div class="es-stats-value"><?php echo esc_html($employer_stats['headquarters']); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Practice Setting Column -->
+                                    <div class="large-3 medium-6 small-12 col es-stats-column">
+                                        <div class="es-stats-item">
+                                            <div class="es-stats-icon">
+                                                <img src="https://ptcb2025stag.wpenginepowered.com/wp-content/uploads/2025/03/practice-setting-icon.webp"
+                                                     alt="Practice Setting"
+                                                     width="35"
+                                                     height="35" />
+                                            </div>
+                                            <h4 class="es-stats-title">Practice Setting</h4>
+                                            <div class="es-stats-value"><?php echo esc_html($employer_stats['practice_settings']); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Locations Column -->
+                                    <div class="large-3 medium-6 small-12 col es-stats-column">
+                                        <div class="es-stats-item">
+                                            <div class="es-stats-icon">
+                                                <img src="https://ptcb2025stag.wpenginepowered.com/wp-content/uploads/2025/03/locations-icon.webp"
+                                                     alt="Locations"
+                                                     width="35"
+                                                     height="35" />
+                                            </div>
+                                            <h4 class="es-stats-title">Locations</h4>
+                                            <div class="es-stats-value"><?php echo esc_html($employer_stats['locations']); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						<?php endif; ?>
+
+                        <!-- First Paragraph Section with Background Color -->
+						<?php if (function_exists('get_field') && $first_paragraph = get_field('first_paragraph')) : ?>
+                            <div class="es-first-paragraph-section">
+                                <div class="es-first-paragraph-container">
+									<?php if (!empty($first_paragraph['paragraph_title'])) : ?>
+                                        <div class="es-paragraph-title">
+											<?php echo $first_paragraph['paragraph_title']; ?>
+                                        </div>
+									<?php endif; ?>
+
+									<?php if (!empty($first_paragraph['paragraph_content'])) : ?>
+                                        <div class="es-paragraph-content">
+											<?php echo $first_paragraph['paragraph_content']; ?>
+                                        </div>
+									<?php endif; ?>
+                                </div>
+                            </div>
+						<?php endif; ?>
+
+                        <!-- Story Title Section -->
+						<?php if (function_exists('get_field') && $story_title = get_field('story_title')) : ?>
+                            <div class="es-story-title-section">
+                                <div class="es-story-title-container">
+									<?php echo $story_title; ?>
+                                </div>
+                            </div>
+						<?php endif; ?>
+
+                        <!-- Story Content Section -->
+						<?php if (function_exists('get_field') && have_rows('story_content')) : ?>
+                            <div class="es-story-content-section">
+								<?php while (have_rows('story_content')) : the_row(); ?>
+                                    <div class="es-story-content-row">
+										<?php if ($paragraph_title = get_sub_field('paragraph_title')) : ?>
+                                            <div class="es-story-paragraph-title">
+												<?php echo $paragraph_title; ?>
+                                            </div>
+										<?php endif; ?>
+
+										<?php if ($paragraph_content = get_sub_field('paragraph_content')) : ?>
+                                            <div class="es-story-paragraph-content">
+												<?php echo $paragraph_content; ?>
+                                            </div>
+										<?php endif; ?>
+                                    </div>
+								<?php endwhile; ?>
+                            </div>
+						<?php endif; ?>
+
+                        <!-- Post Navigation -->
+                        <nav class="es-employer-story-navigation">
+                            <div class="es-nav-links">
+                                <div class="es-nav-button es-nav-previous">
+									<?php if (get_previous_post()) : ?>
+										<?php previous_post_link('%link', 'See Previous'); ?>
+									<?php endif; ?>
+                                </div>
+
+                                <div class="es-nav-button es-nav-all">
+                                    <a href="<?php echo esc_url(home_url('/employer-stories/')); ?>">See All</a>
+                                </div>
+
+                                <div class="es-nav-button es-nav-next">
+									<?php if (get_next_post()) : ?>
+										<?php next_post_link('%link', 'See Next'); ?>
+									<?php endif; ?>
+                                </div>
+                            </div>
+                        </nav>
+
+					<?php endwhile; ?>
+                </article>
+            </div>
+        </div>
+    </main>
+
+<?php get_footer(); ?>
+
+================
+File: .gitignore
+================
+.aider*
+
+================
+File: employer-stories-plugin.php
+================
+<?php
+/**
+ * Plugin Name: Employer Stories Plugin
+ * Plugin URI:
+ * Description: A plugin to manage and display Employer Stories with custom fields using ACF Pro.
+ * Version: 1.0.0
+ * Author: Orases
+ * Author URI: https://orases.com
+ * Text Domain: employer-stories
+ * Requires at least: 5.7
+ * Requires PHP: 7.4
+ *
+ * @package EmployerStories
+ */
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+// Define plugin constants
+define('ES_PLUGIN_FILE', __FILE__);
+define('ES_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('ES_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('ES_PLUGIN_VERSION', '1.0.0');
+define('ES_PLUGIN_BASENAME', plugin_basename(__FILE__));
+
+// Define directory constants
+define('ES_INCLUDES_DIR', ES_PLUGIN_DIR . 'includes/');
+define('ES_TEMPLATES_DIR', ES_PLUGIN_DIR . 'templates/');
+define('ES_ASSETS_DIR', ES_PLUGIN_DIR . 'assets/');
+define('ES_CSS_DIR', ES_ASSETS_DIR . 'css/');
+define('ES_JS_DIR', ES_ASSETS_DIR . 'js/');
+define('ES_IMAGES_DIR', ES_ASSETS_DIR . 'images/');
+define('ES_ACF_JSON_DIR', ES_PLUGIN_DIR . 'acf-json/');
+define('ES_LANGUAGES_DIR', ES_PLUGIN_DIR . 'languages/');
+
+// Define URL constants
+define('ES_ASSETS_URL', ES_PLUGIN_URL . 'assets/');
+define('ES_CSS_URL', ES_ASSETS_URL . 'css/');
+define('ES_JS_URL', ES_ASSETS_URL . 'js/');
+define('ES_IMAGES_URL', ES_ASSETS_URL . 'images/');
+
+/**
+ * Main Employer Stories Plugin Class
+ */
+final class Employer_Stories_Plugin {
+
+	/**
+	 * Instance of this class.
+	 *
+	 * @var object
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Required files for the plugin.
+	 *
+	 * @var array
+	 */
+	private $required_files = array();
+
+	/**
+	 * Initialize the plugin.
+	 */
+	private function __construct() {
+		// Log plugin initialization
+		// error_log('Employer Stories Plugin: Initializing');
+
+		// Set up required files
+		$this->set_required_files();
+
+		// Initialize directory structure
+		$this->init_directories();
+
+		// Plugin activation/deactivation hooks
+		register_activation_hook(ES_PLUGIN_FILE, array($this, 'activate'));
+		register_deactivation_hook(ES_PLUGIN_FILE, array($this, 'deactivate'));
+
+		// Load plugin dependencies
+		$this->load_dependencies();
+
+		// Initialize plugin components
+		add_action('plugins_loaded', array($this, 'init'));
+
+		// Add debug information
+		if (is_admin()) {
+			add_action('admin_notices', array($this, 'debug_notice'));
+		}
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		if (null === self::$instance) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Set up the list of required files.
+	 */
+	private function set_required_files() {
+		$this->required_files = array(
+			// Core functionality
+			'core' => array(
+				ES_INCLUDES_DIR . 'class-employer-stories-cpt.php',
+				ES_INCLUDES_DIR . 'class-employer-stories.php',
+			),
+			// ACF integration
+			'acf' => array(
+				ES_INCLUDES_DIR . 'class-employer-stories-acf.php',
+			),
+			// Shortcodes
+			'shortcodes' => array(
+				ES_INCLUDES_DIR . 'class-employer-stories-shortcode.php',
+			),
+			// Admin functionality
+			'admin' => array(
+				ES_INCLUDES_DIR . 'admin/class-employer-stories-admin.php',
+			),
+		);
+	}
+
+	/**
+	 * Initialize directory structure.
+	 */
+	private function init_directories() {
+		$directories = array(
+			ES_INCLUDES_DIR,
+			ES_INCLUDES_DIR . 'admin/',
+			ES_TEMPLATES_DIR,
+			ES_ASSETS_DIR,
+			ES_CSS_DIR,
+			ES_JS_DIR,
+			ES_IMAGES_DIR,
+			ES_ACF_JSON_DIR,
+			ES_LANGUAGES_DIR
+		);
+
+		foreach ($directories as $directory) {
+			if (!file_exists($directory)) {
+				wp_mkdir_p($directory);
+				// error_log("Employer Stories Plugin: Created directory {$directory}");
+			}
+		}
+
+		// Create protection files
+		$this->create_protection_files($directories);
+	}
+
+	/**
+	 * Create protection files to prevent direct access.
+	 *
+	 * @param array $directories List of directories to protect
+	 */
+	private function create_protection_files($directories) {
+		foreach ($directories as $directory) {
+			if (file_exists($directory) && !file_exists($directory . 'index.php')) {
+				@file_put_contents($directory . 'index.php', '<?php // Silence is golden.');
+			}
+		}
+	}
+
+	/**
+	 * Load the required dependencies.
+	 */
+	private function load_dependencies() {
+		// Log dependency loading
+		// error_log('Employer Stories Plugin: Loading dependencies');
+
+		// Load core files first
+		foreach ($this->required_files['core'] as $file) {
+			if (file_exists($file)) {
+				require_once $file;
+				// error_log("Employer Stories Plugin: Loaded {$file}");
+			} else {
+				// error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
+			}
+		}
+
+		// Load ACF integration if ACF is active
+		if (class_exists('ACF')) {
+			// error_log('Employer Stories Plugin: ACF class exists, loading ACF integration');
+			foreach ($this->required_files['acf'] as $file) {
+				if (file_exists($file)) {
+					require_once $file;
+					// error_log("Employer Stories Plugin: Loaded {$file}");
+				} else {
+					// error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
+				}
+			}
+		} else {
+			// error_log('Employer Stories Plugin: ACF class does not exist');
+		}
+
+		// Load remaining files
+		$remaining_types = array('shortcodes', 'admin');
+		foreach ($remaining_types as $type) {
+			if (!empty($this->required_files[$type])) {
+				foreach ($this->required_files[$type] as $file) {
+					if (file_exists($file)) {
+						require_once $file;
+						error_log("Employer Stories Plugin: Loaded {$file}");
+					} else {
+						error_log("Employer Stories Plugin: Failed to load {$file} - file not found");
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Initialize the plugin components.
+	 */
+	public function init() {
+		// error_log('Employer Stories Plugin: init() method called');
+
+		// Check for ACF Pro dependency
+		if (!$this->check_dependencies()) {
+			// error_log('Employer Stories Plugin: Dependencies not met, aborting initialization');
+			return;
+		}
+
+		// Initialize ACF integration first
+		if (class_exists('Employer_Stories_ACF')) {
+			Employer_Stories_ACF::get_instance();
+			// error_log('Employer Stories Plugin: ACF class initialized');
+		} else {
+			// error_log('Employer Stories Plugin: ACF class not found');
+		}
+
+		// Initialize CPT functionality - add this before the main class
+		if (class_exists('Employer_Stories_CPT')) {
+			Employer_Stories_CPT::get_instance();
+			// error_log('Employer Stories Plugin: CPT class initialized');
+		} else {
+			// error_log('Employer Stories Plugin: CPT class not found');
+		}
+
+		// Initialize main plugin functionality
+		if (class_exists('Employer_Stories')) {
+			Employer_Stories::get_instance();
+			// error_log('Employer Stories Plugin: Main class initialized');
+		} else {
+			// error_log('Employer Stories Plugin: Main class not found');
+		}
+
+		// Initialize shortcode functionality
+		if (class_exists('Employer_Stories_Shortcode')) {
+			Employer_Stories_Shortcode::get_instance();
+			// error_log('Employer Stories Plugin: Shortcode class initialized');
+		} else {
+			// error_log('Employer Stories Plugin: Shortcode class not found');
+		}
+
+		// Initialize admin
+		if (is_admin() && class_exists('Employer_Stories_Admin')) {
+			Employer_Stories_Admin::get_instance();
+			// error_log('Employer Stories Plugin: Admin class initialized');
+		} else if (is_admin()) {
+			// error_log('Employer Stories Plugin: Admin class not found');
+		}
+		
+		// Initialize help documentation
+		if (is_admin() && file_exists(ES_INCLUDES_DIR . 'class-employer-stories-help.php')) {
+			require_once ES_INCLUDES_DIR . 'class-employer-stories-help.php';
+			Employer_Stories_Help::get_instance();
+			// error_log('Employer Stories Plugin: Help class initialized');
+		}
+
+		// Load text domain
+		$this->load_text_domain();
+	}
+
+	/**
+	 * Debug notice for admin.
+	 */
+	public function debug_notice() {
+		// Debug notices temporarily disabled
+		return;
+	}
+
+	/**
+	 * Save ACF JSON to plugin directory.
+	 *
+	 * @param string $path The path to save ACF JSON
+	 * @return string The modified path
+	 */
+	public function acf_json_save_point($path) {
+		// error_log('Employer Stories Plugin: Setting ACF JSON save point to ' . ES_ACF_JSON_DIR);
+		return ES_ACF_JSON_DIR;
+	}
+
+	/**
+	 * Load ACF JSON from plugin directory.
+	 *
+	 * @param array $paths The paths to load ACF JSON from
+	 * @return array The modified paths
+	 */
+	public function acf_json_load_point($paths) {
+		$paths[] = ES_ACF_JSON_DIR;
+		// error_log('Employer Stories Plugin: Adding ACF JSON load point: ' . ES_ACF_JSON_DIR);
+		return $paths;
+	}
+
+	/**
+	 * Check plugin dependencies.
+	 *
+	 * @return bool True if dependencies are met
+	 */
+	private function check_dependencies() {
+		// Check if ACF Pro is active
+		if (!class_exists('ACF')) {
+			add_action('admin_notices', array($this, 'acf_pro_notice'));
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Admin notice for ACF Pro dependency.
+	 */
+	public function acf_pro_notice() {
+		?>
+        <div class="notice notice-error">
+            <p><?php _e('Employer Stories Plugin requires Advanced Custom Fields Pro to be installed and activated.', 'employer-stories'); ?></p>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Load text domain for translations.
+	 */
+	private function load_text_domain() {
+		load_plugin_textdomain(
+			'employer-stories',
+			false,
+			dirname(ES_PLUGIN_BASENAME) . '/languages'
+		);
+	}
+
+	/**
+	 * Plugin activation.
+	 */
+	public function activate() {
+		// error_log('Employer Stories Plugin: Activating plugin');
+
+		// Ensure our CPT is registered before flushing rewrite rules
+		if (class_exists('Employer_Stories_CPT')) {
+			Employer_Stories_CPT::get_instance()->register_post_type();
+			// error_log('Employer Stories Plugin: Registered CPT during activation');
+		}
+
+		// Flush rewrite rules on activation
+		global $wp_rewrite;
+		$wp_rewrite->flush_rules(true);
+		// error_log('Employer Stories Plugin: Flushed rewrite rules');
+        
+        // Set activation flag to show welcome message
+        set_transient('employer_stories_activation', true, 5);
+	}
+
+	/**
+	 * Plugin deactivation.
+	 */
+	public function deactivate() {
+		// Flush rewrite rules on deactivation
+		flush_rewrite_rules();
+		// error_log('Employer Stories Plugin: Deactivated plugin and flushed rewrite rules');
+	}
+}
+
+// Initialize the plugin
+Employer_Stories_Plugin::get_instance();
+
+
+
+================================================================
+End of Codebase
+================================================================

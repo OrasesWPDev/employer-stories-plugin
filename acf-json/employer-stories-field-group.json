@@ -1,0 +1,315 @@
+{
+  "key": "group_67cef0e998e92",
+  "title": "Employer Stories Field Group",
+  "fields": [
+    {
+      "key": "field_67cef0e9dc21f",
+      "label": "Header Image",
+      "name": "header_image",
+      "aria-label": "",
+      "type": "image",
+      "instructions": "",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "return_format": "array",
+      "library": "all",
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": "",
+      "allow_in_bindings": 1,
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_67cef1478d176",
+      "label": "Employer Stats",
+      "name": "employer_stats",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 1,
+      "layout": "table",
+      "sub_fields": [
+        {
+          "key": "field_67cef21e8d177",
+          "label": "Employer",
+          "name": "employer",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2568d178",
+          "label": "Headquarters",
+          "name": "headquarters",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2668d179",
+          "label": "Practice Setting",
+          "name": "practice_settings",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_67cef2f854e51",
+          "label": "Locations",
+          "name": "locations",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "maxlength": "",
+          "allow_in_bindings": 0,
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        }
+      ]
+    },
+    {
+      "key": "field_67cef37447729",
+      "label": "First Paragraph",
+      "name": "first_paragraph",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "Content under Employer Stats",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_67cef45a39b59",
+          "label": "Paragraph Title",
+          "name": "paragraph_title",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use an H4 HTML Tag Here (<h4>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0
+        },
+        {
+          "key": "field_67cef47d39b5a",
+          "label": "Paragraph Content",
+          "name": "paragraph_content",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use paragraph HTML Tags in this field (<p>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0
+        }
+      ]
+    },
+    {
+      "key": "field_67cf666b4dea1",
+      "label": "Story Title",
+      "name": "story_title",
+      "aria-label": "",
+      "type": "wysiwyg",
+      "instructions": "Use H2 Tag Here <h2>",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "default_value": "",
+      "allow_in_bindings": 0,
+      "tabs": "all",
+      "toolbar": "full",
+      "media_upload": 1,
+      "delay": 0
+    },
+    {
+      "key": "field_67cf66cf4dea2",
+      "label": "Story Content",
+      "name": "story_content",
+      "aria-label": "",
+      "type": "repeater",
+      "instructions": "To Input all story Content",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "relevanssi_exclude": 0,
+      "layout": "block",
+      "pagination": 0,
+      "min": 0,
+      "max": 0,
+      "collapsed": "",
+      "button_label": "Add Row",
+      "rows_per_page": 20,
+      "sub_fields": [
+        {
+          "key": "field_67cf66f84dea3",
+          "label": "Paragraph Title",
+          "name": "paragraph_title",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use H3 Tags Here (<h3>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0,
+          "parent_repeater": "field_67cf66cf4dea2"
+        },
+        {
+          "key": "field_67cf671a4dea4",
+          "label": "Paragraph Content",
+          "name": "paragraph_content",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "Use P Tags Here (<p>)",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "relevanssi_exclude": 0,
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "tabs": "all",
+          "toolbar": "full",
+          "media_upload": 1,
+          "delay": 0,
+          "parent_repeater": "field_67cf66cf4dea2"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "employer-story"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Fields For Employer Stories",
+  "show_in_rest": 0,
+  "modified": 1697468800
+}
