@@ -162,7 +162,7 @@ get_header();
                                 </div>
 
                                 <div class="es-nav-button es-nav-all">
-                                    <a href="<?php echo esc_url(home_url('/employer-stories/')); ?>">See All</a>
+                                    <a href="<?php echo esc_url(home_url('/employer-stories')); ?>">See All</a>
                                 </div>
 
                                 <div class="es-nav-button es-nav-next">

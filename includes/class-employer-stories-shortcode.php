@@ -198,7 +198,9 @@ class Employer_Stories_Shortcode {
 				echo '<div class="es-employer-story-item col ' . esc_attr($column_class) . '">';
 				echo '<article id="employer-story-' . get_the_ID() . '" class="es-employer-story-card">';
 
-				echo '<a href="' . esc_url(get_permalink()) . '" class="es-employer-story-link">';
+				// Get the permalink using the CPT class's method
+				$permalink = Employer_Stories_CPT::get_instance()->get_permalink(get_the_ID());
+				echo '<a href="' . esc_url($permalink) . '" class="es-employer-story-link">';
 
 				// Display featured image if available
 				if (has_post_thumbnail()) {

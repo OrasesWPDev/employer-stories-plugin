@@ -348,21 +348,25 @@ final class Employer_Stories_Plugin {
 	 * Plugin activation.
 	 */
 	public function activate() {
-		// error_log('Employer Stories Plugin: Activating plugin');
-
 		// Ensure our CPT is registered before flushing rewrite rules
 		if (class_exists('Employer_Stories_CPT')) {
-			Employer_Stories_CPT::get_instance()->register_post_type();
-			// error_log('Employer Stories Plugin: Registered CPT during activation');
+			$cpt = Employer_Stories_CPT::get_instance();
+			$cpt->register_post_type();
+			
+			// Add rewrite rules
+			if (method_exists($cpt, 'add_rewrite_rules')) {
+				$cpt->add_rewrite_rules();
+			}
 		}
 
-		// Flush rewrite rules on activation
-		global $wp_rewrite;
-		$wp_rewrite->flush_rules(true);
-		// error_log('Employer Stories Plugin: Flushed rewrite rules');
+		// Flush rewrite rules on activation - this is the ONLY place we should do this
+		flush_rewrite_rules();
         
         // Set activation flag to show welcome message
         set_transient('employer_stories_activation', true, 5);
+        
+        // Set a flag to prevent further flushes
+        update_option('employer_stories_rewrite_flushed', time());
 	}
 
 	/**

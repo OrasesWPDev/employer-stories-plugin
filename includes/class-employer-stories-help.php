@@ -375,8 +375,8 @@ class Employer_Stories_Help {
 
                 <p><?php esc_html_e('The breadcrumbs will display:', 'employer-stories'); ?></p>
                 <ul>
-                    <li><?php esc_html_e('Home > Employer Stories (when on the archive page)', 'employer-stories'); ?></li>
-                    <li><?php esc_html_e('Home > Employer Stories > Story Title (when on a single story page)', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Ptcb > Employer Stories (when on the archive page)', 'employer-stories'); ?></li>
+                    <li><?php esc_html_e('Ptcb > Employer Stories > Story Title (when on a single story page)', 'employer-stories'); ?></li>
                 </ul>
             </div>
 

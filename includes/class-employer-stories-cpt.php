@@ -42,18 +42,12 @@ class Employer_Stories_CPT {
 	 * Initialize the class.
 	 */
 	private function __construct() {
-		// error_log('Employer Stories CPT: Constructor called');
-
 		// Register the custom post type
 		add_action('init', array($this, 'register_post_type'), 5);
-
-		// Modify permalink structure - extremely high priority to ensure it runs first
-		add_filter('post_type_link', array($this, 'modify_permalink_structure'), -999999, 4);
 		
-		// Add a second filter with extremely high priority to ensure our structure is used
-		add_filter('post_link', array($this, 'force_employer_story_permalink'), -999999, 3);
-		add_filter('post_type_link', array($this, 'force_employer_story_permalink'), -999999, 3);
-
+		// Setup permalink filters
+		add_action('init', array($this, 'setup_permalink_filters'), 10);
+		
 		// Fix permalinks in admin
 		add_filter('get_sample_permalink', array($this, 'fix_admin_permalink'), 10, 5);
 
@@ -62,36 +56,24 @@ class Employer_Stories_CPT {
 
 		// Register breadcrumbs shortcode
 		add_shortcode('employer_story_breadcrumbs', array($this, 'breadcrumbs_shortcode'));
-
-		// Register a function to run after WordPress is loaded to fix permalinks
-		add_action('wp_loaded', array($this, 'fix_permalinks_on_load'), 1);
 		
-		// Add early hook for permalink structure with high priority
+		// Add early hook for permalink structure
 		add_action('pre_get_posts', array($this, 'fix_query_vars'), 1);
 		
-		// Add a filter to parse request to ensure our custom permalinks are recognized with high priority
-		add_filter('request', array($this, 'parse_request'), -999999);
+		// Add a filter to parse request to ensure our custom permalinks are recognized
+		add_filter('request', array($this, 'parse_request'), 10);
 		
-		// Add a filter to redirect old URLs to new ones with high priority
+		// Add a filter to redirect old URLs to new ones
 		add_action('template_redirect', array($this, 'redirect_old_urls'), 1);
 		
-		// Add debug action for admins
-		if (is_admin() && current_user_can('manage_options')) {
-			add_action('admin_init', array($this, 'debug_rewrite_rules'));
-		}
-		
-		// Add more permalink filters to ensure our structure is used with high priority
-		add_filter('pre_post_link', array($this, 'pre_post_link'), -999999, 2);
-		add_filter('post_rewrite_rules', array($this, 'custom_post_rewrite_rules'), -999999);
-		
-		// Force flush rewrite rules on init for testing
-		add_action('init', array($this, 'maybe_flush_rules'), 999);
-		
-		// Add filter for post type archive link with high priority
-		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), -999999, 2);
+		// Add filter for post type archive link
+		add_filter('post_type_archive_link', array($this, 'fix_archive_link'), 10, 2);
 		
 		// Prevent archive template from being used for page with same slug
 		add_filter('template_include', array($this, 'prevent_archive_template'), 99);
+		
+		// Maybe flush rules when explicitly requested
+		add_action('init', array($this, 'maybe_flush_rules'), 999);
 	}
 
 	/**
@@ -104,135 +86,12 @@ class Employer_Stories_CPT {
 			self::$instance = new self;
 			// error_log('Employer Stories CPT: Instance created');
 			
-			// Force flush rewrite rules on first instance creation
-			add_action('shutdown', function() {
-				global $wp_rewrite;
-				$wp_rewrite->flush_rules(true);
-				// error_log('Employer Stories CPT: Forced rewrite rules flush on instance creation');
-			});
+			// Don't flush rules on every instance creation - only on activation
 		}
 		return self::$instance;
 	}
 
-	/**
-	 * Fix permalinks when WordPress is fully loaded
-	 */
-	public function fix_permalinks_on_load() {
-		global $wp_rewrite, $wpdb;
 
-		// Remove any existing rules for the singular post type by adding a rule that won't match
-		add_rewrite_rule(
-			'^' . $this->post_type . '/([^/]+)/?$',
-			'index.php?p=0',
-			'top'
-		);
-
-		// Add our custom permalink structure with higher specificity for the plural slug
-		add_rewrite_rule(
-			'^' . $this->url_slug . '/([^/]+)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]',
-			'top'
-		);
-
-		// Add a feed rule if needed
-		add_rewrite_rule(
-			'^' . $this->url_slug . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
-			'top'
-		);
-		
-		// Add a comment feed rule if needed
-		add_rewrite_rule(
-			'^' . $this->url_slug . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
-			'top'
-		);
-		
-		// Add a trackback rule if needed
-		add_rewrite_rule(
-			'^' . $this->url_slug . '/([^/]+)/trackback/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&trackback=1',
-			'top'
-		);
-		
-		// We don't need an archive page rule since we're using a page with shortcode
-
-		// Add rewrite tag to ensure WordPress recognizes our custom permalink structure
-		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
-		
-		// error_log('Employer Stories CPT: Added rewrite rules for ' . $this->url_slug . ' and removed rules for ' . $this->post_type);
-
-		// Force flush rewrite rules on first load after activation
-		static $flushed = false;
-		if (!$flushed) {
-			$wp_rewrite->flush_rules(true);
-			$flushed = true;
-			// error_log('Employer Stories CPT: Flushed rewrite rules during page load');
-			
-			// Direct database update for existing posts to ensure correct permalinks
-			$posts = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT ID, post_name FROM {$wpdb->posts} WHERE post_type = %s",
-					$this->post_type
-				)
-			);
-			
-			if (!empty($posts)) {
-				foreach ($posts as $post) {
-					// Update post meta to force permalink refresh
-					update_post_meta($post->ID, '_employer_story_permalink_fixed', time());
-					// error_log("Employer Stories CPT: Updated post meta for ID {$post->ID} to refresh permalink");
-					
-					// Trigger a post update to refresh permalinks
-					wp_update_post(array('ID' => $post->ID));
-					
-					// Clear any cached permalinks
-					clean_post_cache($post->ID);
-				}
-			}
-			
-			// Also update the permalink structure in the database directly
-			$wpdb->query(
-				$wpdb->prepare(
-					"UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = 'rewrite_rules'",
-					''
-				)
-			);
-			// error_log('Employer Stories CPT: Cleared rewrite rules in database');
-		}
-
-		// Flush rewrite rules - use sparingly, only during development or when needed
-		if (isset($_GET['employer_stories_flush']) && current_user_can('manage_options')) {
-			$wp_rewrite->flush_rules(true);
-		}
-	}
-
-	/**
-	 * Modify permalinks for our custom post type
-	 *
-	 * @param string $post_link The default post link
-	 * @param WP_Post $post The post object
-	 * @param bool $leavename Whether to leave the post name
-	 * @param bool $sample Is it a sample permalink
-	 * @return string Modified permalink
-	 */
-	public function modify_permalink_structure($post_link, $post, $leavename, $sample) {
-		if ($post->post_type == $this->post_type) {
-			// Always force the correct permalink structure regardless of other conditions
-			$post_name = $leavename ? '%postname%' : $post->post_name;
-			if (empty($post_name) && !$leavename) {
-				$post_name = sanitize_title($post->post_title);
-			}
-			
-			// Get the original link for logging
-			$original_link = $post_link;
-			
-			// Force the correct URL structure with the plural slug
-			$post_link = home_url($this->url_slug . '/' . $post_name . '/');
-			// error_log('Employer Stories CPT: Forced permalink for post ID ' . $post->ID . ': ' . $post_link . ' (original: ' . $original_link . ')');
-		}
-		return $post_link;
-	}
 
 	/**
 	 * Fix permalinks displayed in the admin edit screen
@@ -246,7 +105,11 @@ class Employer_Stories_CPT {
 	 */
 	public function fix_admin_permalink($permalink, $post_id, $title, $name, $post) {
 		if ($post && $post->post_type === $this->post_type) {
-			$permalink[0] = str_replace($this->post_type, $this->url_slug, $permalink[0]);
+			// Use our permalink generator
+			$custom_permalink = $this->get_permalink($post, true);
+			if ($custom_permalink) {
+				$permalink[0] = str_replace('%postname%', $name, $custom_permalink);
+			}
 		}
 		return $permalink;
 	}
@@ -259,8 +122,11 @@ class Employer_Stories_CPT {
 	public function fix_admin_bar_links($wp_admin_bar) {
 		$view_node = $wp_admin_bar->get_node('view');
 		if ($view_node && is_singular($this->post_type)) {
-			$view_node->href = str_replace($this->post_type, $this->url_slug, $view_node->href);
-			$wp_admin_bar->add_node($view_node);
+			$post = get_post();
+			if ($post) {
+				$view_node->href = $this->get_permalink($post);
+				$wp_admin_bar->add_node($view_node);
+			}
 		}
 	}
 
@@ -268,8 +134,6 @@ class Employer_Stories_CPT {
 	 * Register the custom post type
 	 */
 	public function register_post_type() {
-		// error_log('Employer Stories CPT: register_post_type method called');
-
 		if (!post_type_exists($this->post_type)) {
 			$args = array(
 				'labels' => array(
@@ -333,62 +197,89 @@ class Employer_Stories_CPT {
 			);
 
 			register_post_type($this->post_type, $args);
-			// error_log('Employer Stories CPT: Post type registered with slug: ' . $this->url_slug);
 			
-			// Immediately after registering, add our custom rewrite rules
-			add_rewrite_rule(
-				'^' . $this->url_slug . '/([^/]+)/?$',
-				'index.php?' . $this->post_type . '=$matches[1]',
-				'top'
-			);
-			
-			// We don't need an archive rewrite rule since we're using a page with shortcode
-			
-			// Add rewrite tag
-			add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
-			
-			// error_log('Employer Stories CPT: Added immediate rewrite rules after registration');
-		} else {
-			// error_log('Employer Stories CPT: Post type already exists');
+			// Add all necessary rewrite rules in one place
+			$this->add_rewrite_rules();
 		}
+	}
+	
+	/**
+	 * Add all necessary rewrite rules
+	 */
+	private function add_rewrite_rules() {
+		// Remove any existing rules for the singular post type
+		add_rewrite_rule(
+			'^' . $this->post_type . '/([^/]+)/?$',
+			'index.php?p=0',
+			'top'
+		);
+		
+		// Add our custom permalink structure (no trailing slash)
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)$',
+			'index.php?' . $this->post_type . '=$matches[1]',
+			'top'
+		);
+		
+		// Add feed rules
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'top'
+		);
+		
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'top'
+		);
+		
+		// Add trackback rule
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/([^/]+)/trackback/?$',
+			'index.php?' . $this->post_type . '=$matches[1]&trackback=1',
+			'top'
+		);
+		
+		// Add rewrite tag
+		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
 	}
 
 	/**
-	 * Force the correct permalink structure for employer stories
-	 * This is a backup method that runs in addition to modify_permalink_structure
+	 * Get the permalink for an employer story
+	 * This is the single source of truth for all permalink generation
 	 *
-	 * @param string $permalink The post's permalink
-	 * @param WP_Post|object $post The post object
+	 * @param int|WP_Post $post_id Post ID or object
 	 * @param bool $leavename Whether to keep the post name
-	 * @return string The modified permalink
+	 * @return string|false The permalink or false if not found
 	 */
-	public function force_employer_story_permalink($permalink, $post, $leavename) {
-		// Only process our post type
-		if (!is_object($post) || $post->post_type !== $this->post_type) {
-			return $permalink;
+	public function get_permalink($post_id, $leavename = false) {
+		// Get post data
+		$post = is_object($post_id) ? $post_id : get_post($post_id);
+		if (!$post || $post->post_type !== $this->post_type) {
+			return false;
 		}
 		
-		// Get the original link for logging
-		$original_link = $permalink;
+		// Check cache first
+		$cached = get_post_meta($post->ID, '_employer_story_permalink', true);
+		if (!empty($cached) && !$leavename) {
+			return $cached;
+		}
 		
-		// Force the correct structure
+		// Generate permalink
 		$post_name = $leavename ? '%postname%' : $post->post_name;
 		if (empty($post_name) && !$leavename) {
 			$post_name = sanitize_title($post->post_title);
 		}
 		
-		// Force the correct URL structure with the plural slug
-		$forced_link = home_url($this->url_slug . '/' . $post_name . '/');
+		$permalink = home_url($this->url_slug . '/' . $post_name);
 		
-		// Log the change
-		// error_log('Employer Stories CPT: Forced permalink in secondary filter: ' . $forced_link . ' (original: ' . $original_link . ')');
-		
-		// Store the correct permalink in post meta for caching
-		if (!$leavename) {
-			update_post_meta($post->ID, '_employer_story_permalink', $forced_link);
+		// Cache the permalink
+		if (!$leavename && isset($_GET['refresh_permalinks']) && current_user_can('manage_options')) {
+			update_post_meta($post->ID, '_employer_story_permalink', $permalink);
 		}
 		
-		return $forced_link;
+		return $permalink;
 	}
 
 	/**
@@ -431,13 +322,12 @@ class Employer_Stories_CPT {
 		// Check if we're on an employer story page
 		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
 		
-		// If the path starts with our URL slug
-		if (preg_match('|^' . $this->url_slug . '/([^/]+)/?$|', $path, $matches)) {
+		// If the path starts with our URL slug (no trailing slash)
+		if (preg_match('|^' . $this->url_slug . '/([^/]+)$|', $path, $matches)) {
 			$post_name = $matches[1];
 			
 			// Set the query var for our post type
 			$query_vars[$this->post_type] = $post_name;
-			// error_log('Employer Stories CPT: Parsed request for ' . $post_name);
 		}
 		
 		return $query_vars;
@@ -454,14 +344,18 @@ class Employer_Stories_CPT {
 		if (preg_match('|^' . $this->post_type . '/([^/]+)/?$|', $path, $matches)) {
 			$post_name = $matches[1];
 			
-			// Build the new URL
-			$new_url = home_url($this->url_slug . '/' . $post_name . '/');
+			// Get the post by name
+			$posts = get_posts(array(
+				'name' => $post_name,
+				'post_type' => $this->post_type,
+				'posts_per_page' => 1
+			));
 			
-			// error_log('Employer Stories CPT: Redirecting from ' . $path . ' to ' . $new_url);
-			
-			// Redirect to the new URL
-			wp_redirect($new_url, 301);
-			exit;
+			if (!empty($posts)) {
+				// Redirect to the new URL
+				wp_redirect($this->get_permalink($posts[0]), 301);
+				exit;
+			}
 		}
 	}
 
@@ -474,7 +368,7 @@ class Employer_Stories_CPT {
 		ob_start();
 
 		$home_url = home_url();
-		$home_label = __('Home', 'employer-stories');
+		$home_label = __('Ptcb', 'employer-stories');
 		$archive_url = home_url($this->url_slug);
 		$archive_label = __('Employer Stories', 'employer-stories');
 
@@ -499,106 +393,21 @@ class Employer_Stories_CPT {
 		return ob_get_clean();
 	}
 	
-	/**
-	 * Debug rewrite rules - only for admins
-	 */
-	public function debug_rewrite_rules() {
-		// Only run this when a specific query parameter is present
-		if (isset($_GET['debug_employer_stories_rewrites']) && current_user_can('manage_options')) {
-			global $wp_rewrite;
-			
-			// Get all rewrite rules
-			$rules = $wp_rewrite->wp_rewrite_rules();
-			
-			// Log our specific rules
-			// error_log('Employer Stories CPT: Debugging rewrite rules');
-			
-			foreach ($rules as $pattern => $query) {
-				if (strpos($pattern, $this->post_type) !== false || strpos($pattern, $this->url_slug) !== false) {
-					// error_log("Rule: {$pattern} => {$query}");
-				}
-			}
-			
-			// Check if our rules exist
-			$singular_rule_exists = false;
-			$plural_rule_exists = false;
-			
-			foreach ($rules as $pattern => $query) {
-				if (strpos($pattern, '^' . $this->post_type . '/') === 0) {
-					$singular_rule_exists = true;
-				}
-				if (strpos($pattern, '^' . $this->url_slug . '/') === 0) {
-					$plural_rule_exists = true;
-				}
-			}
-			
-			// error_log('Singular rule exists: ' . ($singular_rule_exists ? 'Yes' : 'No'));
-			// error_log('Plural rule exists: ' . ($plural_rule_exists ? 'Yes' : 'No'));
-			
-			// Force flush rewrite rules if requested
-			if (isset($_GET['flush_rules']) && $_GET['flush_rules'] === '1') {
-				$wp_rewrite->flush_rules(true);
-				// error_log('Employer Stories CPT: Flushed rewrite rules via debug function');
-			}
-		}
-	}
 	
-	/**
-	 * Filter for pre_post_link to ensure our URL structure is used
-	 *
-	 * @param string $permalink The post's permalink.
-	 * @param object $post The post in question.
-	 * @return string The filtered permalink.
-	 */
-	public function pre_post_link($permalink, $post) {
-		if ($post->post_type === $this->post_type) {
-			// Force our URL structure
-			return home_url($this->url_slug . '/%postname%/');
-		}
-		return $permalink;
-	}
 	
-	/**
-	 * Custom rewrite rules for our post type
-	 *
-	 * @param array $rules The post rewrite rules.
-	 * @return array Modified rules.
-	 */
-	public function custom_post_rewrite_rules($rules) {
-		// Add our custom rule at the beginning to ensure it takes precedence
-		$new_rules = array(
-			$this->url_slug . '/([^/]+)/?$' => 'index.php?' . $this->post_type . '=$matches[1]',
-		);
-		
-		// Remove any rules for the singular post type
-		foreach ($rules as $pattern => $query) {
-			if (strpos($pattern, $this->post_type . '/') === 0) {
-				unset($rules[$pattern]);
-			}
-		}
-		
-		// error_log('Employer Stories CPT: Added custom post rewrite rules');
-		return array_merge($new_rules, $rules);
-	}
 	
 	/**
 	 * Maybe flush rewrite rules - only during development or when needed
 	 */
 	public function maybe_flush_rules() {
 		// Check for our special query parameter
-		if (isset($_GET['employer_stories_flush_rules'])) {
+		if (isset($_GET['employer_stories_flush_rules']) && current_user_can('manage_options')) {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules(true);
 			// error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
 		}
 		
-		// Alternatively, use a transient to avoid flushing on every page load
-		if (get_transient('employer_stories_flush_rules') === false) {
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules(true);
-			set_transient('employer_stories_flush_rules', 1, HOUR_IN_SECONDS);
-			// error_log('Employer Stories CPT: Flushed rewrite rules via transient check');
-		}
+		// Removed hourly transient-based flushing to prevent excessive updates
 	}
 	
 	/**
@@ -610,7 +419,7 @@ class Employer_Stories_CPT {
 	 */
 	public function fix_archive_link($link, $post_type) {
 		if ($post_type === $this->post_type) {
-			return home_url($this->url_slug . '/');
+			return home_url($this->url_slug);
 		}
 		return $link;
 	}
@@ -639,5 +448,32 @@ class Employer_Stories_CPT {
 		}
 		
 		return $template;
+	}
+	
+	/**
+	 * Setup permalink filters for consistent URL generation
+	 */
+	public function setup_permalink_filters() {
+		// Single filter for all permalink generation
+		add_filter('post_type_link', function($permalink, $post, $leavename) {
+			if ($post->post_type === $this->post_type) {
+				return $this->get_permalink($post, $leavename);
+			}
+			return $permalink;
+		}, 10, 3);
+		
+		// Also filter get_permalink
+		add_filter('get_permalink', function($permalink, $post) {
+			if (is_object($post) && $post->post_type === $this->post_type) {
+				return $this->get_permalink($post);
+			}
+			return $permalink;
+		}, 10, 2);
+		
+		// Clear permalink cache when a post is saved
+		add_action('save_post_' . $this->post_type, function($post_id) {
+			delete_post_meta($post_id, '_employer_story_permalink');
+			clean_post_cache($post_id);
+		});
 	}
 }
