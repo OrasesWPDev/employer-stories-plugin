@@ -74,6 +74,12 @@ class Employer_Stories_CPT {
 		
 		// Maybe flush rules when explicitly requested
 		add_action('init', array($this, 'maybe_flush_rules'), 999);
+		
+		// Add debugging for query variables
+//		add_action('wp', array($this, 'debug_query'), 999);
+		
+		// Register post type query vars with WordPress
+		add_filter('query_vars', array($this, 'register_query_vars'));
 	}
 
 	/**
@@ -202,47 +208,54 @@ class Employer_Stories_CPT {
 			$this->add_rewrite_rules();
 		}
 	}
-	
+
 	/**
 	 * Add all necessary rewrite rules
 	 */
 	private function add_rewrite_rules() {
+		// Add rewrite tag first - this is crucial for WordPress to recognize our query var
+		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+		
 		// Remove any existing rules for the singular post type
 		add_rewrite_rule(
 			'^' . $this->post_type . '/([^/]+)/?$',
 			'index.php?p=0',
 			'top'
 		);
-		
-		// Add our custom permalink structure (no trailing slash)
+
+		// Add our custom permalink structure (both with and without trailing slash)
 		add_rewrite_rule(
-			'^' . $this->url_slug . '/([^/]+)$',
-			'index.php?' . $this->post_type . '=$matches[1]',
+			'^' . $this->url_slug . '/([^/]+)/?$',
+			'index.php?post_type=' . $this->post_type . '&' . $this->post_type . '=$matches[1]',
 			'top'
 		);
-		
+
 		// Add feed rules
 		add_rewrite_rule(
 			'^' . $this->url_slug . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'index.php?post_type=' . $this->post_type . '&' . $this->post_type . '=$matches[1]&feed=$matches[2]',
 			'top'
 		);
-		
+
 		add_rewrite_rule(
 			'^' . $this->url_slug . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&feed=$matches[2]',
+			'index.php?post_type=' . $this->post_type . '&' . $this->post_type . '=$matches[1]&feed=$matches[2]',
 			'top'
 		);
-		
+
 		// Add trackback rule
 		add_rewrite_rule(
 			'^' . $this->url_slug . '/([^/]+)/trackback/?$',
-			'index.php?' . $this->post_type . '=$matches[1]&trackback=1',
+			'index.php?post_type=' . $this->post_type . '&' . $this->post_type . '=$matches[1]&trackback=1',
 			'top'
 		);
 		
-		// Add rewrite tag
-		add_rewrite_tag('%' . $this->post_type . '%', '([^/]+)');
+		// Add archive rule
+		add_rewrite_rule(
+			'^' . $this->url_slug . '/?$',
+			'index.php?post_type=' . $this->post_type,
+			'top'
+		);
 	}
 
 	/**
@@ -297,39 +310,83 @@ class Employer_Stories_CPT {
 		global $wp;
 		$wp->add_query_var($this->post_type);
 		
-		// Prevent archive behavior for pages with the same slug as our post type
-		if (!is_admin() && $query->is_main_query() && !$query->is_singular) {
-			// Check if this is a page with our archive slug
+		// Check if this is a potential employer story single post
+		if (!is_admin() && $query->is_main_query()) {
+			// Get the requested path
+			$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+			
+			// If this matches our URL pattern for a single story
+			if (preg_match('|^' . $this->url_slug . '/([^/]+)/?$|', $path, $matches)) {
+				$post_name = $matches[1];
+				
+				// Look up the post
+				$posts = get_posts(array(
+					'name' => $post_name,
+					'post_type' => $this->post_type,
+					'posts_per_page' => 1,
+					'post_status' => 'publish'
+				));
+				
+				if (!empty($posts)) {
+					// Force this to be a single post query
+					$query->set('post_type', $this->post_type);
+					$query->set('name', $post_name);
+					$query->set($this->post_type, $post_name);
+					$query->set('p', $posts[0]->ID);
+					
+					// Set query flags
+					$query->is_single = true;
+					$query->is_singular = true;
+					$query->is_404 = false;
+					
+					error_log('Employer Stories CPT: Fixed query for ' . $post_name);
+				}
+			}
+			
+			// Prevent archive behavior for pages with the same slug as our post type
 			if (isset($query->query['pagename']) && $query->query['pagename'] === $this->url_slug) {
 				// Force it to be treated as a page, not an archive
 				$query->is_post_type_archive = false;
 				$query->is_archive = false;
 				
-				// error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
+				error_log('Employer Stories CPT: Prevented archive query for page with slug: ' . $this->url_slug);
 			}
 		}
-		
-		// error_log('Employer Stories CPT: Added query var for ' . $this->post_type);
 	}
-	
+
 	/**
 	 * Parse request to handle our custom permalink structure
-	 * 
+	 *
 	 * @param array $query_vars The query variables
 	 * @return array Modified query variables
 	 */
 	public function parse_request($query_vars) {
 		// Check if we're on an employer story page
 		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
-		
-		// If the path starts with our URL slug (no trailing slash)
-		if (preg_match('|^' . $this->url_slug . '/([^/]+)$|', $path, $matches)) {
+
+		// If the path starts with our URL slug (with or without trailing slash)
+		if (preg_match('|^' . $this->url_slug . '/([^/]+)/?$|', $path, $matches)) {
 			$post_name = $matches[1];
-			
-			// Set the query var for our post type
+
+			// Set the query vars for our post type
 			$query_vars[$this->post_type] = $post_name;
+			$query_vars['post_type'] = $this->post_type;
+			$query_vars['name'] = $post_name;
+			
+			// Look up the post by name to get its ID
+			$posts = get_posts(array(
+				'name' => $post_name,
+				'post_type' => $this->post_type,
+				'posts_per_page' => 1,
+				'post_status' => 'publish'
+			));
+			
+			if (!empty($posts)) {
+				// Add the post ID to the query vars
+				$query_vars['p'] = $posts[0]->ID;
+			}
 		}
-		
+
 		return $query_vars;
 	}
 	
@@ -404,10 +461,19 @@ class Employer_Stories_CPT {
 		if (isset($_GET['employer_stories_flush_rules']) && current_user_can('manage_options')) {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules(true);
-			// error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
+			error_log('Employer Stories CPT: Flushed rewrite rules via query parameter');
 		}
 		
-		// Removed hourly transient-based flushing to prevent excessive updates
+		// Also flush if the rules haven't been flushed recently
+		$last_flush = get_option('employer_stories_rewrite_flushed', 0);
+		$flush_interval = 86400; // 24 hours in seconds
+		
+		if (time() - $last_flush > $flush_interval) {
+			global $wp_rewrite;
+			$wp_rewrite->flush_rules(false); // Use false for soft flush
+			update_option('employer_stories_rewrite_flushed', time());
+			error_log('Employer Stories CPT: Performed scheduled rewrite rules flush');
+		}
 	}
 	
 	/**
@@ -450,6 +516,31 @@ class Employer_Stories_CPT {
 		return $template;
 	}
 	
+//	/**
+//	 * Debug query variables
+//	 */
+//	public function debug_query() {
+//		global $wp_query;
+//
+//		// Only run on front-end
+//		if (is_admin()) {
+//			return;
+//		}
+//
+//		// Check if we're on what should be an employer story page
+//		$path = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
+//		if (strpos($path, $this->url_slug . '/') === 0) {
+//			// Log query vars
+//			error_log('Current path: ' . $path);
+//			error_log('Query vars: ' . print_r($wp_query->query_vars, true));
+//			error_log('Is 404: ' . ($wp_query->is_404 ? 'Yes' : 'No'));
+//			error_log('Is singular: ' . ($wp_query->is_singular ? 'Yes' : 'No'));
+//			error_log('Post type: ' . ($wp_query->is_singular ? $wp_query->get('post_type') : 'None'));
+//			error_log('Matched rewrite rule: ' . $wp_query->matched_rule);
+//			error_log('Matched query: ' . $wp_query->matched_query);
+//		}
+//	}
+	
 	/**
 	 * Setup permalink filters for consistent URL generation
 	 */
@@ -475,5 +566,16 @@ class Employer_Stories_CPT {
 			delete_post_meta($post_id, '_employer_story_permalink');
 			clean_post_cache($post_id);
 		});
+	}
+	
+	/**
+	 * Register query vars with WordPress
+	 *
+	 * @param array $vars The array of available query variables
+	 * @return array Modified array of query variables
+	 */
+	public function register_query_vars($vars) {
+		$vars[] = $this->post_type;
+		return $vars;
 	}
 }
