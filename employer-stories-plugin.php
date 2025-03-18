@@ -352,11 +352,7 @@ final class Employer_Stories_Plugin {
 		if (class_exists('Employer_Stories_CPT')) {
 			$cpt = Employer_Stories_CPT::get_instance();
 			$cpt->register_post_type();
-			
-			// Add rewrite rules
-			if (method_exists($cpt, 'add_rewrite_rules')) {
-				$cpt->add_rewrite_rules();
-			}
+			// register_post_type() already calls add_rewrite_rules() internally
 		}
 
 		// Flush rewrite rules on activation - this is the ONLY place we should do this
